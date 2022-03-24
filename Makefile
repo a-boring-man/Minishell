@@ -6,7 +6,7 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/03/23 11:29:55 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/03/24 11:12:49 by jrinna           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ INC_BNS := $(addprefix $(DIR_INC_BNS)/,$(LST_INC_BNS))
 #### OTHER ####
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
+LDFLAGS :="-L/Users/jrinna/homebrew/opt/readline/lib"
+CPPFLAGS :="-I/Users/jrinna/homebrew/opt/readline/include"
 NAME := minishell
 NAME_BNS := minishell_bonus
 #### OTHER ####
@@ -62,16 +64,16 @@ fclean : clean
 
 ### CUSTOM_RULE ####
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(NAME) -lreadline
 
 $(NAME_BNS) : $(OBJ_BNS)
-	$(CC) $(CFLAGS) $^ -o $(NAME_BNS) -lreadline
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(NAME_BNS) -lreadline
 
 $(DIR_OBJ)/%.o : $(DIR_SRC)/%.c $(INC) Makefile | $(DIR_OBJ)
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ -I $(DIR_INC)
 
 $(DIR_OBJ_BNS)/%.o : $(DIR_SRC_BNS)/%.c $(INC_BNS) Makefile | $(DIR_OBJ_BNS)
-	$(CC) $(CFLAGS) -c $< -o $@ -I $(DIR_INC_BNS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ -I $(DIR_INC_BNS)
 
 $(DIR_OBJ) :
 	mkdir -p $(DIR_OBJ)
