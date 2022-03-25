@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/25 13:12:40 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/03/25 15:26:01 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_ctrl_c(int i)
 {
 	(void)i;
+	printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -24,13 +25,14 @@ int	main(void)
 {
 	char	*test;
 
-	test = readline("i'm depressed exit me $> ");
+	test = malloc(5);
+	test = "oups";
+	signal(SIGINT, ft_ctrl_c);
 	while (test)
 	{
 		test = readline("i'm depressed exit me $> ");
 		if (test && *test)
 			add_history(test);
-		signal(SIGINT, ft_ctrl_c);
 	}
 	rl_clear_history();
 }
