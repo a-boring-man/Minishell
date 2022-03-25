@@ -6,7 +6,7 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/03/24 11:12:49 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/03/25 11:45:50 by jrinna           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,8 +40,8 @@ INC_BNS := $(addprefix $(DIR_INC_BNS)/,$(LST_INC_BNS))
 #### OTHER ####
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
-LDFLAGS :="-L/Users/jrinna/homebrew/opt/readline/lib"
-CPPFLAGS :="-I/Users/jrinna/homebrew/opt/readline/include"
+LDFLAGS := -L/Users/jrinna/homebrew/opt/readline/lib
+CPPFLAGS := -I/Users/jrinna/homebrew/opt/readline/include
 NAME := minishell
 NAME_BNS := minishell_bonus
 #### OTHER ####
