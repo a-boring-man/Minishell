@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/24 11:13:45 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/03/24 13:15:58 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ int	main(void)
 	while (1)
 	{
 		test = readline("i'm depressed exit me $> ");
-		add_history(test);
-		printf("%s\n", test);
-		test = "haha";
-		rl_replace_line(test, 0);
-		rl_redisplay();
+		if (test && *test)
+			add_history(test);
+		if (signal(catch un crlt + d))
+		{
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			rl_redisplay();
+		}
 	}
+	rl_clear_history();
 }
