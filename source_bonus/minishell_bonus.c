@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/29 11:03:38 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/03/29 11:37:18 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ int	main(void)
 	signal(SIGINT, ft_ctrl_c);
 	printf("test : %d", tcgetattr(0, &config));
 	sconfig = config;
+	sconfig.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP
+			| INLCR | IGNCR | ICRNL | IXON);
+	sconfig.c_lflag &= ~(ECHOCTL | ECHONL | ICANON | ISIG | IEXTEN);
+	sconfig.c_cflag &= ~(CSIZE | PARENB);
 	tcsetattr(0, 0, &sconfig);
-	sconfig.c_lflag &= ~ECHOCTL;
 	while (test)
 	{
 		test = readline("i'm depressed exit me $> ");
