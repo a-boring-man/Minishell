@@ -1,5 +1,8 @@
 # Prerequisites
 *.d
+minishell
+minishell_bonus
+.gitignore
 
 # Object files
 *.o
