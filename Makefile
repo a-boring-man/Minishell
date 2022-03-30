@@ -6,7 +6,7 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/03/25 11:45:50 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/03/30 10:58:57 by jrinna           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ DIR_OBJ := .object
 DIR_OBJ_BNS := .object_bonus
 DIR_INC := include
 DIR_INC_BNS := include_bonus
+DIR_BIN := binary
 #### DIRECTORY ####
 
 #### COMPLETE_PATH ####
@@ -42,8 +43,8 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra -g
 LDFLAGS := -L/Users/jrinna/homebrew/opt/readline/lib
 CPPFLAGS := -I/Users/jrinna/homebrew/opt/readline/include
-NAME := minishell
-NAME_BNS := minishell_bonus
+NAME := $(DIR_BIN)/minishell
+NAME_BNS := $(DIR_BIN)/minishell_bonus
 #### OTHER ####
 
 #### STANDARD_RULE ####
@@ -58,15 +59,14 @@ clean :
 	rm -rf $(DIR_OBJ_BNS)
 
 fclean : clean
-	rm -rf $(NAME)
-	rm -rf $(NAME_BNS)
+	rm -rf $(DIR_BIN)
 #### STANDARD_RULE ####
 
 ### CUSTOM_RULE ####
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) | $(DIR_BIN)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(NAME) -lreadline
 
-$(NAME_BNS) : $(OBJ_BNS)
+$(NAME_BNS) : $(OBJ_BNS) | $(DIR_BIN)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $^ -o $(NAME_BNS) -lreadline
 
 $(DIR_OBJ)/%.o : $(DIR_SRC)/%.c $(INC) Makefile | $(DIR_OBJ)
@@ -80,6 +80,9 @@ $(DIR_OBJ) :
 
 $(DIR_OBJ_BNS) :
 	mkdir -p $(DIR_OBJ_BNS)
+
+$(DIR_BIN) :
+	mkdir -p $(DIR_BIN)
 #### CUSTOM_RULE ####
 
 #### UTILS ####
