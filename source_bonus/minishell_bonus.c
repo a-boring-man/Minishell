@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/29 12:51:42 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/03/30 10:40:52 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	ft_ctrl_c(int i)
 void	ft_ctrl_backslash(int i)
 {
 	(void)i;
-	rl_replace_line("exit", 0);
-	rl_redisplay();
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -56,7 +54,9 @@ int	main(void)
 	while (test)
 	{
 		test = readline("i'm depressed exit me $> ");
-		if (test && *test)
+		if (!test)
+			printf("exit ");
+		else if (*test)
 			add_history(test);
 		free(test);
 	}
