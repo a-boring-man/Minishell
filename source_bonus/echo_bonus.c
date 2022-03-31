@@ -6,32 +6,22 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:18:33 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/30 13:06:10 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/03/31 10:27:00 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_only
-
-void	ft_echo(char *s)
+void	ft_echo(char *s, int fd, int n)
 {
 	int	i;
 
-	i = -1;
-	if (!s || !*s)
+	i = 0;
+	if (!s)
 		return ;
-	while (s[++i])
-	{
-		if (s[i] == '\\')
-			i++;
-		else
-			write(STDOUT_FILENO, &s[i], 1);
-	}
-}
-
-int	main(int ac, char **av)
-{
-	(void)ac;
-	ft_echo(av[1]);
+	while (s[i])
+	i++;
+	write(fd, s, i);
+	if (!n)
+		write(fd, "\n", 1);
 }
