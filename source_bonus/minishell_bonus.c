@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/30 11:46:59 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/01 15:14:32 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,21 @@ void	ft_term_config(void)
 
 int	main(void)
 {
-	char			*test;
+	char	*test;
+	int		stop;
 
-	test = malloc(5);
-	test = "oups";
+	stop = 0;
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();
-	while (test)
+	while (!stop)
 	{
 		test = readline("i'm depressed exit me $> ");
 		if (!test)
+		{
+			stop = 1;
 			printf("exit ");
+		}
 		else if (*test)
 			add_history(test);
 		free(test);
