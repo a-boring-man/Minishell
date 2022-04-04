@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 10:18:10 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 10:45:51 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 11:28:08 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_getenv(t_minishell *mini, char **env)
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+/* int	main(int ac, char **av, char **env)
 {
 	t_minishell	mini;
 	int			i;
@@ -93,4 +93,4 @@ int	main(int ac, char **av, char **env)
 		tmp = tmp->next;
 	}
 	ft_lstclear_env(&(mini.env));
-}
+} */

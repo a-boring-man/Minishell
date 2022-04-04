@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strjoin_bonus.c                                    :+:      :+:    :+:   */
+/*   getenv_name_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 15:30:18 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 11:17:55 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/04/04 11:38:43 by jrinna            #+#    #+#             */
+/*   Updated: 2022/04/04 12:05:16 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+int	ft_isthere_this_env_name(t_minishell *mini, char *s)
 {
-	int		i;
-	int		j;
-	char	*new_line;
+	t_env	*tmp;
 
-	i = 0;
-	j = 0;
-	new_line = ft_calloc(ft_strlen_s(s1) + ft_strlen_s(s2) + 1, 1);
-	while (s1 && s1[j])
-		new_line[i++] = s1[j++];
-	j = 0;
-	while (s2 && s2[j])
-		new_line[i++] = s2[j++];
-	if (s1)
-		ft_free((void **)&s1);
-	return (new_line);
+	tmp = mini->env;
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->name, s))
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
 }

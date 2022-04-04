@@ -6,13 +6,13 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/03/30 10:58:57 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/04/04 11:23:22 by jrinna           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 #### LIST ####
 LST_SRC := minishell.c 
-LST_SRC_BNS := minishell_bonus.c 
+LST_SRC_BNS := calloc_bonus.c cd_bonus.c echo_bonus.c free_bonus.c getenv_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c strjoin_bonus.c strlen_bonus.c 
 LST_OBJ := $(LST_SRC:.c=.o)
 LST_OBJ_BNS := $(LST_SRC_BNS:.c=.o)
 LST_INC := minishell.h 
@@ -48,7 +48,7 @@ NAME_BNS := $(DIR_BIN)/minishell_bonus
 #### OTHER ####
 
 #### STANDARD_RULE ####
-all : $(NAME) $(NAME_BNS)
+all : $(NAME_BNS) #$(NAME)
 
 bonus : $(NAME_BNS)
 

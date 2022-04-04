@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 10:18:08 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 12:15:00 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ void	ft_lstadd_front_env(t_env **env, t_env *new);
 void	ft_lstadd_back_env(t_env **env, t_env *new);
 t_env	*ft_lstlast(t_env *env);
 void	ft_lstclear_env(t_env **env);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_isthere_this_env_name(t_minishell *mini, char *s);
 
 #endif

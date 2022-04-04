@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/01 15:14:32 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 11:16:48 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_term_config(void)
 	tcsetattr(STDIN_FILENO, 0, &new_config);
 }
 
-int	main(void)
+/* int	main(void)
 {
 	char	*test;
 	int		stop;
@@ -64,4 +64,4 @@ int	main(void)
 		free(test);
 	}
 	rl_clear_history();
-}
+} */
