@@ -6,32 +6,27 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 11:33:34 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 12:46:16 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_cd(char *s)
+void	ft_cd(t_minishell *mini, char *s)
 {
-	char	*buf;
-	char	*ptr;
-	char	*ptr2;
+	char	*cwd;
 
-	buf = getcwd(NULL, 0);
-	printf("path : %s\n", buf);
-	ptr = ft_strjoin(buf, "/");
-	printf("test : %s\n", ptr);
-	ptr2 = ft_strjoin(ptr, s);
-	printf("test 2 : %s\n", ptr2);
-	chdir(ptr2);
-	buf = getcwd(NULL, 0);
-	printf("path after : %s", buf);
+	if ((!s || s[0] == '~') && !ft_isthere_this_env_name(mini, "HOME"))
+		printf("HOME not set");
+	cwd = getcwd(NULL, 0);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **env)
 {
+	t_minishell	mini;
+
 	(void)ac;
-	ft_cd(av[1]);
+	ft_getenv(&mini, env);
+	ft_cd(&mini, av[1]);
 	return (0);
 }

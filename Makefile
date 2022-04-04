@@ -12,7 +12,7 @@
 
 #### LIST ####
 LST_SRC := minishell.c 
-LST_SRC_BNS := calloc_bonus.c cd_bonus.c echo_bonus.c free_bonus.c getenv_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c strjoin_bonus.c strlen_bonus.c 
+LST_SRC_BNS := calloc_bonus.c cd_bonus.c echo_bonus.c free_bonus.c getenv_bonus.c getenv_name_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c strcmp.c strjoin_bonus.c strlen_bonus.c 
 LST_OBJ := $(LST_SRC:.c=.o)
 LST_OBJ_BNS := $(LST_SRC_BNS:.c=.o)
 LST_INC := minishell.h 
