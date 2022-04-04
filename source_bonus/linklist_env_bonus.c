@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:14:05 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/01 14:09:44 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 10:25:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	return (new);
 }
 
-void	ft_lstadd_front(t_env **env, t_env *new)
+void	ft_lstadd_front_env(t_env **env, t_env *new)
 {
 	if (!env)
 		return ;
@@ -68,7 +68,7 @@ void	ft_lstclear_env(t_env **env)
 	while (*env)
 	{
 		tmp = (*env)->next;
-		ft_lstdelone(*env);
+		ft_lstdelone_env(*env);
 		*env = tmp;
 	}
 }

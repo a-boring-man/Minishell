@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:07:43 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/01 14:16:01 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/04 10:20:03 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_lstdelone_env(t_env *env)
 {
-	ft_free(&(env->name));
-	ft_free(&(env->value));
-	ft_free(&env);
+	ft_free((void **)&(env->name));
+	ft_free((void **)&(env->value));
+	ft_free((void **)&env);
 }
 
 int	ft_lstsize_env(t_env *env)
