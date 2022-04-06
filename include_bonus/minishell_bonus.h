@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 12:37:27 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/06 12:18:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct s_env
 {
 	int				index;
+	int				name_lengh;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
@@ -50,6 +51,7 @@ t_env	*ft_lstlast(t_env *env);
 void	ft_lstclear_env(t_env **env);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isthere_this_env_name(t_minishell *mini, char *s);
-int		ft_getenv(t_minishell *mini, char **env);
+int		ft_getinit(t_minishell *mini, char **env);
+char	*ft_getenv_value(t_minishell *mini, char *name);
 
 #endif
