@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/06 12:18:41 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/07 10:43:42 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_minishell
 
 int		ft_strlen_s(char *s);
 void	*ft_calloc(int count, int eltsize);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strjoin_f(char *s1, char *s2);
+char	*ft_strjoin_nf(char *s1, char *s2);
 void	ft_free(void **s);
 void	ft_echo(char *s, int fd, int n);
 void	ft_lstdelone_env(t_env *env);
@@ -51,7 +52,7 @@ t_env	*ft_lstlast(t_env *env);
 void	ft_lstclear_env(t_env **env);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_isthere_this_env_name(t_minishell *mini, char *s);
-int		ft_getinit(t_minishell *mini, char **env);
 char	*ft_getenv_value(t_minishell *mini, char *name);
+int		ft_env_init(t_minishell *mini, char **env);
 
 #endif
