@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcmp.c                                           :+:      :+:    :+:   */
+/*   export_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 11:54:17 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 11:55:31 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
+/*   Updated: 2022/04/08 15:49:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_strcmp(char *s1, char *s2)
+static int	ft_printf_export(t_minishell *mini)
 {
-	int	i;
+	ft_ranking_env(mini->env);
+}
 
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
+static int	ft_export_s(t_minishell *mini, char *s)
+{
+	if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
+		ft_lstadd_back_env(&mini->env, ft_lstnew_env
+			(ft_splitname(s), ft_splitvalue(s)));
+	else if ()
+}
+
+int	ft_export(t_minishell *mini, char *s)
+{
+	if (!s)
+		return (ft_print_export(mini));
+	return (ft_export_s(mini, s));
 }

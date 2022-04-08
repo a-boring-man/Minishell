@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getenv_bonus.c                                     :+:      :+:    :+:   */
+/*   strcmp_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 11:49:30 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/08 13:57:11 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/04/08 13:33:07 by jrinna            #+#    #+#             */
+/*   Updated: 2022/04/08 13:35:45 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-char	*ft_getenv_value(t_minishell *mini, char *name)
+int	ft_strcmp(char *s1, char *s2)
 {
-	t_env	*tmp;
+	int	i;
 
-	tmp = mini->env;
-	if (!(tmp))
-		return (NULL);
-	while (tmp)
-	{
-		if (!ft_strcmp(name, tmp->name) && tmp->name_lengh == ft_strlen_s(name))
-			return (tmp->value);
-		tmp = tmp->next;
-	}
-	return (NULL);
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+int	ft_strncmp(char *s1, char *s2, int size)
+{
+	int	i;
+
+	i = 0;
+	if (size == 0)
+		return (0);
+	while (s1[i] == s2[i] && s1[i] && s2[i] && i < size - 1)
+		i++;
+	return (s1[i] - s2[i]);
 }

@@ -6,53 +6,61 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:48:10 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/08 12:05:21 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/08 15:07:21 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-char	*ft_splitname(char *env)
+char	*ft_splitname(char *s)
 {
 	int		i;
 	char	*line;
 
 	i = 0;
 	line = NULL;
-	if (!env)
+	if (!s)
 		return (NULL);
-	while (env[i] && env[i] != '=')
+	while (s[i] && s[i] != '=')
 		i++;
 	line = ft_calloc(i + 1, 1);
 	if (!line)
 		return (line);
 	i = 0;
-	while (env[i] && env[i] != '=')
+	while (s[i] && s[i] != '=')
 	{
-		line[i] = env[i];
+		line[i] = s[i];
 		i++;
 	}
 	return (line);
 }
 
-char	*ft_splitvalue(char *env)
+char	*ft_splitvalue(char *s)
 {
 	int		i;
+	int		c;
 	char	*line;
 
-	i = 0;
+	i = -1;
+	c = 0;
 	line = NULL;
-	if (!env)
+	if (!s)
 		return (NULL);
-	while (*env && *env != '=')
-		env++;
-	env++;
-	while (env[i])
-		i++;
+	while (s[++i])
+		if (s[i] == '=')
+			c++;
+	if (!c)
+		return (NULL);
+	i = -1;
+	while (*s != '=')
+		s++;
+	s++;
+	while (s[++i])
+		;
 	line = ft_calloc(i + 1, 1);
 	i = -1;
-	while (env[++i])
-		line[i] = env[i];
+	while (s[++i])
+		line[i] = s[i];
 	return (line);
 }
 
