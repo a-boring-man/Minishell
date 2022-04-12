@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/12 12:46:00 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 13:59:08 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,28 +102,32 @@ static void	ft_export_s(t_minishell *mini, char *s)
 		*ft_getenv_value(mini, s) = ft_splitvalue(s);
 }
 
-void	ft_export(t_minishell *mini, char *s)
+int	ft_export(t_minishell *mini, char *s)
 {
 	if (!s)
 		ft_printf_export(mini);
-	else
+	else if (!ft_contain_a_isspace3_ns(s) && *s)
 		ft_export_s(mini, s);
-	// il faut rajouter les protection contre les chaine vide et les chaine de caracter contenant des isspace3
+	else
+	{
+		printf("minishell_bonus: export: `%s': not a valid identifier", s);
+		return (1);
+	}
+	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+/* int	main(int ac, char **av, char **env)
 {
 	t_minishell	mini;
 	t_env		*tmp;
 
 	(void)ac;
-	(void)av;
 	ft_env_init(&mini, env);
 	tmp = mini.env;
-	ft_export(&mini, NULL);
+	ft_export(&mini, av[1]);
 	/* while (tmp)
 	{
 		printf("env index : %d, name lenght : %d, name : %s, value : %s, next : %p\n", tmp->index, tmp->name_lengh, tmp->name, tmp->value, tmp->next);
 		tmp = tmp->next;
 	} */
-}
+} */
