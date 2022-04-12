@@ -6,19 +6,69 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/11 12:51:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 12:46:00 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static int	ft_printf_export(t_minishell *mini)
+static void	ft_ranking_env_correction(t_env **env, int env_size)
+{
+	int		cpyenv_size;
+	t_env	*tmp;
+	t_env	*curent;
+	t_env	*cpyenv;
+
+	curent = *env;
+	cpyenv = *env;
+	cpyenv_size = env_size;
+	while (env_size--)
+	{
+		tmp = *env;
+		while (tmp)
+		{
+			if (curent->index == tmp->index && curent != tmp)
+				tmp->index++;
+			tmp = tmp->next;
+		}
+		curent = curent->next;
+	}
+	*env = cpyenv;
+}
+
+static void	ft_ranking_env(t_env **env, int env_size)
+{
+	int		cpyenv_size;
+	t_env	*tmp;
+	t_env	*curent;
+	t_env	*cpyenv;
+
+	curent = *env;
+	cpyenv = *env;
+	cpyenv_size = env_size;
+	while (env_size--)
+	{
+		tmp = *env;
+		while (tmp)
+		{
+			if (ft_strncmp(curent->name, tmp->name, ft_max(curent->name_lengh,
+						tmp->name_lengh)) > 0 && curent != tmp)
+				curent->index++;
+			tmp = tmp->next;
+		}
+		curent = curent->next;
+	}
+	*env = cpyenv;
+	ft_ranking_env_correction(env, cpyenv_size);
+}
+
+static void	ft_printf_export(t_minishell *mini)
 {
 	int		i;
 	int		env_size;
 	t_env	*tmp;
 
-	i = 1;
+	i = 0;
 	env_size = 0;
 	tmp = mini->env;
 	while (tmp)
@@ -26,23 +76,22 @@ static int	ft_printf_export(t_minishell *mini)
 		env_size++;
 		tmp = tmp->next;
 	}
-	ft_ranking_env(mini->env);
-	while (i < env_size + 1)
+	ft_ranking_env(&mini->env, env_size);
+	while (++i < env_size + 1)
 	{
 		tmp = mini->env;
 		while (tmp)
 		{
-			if (tmp->index == i && tmp->value)
-				printf("declare -x %s=\"%s\"", tmp->name, tmp->value);
-			else if (tmp->index == i)
-				printf("declare -x %s", tmp->name);
+			if (tmp->index == i - 1 && tmp->value)
+				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+			else if (tmp->index == i - 1)
+				printf("declare -x %s\n", tmp->name);
 			tmp = tmp->next;
 		}
-		i++;
 	}
 }
 
-static int	ft_export_s(t_minishell *mini, char *s)
+static void	ft_export_s(t_minishell *mini, char *s)
 {
 	if (!s)
 		ft_printf_export(mini);
@@ -53,9 +102,28 @@ static int	ft_export_s(t_minishell *mini, char *s)
 		*ft_getenv_value(mini, s) = ft_splitvalue(s);
 }
 
-int	ft_export(t_minishell *mini, char *s)
+void	ft_export(t_minishell *mini, char *s)
 {
 	if (!s)
-		return (ft_print_export(mini));
-	return (ft_export_s(mini, s));
+		ft_printf_export(mini);
+	else
+		ft_export_s(mini, s);
+	// il faut rajouter les protection contre les chaine vide et les chaine de caracter contenant des isspace3
+}
+
+int	main(int ac, char **av, char **env)
+{
+	t_minishell	mini;
+	t_env		*tmp;
+
+	(void)ac;
+	(void)av;
+	ft_env_init(&mini, env);
+	tmp = mini.env;
+	ft_export(&mini, NULL);
+	/* while (tmp)
+	{
+		printf("env index : %d, name lenght : %d, name : %s, value : %s, next : %p\n", tmp->index, tmp->name_lengh, tmp->name, tmp->value, tmp->next);
+		tmp = tmp->next;
+	} */
 }
