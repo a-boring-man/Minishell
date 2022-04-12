@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/12 13:41:47 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 15:47:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,9 @@ char	*ft_splitvalue(char *s);
 int		ft_max(int a, int b);
 int		ft_contain_a_charset_ns(char *s, char *charset);
 int		ft_contain_a_isspace3_ns(char *s);
+int		ft_isalnum(int c);
+int		ft_isdigit(int c);
+int		ft_isalpha(int c);
+int		ft_is_it_a_valid_env_name(char *name);
 
 #endif
