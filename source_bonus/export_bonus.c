@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/12 13:59:08 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/12 14:01:06 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ int	ft_export(t_minishell *mini, char *s)
 	ft_env_init(&mini, env);
 	tmp = mini.env;
 	ft_export(&mini, av[1]);
-	/* while (tmp)
+	while (tmp)
 	{
 		printf("env index : %d, name lenght : %d, name : %s, value : %s, next : %p\n", tmp->index, tmp->name_lengh, tmp->name, tmp->value, tmp->next);
 		tmp = tmp->next;
-	} */
-} */
+	}
+}*/
