@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/11 12:23:57 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 09:28:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_cd(t_minishell *mini, char *s)
 	else if (!s)
 		if (!chdir (*ft_getenv_value(mini, "HOME")))
 			oldpwd = getcwd(NULL, 0);
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd(NULL, 0); // message d'error a faire
 	printf("oldpwd : %s\n", oldpwd);
 	printf("pwd : %s\n", pwd);
 }
