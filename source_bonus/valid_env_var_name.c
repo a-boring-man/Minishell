@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 14:45:15 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/12 15:45:09 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 12:27:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	ft_is_it_a_valid_env_name(char *name)
 	return (1);
 }
 
-int	main(int ac, char **av)
+/* int	main(int ac, char **av)
 {
 	while (--ac)
 		printf("%s was  : %d\n", av[ac], ft_is_it_a_valid_env_name(av[ac]));
-}
+} */

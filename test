@@ -1,0 +1,253 @@
+
+
+-----avant-----
+
+
+TERM_PROGRAM
+
+SHELL
+
+TERM
+
+TMPDIR
+
+Apple_PubSub_Socket_Render
+
+TERM_PROGRAM_VERSION
+
+ORIGINAL_XDG_CURRENT_DESKTOP
+
+ZSH
+
+USER
+
+SSH_AUTH_SOCK
+
+__CF_USER_TEXT_ENCODING
+
+PAGER
+
+LSCOLORS
+
+PATH
+
+PWD
+
+coucou
+
+LANG
+
+XPC_FLAGS
+
+XPC_SERVICE_NAME
+
+HOME
+
+SHLVL
+
+VSCODE_GIT_ASKPASS_MAIN
+
+LOGNAME
+
+LESS
+
+VSCODE_GIT_IPC_HANDLE
+
+GIT_ASKPASS
+
+VSCODE_GIT_ASKPASS_NODE
+
+DISPLAY
+
+COLORTERM
+
+_
+
+OLDPWD
+declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.dr6VtZ1zFi/Render"
+declare -x COLORTERM="truecolor"
+declare -x DISPLAY="/private/tmp/com.apple.launchd.GrSfHoB9bs/org.xquartz:0"
+declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/653E619D-7343-4D2F-BFBB-0F236C739505/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
+declare -x HOME="/Users/jrinna"
+declare -x LANG="en_US.UTF-8"
+declare -x LESS="-R"
+declare -x LOGNAME="jrinna"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x OLDPWD
+declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
+declare -x PAGER="less"
+declare -x PATH="/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+declare -x PWD="/Users/jrinna/Documents/cursus42/minishell"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="3"
+declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.v0sjeUpDuY/Listeners"
+declare -x TERM="xterm-256color"
+declare -x TERM_PROGRAM="vscode"
+declare -x TERM_PROGRAM_VERSION="1.61.2"
+declare -x TMPDIR="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/"
+declare -x USER="jrinna"
+declare -x VSCODE_GIT_ASKPASS_MAIN="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/653E619D-7343-4D2F-BFBB-0F236C739505/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
+declare -x VSCODE_GIT_ASKPASS_NODE="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/653E619D-7343-4D2F-BFBB-0F236C739505/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)"
+declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/vscode-git-120d02251d.sock"
+declare -x XPC_FLAGS="0x0"
+declare -x XPC_SERVICE_NAME="0"
+declare -x ZSH="/Users/jrinna/.oh-my-zsh"
+declare -x _="./binary/minishell_bonus"
+declare -x __CF_USER_TEXT_ENCODING="0x1793C:0x0:0x0"
+declare -x coucou="salut"
+
+
+-----toujours avant-----
+
+
+TERM_PROGRAM
+
+SHELL
+
+TERM
+
+TMPDIR
+
+Apple_PubSub_Socket_Render
+
+TERM_PROGRAM_VERSION
+
+ORIGINAL_XDG_CURRENT_DESKTOP
+
+ZSH
+
+USER
+
+SSH_AUTH_SOCK
+
+__CF_USER_TEXT_ENCODING
+
+PAGER
+
+LSCOLORS
+
+PATH
+
+PWD
+
+coucou
+
+LANG
+
+XPC_FLAGS
+
+XPC_SERVICE_NAME
+
+HOME
+
+SHLVL
+
+VSCODE_GIT_ASKPASS_MAIN
+
+LOGNAME
+
+LESS
+
+VSCODE_GIT_IPC_HANDLE
+
+GIT_ASKPASS
+
+VSCODE_GIT_ASKPASS_NODE
+
+DISPLAY
+
+COLORTERM
+
+_
+
+OLDPWD
+declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.dr6VtZ1zFi/Render"
+declare -x COLORTERM="truecolor"
+declare -x DISPLAY="/private/tmp/com.apple.launchd.GrSfHoB9bs/org.xquartz:0"
+declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/653E619D-7343-4D2F-BFBB-0F236C739505/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
+declare -x HOME="/Users/jrinna"
+declare -x LANG="en_US.UTF-8"
+declare -x LESS="-R"
+declare -x LOGNAME="jrinna"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x OLDPWD
+declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
+declare -x PAGER="less"
+declare -x PATH="/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+declare -x PWD="/Users/jrinna/Documents/cursus42/minishell"
+declare -x SHELL="/bin/zsh"
+declare -x SHLVL="3"
+
+
+-----après-----
+
+
+TERM_PROGRAM
+
+SHELL
+
+TERM
+
+TMPDIR
+
+Apple_PubSub_Socket_Render
+
+TERM_PROGRAM_VERSION
+
+ORIGINAL_XDG_CURRENT_DESKTOP
+
+ZSH
+
+USER
+
+SSH_AUTH_SOCK
+
+__CF_USER_TEXT_ENCODING
+
+PAGER
+
+LSCOLORS
+
+PATH
+
+PWD
+
+LANG
+
+XPC_FLAGS
+
+XPC_SERVICE_NAME
+
+HOME
+
+SHLVL
+
+VSCODE_GIT_ASKPASS_MAIN
+
+LOGNAME
+
+LESS
+
+VSCODE_GIT_IPC_HANDLE
+
+GIT_ASKPASS
+
+VSCODE_GIT_ASKPASS_NODE
+
+DISPLAY
+
+COLORTERM
+
+_
+
+OLDPWD
+declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.dr6VtZ1zFi/Render"
+declare -x COLORTERM="truecolor"
+declare -x DISPLAY="/private/tmp/com.apple.launchd.GrSfHoB9bs/org.xquartz:0"
+declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/653E619D-7343-4D2F-BFBB-0F236C739505/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
+declare -x HOME="/Users/jrinna"
+declare -x LANG="en_US.UTF-8"
+declare -x LESS="-R"
+declare -x LOGNAME="jrinna"
+declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
+declare -x OLDPWD

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:07:43 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/13 11:47:14 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 12:48:43 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	ft_delnode_env_ns(t_minishell *mini, char *name)
 		{
 			tmp_previous->next = tmp->next;
 			ft_lstdelone_env(tmp);
+			break ;
 		}
 		tmp = tmp->next;
 		tmp_previous = tmp_previous->next;

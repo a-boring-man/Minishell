@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/12 14:01:06 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/13 13:04:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	ft_ranking_env_correction(t_env **env, int env_size)
 				tmp->index++;
 			tmp = tmp->next;
 		}
+		printf("\n%s\n", curent->name);
 		curent = curent->next;
 	}
 	*env = cpyenv;
@@ -106,7 +107,7 @@ int	ft_export(t_minishell *mini, char *s)
 {
 	if (!s)
 		ft_printf_export(mini);
-	else if (!ft_contain_a_isspace3_ns(s) && *s)
+	else if (ft_is_it_a_valid_env_name(s) && *s)
 		ft_export_s(mini, s);
 	else
 	{
