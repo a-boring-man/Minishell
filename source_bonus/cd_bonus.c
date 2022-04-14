@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/13 09:28:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/14 14:12:30 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_cd(t_minishell *mini, char *s)
 	if (s && !chdir(s))
 		oldpwd = getcwd(NULL, 0);
 	else if (!s && !ft_isthere_this_env_name(mini, "HOME"))
-		printf("HOME not set");
+		printf("HOME not set\n");
 	else if (!s)
 		if (!chdir (*ft_getenv_value(mini, "HOME")))
 			oldpwd = getcwd(NULL, 0);
@@ -30,7 +30,7 @@ void	ft_cd(t_minishell *mini, char *s)
 	printf("pwd : %s\n", pwd);
 }
 
-/* int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_minishell	mini;
 	char		*tmp;
@@ -44,4 +44,4 @@ void	ft_cd(t_minishell *mini, char *s)
 	printf("cd finish\n");
 	ft_lstclear_env(&(mini.env));
 	return (0);
-} */
+}
