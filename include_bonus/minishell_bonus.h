@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/13 12:59:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/14 11:34:38 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int		ft_is_it_a_valid_env_name(char *name);
 void	ft_unset(t_minishell *mini, char *s);
 void	ft_delnode_env_ns_f(t_minishell *mini, char *name);
 int		ft_export(t_minishell *mini, char *s);
+char	*ft_strdup(char *s);
 
 #endif

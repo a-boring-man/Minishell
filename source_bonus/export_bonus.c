@@ -6,11 +6,23 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/13 13:04:29 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/14 10:47:10 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+
+static void	ft_ranking_reset(t_env **env)
+{
+	t_env	*tmp;
+
+	tmp = *env;
+	while (tmp)
+	{
+		tmp->index = 0;
+		tmp = tmp->next;
+	}
+}
 
 static void	ft_ranking_env_correction(t_env **env, int env_size)
 {
@@ -31,7 +43,6 @@ static void	ft_ranking_env_correction(t_env **env, int env_size)
 				tmp->index++;
 			tmp = tmp->next;
 		}
-		printf("\n%s\n", curent->name);
 		curent = curent->next;
 	}
 	*env = cpyenv;
@@ -47,6 +58,7 @@ static void	ft_ranking_env(t_env **env, int env_size)
 	curent = *env;
 	cpyenv = *env;
 	cpyenv_size = env_size;
+	ft_ranking_reset(env);
 	while (env_size--)
 	{
 		tmp = *env;
@@ -84,23 +96,12 @@ static void	ft_printf_export(t_minishell *mini)
 		while (tmp)
 		{
 			if (tmp->index == i - 1 && tmp->value)
-				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+				printf("declare -x %s=\"%s\"\n next : %p\n", tmp->name, tmp->value, tmp->next);
 			else if (tmp->index == i - 1)
-				printf("declare -x %s\n", tmp->name);
+				printf("declare -x %s\n next : %p\n", tmp->name, tmp->next);
 			tmp = tmp->next;
 		}
 	}
-}
-
-static void	ft_export_s(t_minishell *mini, char *s)
-{
-	if (!s)
-		ft_printf_export(mini);
-	else if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
-		ft_lstadd_back_env(&mini->env, ft_lstnew_env
-			(ft_splitname(s), ft_splitvalue(s)));
-	else if (ft_getenv_value(mini, s) && *ft_getenv_value(mini, s))
-		*ft_getenv_value(mini, s) = ft_splitvalue(s);
 }
 
 int	ft_export(t_minishell *mini, char *s)
@@ -108,7 +109,13 @@ int	ft_export(t_minishell *mini, char *s)
 	if (!s)
 		ft_printf_export(mini);
 	else if (ft_is_it_a_valid_env_name(s) && *s)
-		ft_export_s(mini, s);
+	{
+		if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
+			ft_lstadd_back_env(&mini->env, ft_lstnew_env
+				(ft_splitname(s), ft_splitvalue(s)));
+		else if (ft_getenv_value(mini, s) && *ft_getenv_value(mini, s))
+			*ft_getenv_value(mini, s) = ft_splitvalue(s);
+	}
 	else
 	{
 		printf("minishell_bonus: export: `%s': not a valid identifier", s);
