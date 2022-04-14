@@ -1,202 +1,29 @@
-
-
------avant-----
-
-declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.IZcdzzvt5C/Render"
- next : 0x1010893b0
-declare -x COLORTERM="truecolor"
- next : 0x10108b050
-declare -x DISPLAY="/private/tmp/com.apple.launchd.ydlvl6gfUi/org.xquartz:0"
- next : 0x10108af30
-declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
- next : 0x10108ad00
-declare -x HOME="/Users/jrinna"
- next : 0x10108a450
-declare -x LANG="en_US.UTF-8"
- next : 0x10108a140
-declare -x LESS="-R"
- next : 0x10108a970
-declare -x LOGNAME="jrinna"
- next : 0x10108a820
-declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
- next : 0x101089d20
-declare -x OLDPWD
- next : 0x0
-declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
- next : 0x1010895d0
-declare -x PAGER="less"
- next : 0x101089b20
-declare -x PATH="/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
- next : 0x101089e40
-declare -x PWD="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x101089f40
-declare -x SHELL="/bin/zsh"
- next : 0x101089030
-declare -x SHLVL="3"
- next : 0x10108a620
-declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.iMZh6zaCbH/Listeners"
- next : 0x101089910
-declare -x TERM="xterm-256color"
- next : 0x101089160
-declare -x TERM_PROGRAM="vscode"
- next : 0x101088f30
-declare -x TERM_PROGRAM_VERSION="1.61.2"
- next : 0x1010894c0
-declare -x TMPDIR="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/"
- next : 0x1010892a0
-declare -x USER="jrinna"
- next : 0x101089800
-declare -x VALGRIND_STARTUP_PWD_74152_XYZZY="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x10108b1f0
-declare -x VSCODE_GIT_ASKPASS_MAIN="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
- next : 0x10108a720
-declare -x VSCODE_GIT_ASKPASS_NODE="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)"
- next : 0x10108ae30
-declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/vscode-git-120d02251d.sock"
- next : 0x10108ab20
-declare -x XPC_FLAGS="0x0"
- next : 0x10108a250
-declare -x XPC_SERVICE_NAME="0"
- next : 0x10108a350
-declare -x ZSH="/Users/jrinna/.oh-my-zsh"
- next : 0x1010896d0
-declare -x _="/Users/jrinna/homebrew/bin/valgrind"
- next : 0x10108b190
-declare -x __CF_USER_TEXT_ENCODING="0x1793C:0x0:0x0"
- next : 0x101089a10
-declare -x coucou="salut"
- next : 0x10108a040
-
-
------toujours avant-----
-
-declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.IZcdzzvt5C/Render"
- next : 0x1010893b0
-declare -x COLORTERM="truecolor"
- next : 0x10108b050
-declare -x DISPLAY="/private/tmp/com.apple.launchd.ydlvl6gfUi/org.xquartz:0"
- next : 0x10108af30
-declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
- next : 0x10108ad00
-declare -x HOME="/Users/jrinna"
- next : 0x10108a450
-declare -x LANG="en_US.UTF-8"
- next : 0x10108a140
-declare -x LESS="-R"
- next : 0x10108a970
-declare -x LOGNAME="jrinna"
- next : 0x10108a820
-declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
- next : 0x101089d20
-declare -x OLDPWD
- next : 0x0
-declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
- next : 0x1010895d0
-declare -x PAGER="less"
- next : 0x101089b20
-declare -x PATH="/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
- next : 0x101089e40
-declare -x PWD="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x101089f40
-declare -x SHELL="/bin/zsh"
- next : 0x101089030
-declare -x SHLVL="3"
- next : 0x10108a620
-declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.iMZh6zaCbH/Listeners"
- next : 0x101089910
-declare -x TERM="xterm-256color"
- next : 0x101089160
-declare -x TERM_PROGRAM="vscode"
- next : 0x101088f30
-declare -x TERM_PROGRAM_VERSION="1.61.2"
- next : 0x1010894c0
-declare -x TMPDIR="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/"
- next : 0x1010892a0
-declare -x USER="jrinna"
- next : 0x101089800
-declare -x VALGRIND_STARTUP_PWD_74152_XYZZY="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x10108b1f0
-declare -x VSCODE_GIT_ASKPASS_MAIN="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
- next : 0x10108a720
-declare -x VSCODE_GIT_ASKPASS_NODE="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)"
- next : 0x10108ae30
-declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/vscode-git-120d02251d.sock"
- next : 0x10108ab20
-declare -x XPC_FLAGS="0x0"
- next : 0x10108a250
-declare -x XPC_SERVICE_NAME="0"
- next : 0x10108a350
-declare -x ZSH="/Users/jrinna/.oh-my-zsh"
- next : 0x1010896d0
-declare -x _="/Users/jrinna/homebrew/bin/valgrind"
- next : 0x10108b190
-declare -x __CF_USER_TEXT_ENCODING="0x1793C:0x0:0x0"
- next : 0x101089a10
-declare -x coucou="salut"
- next : 0x10108a040
-
-
------après-----
-
-declare -x Apple_PubSub_Socket_Render="/private/tmp/com.apple.launchd.IZcdzzvt5C/Render"
- next : 0x1010893b0
-declare -x COLORTERM="truecolor"
- next : 0x10108b050
-declare -x DISPLAY="/private/tmp/com.apple.launchd.ydlvl6gfUi/org.xquartz:0"
- next : 0x10108af30
-declare -x GIT_ASKPASS="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh"
- next : 0x10108ad00
-declare -x HOME="/Users/jrinna"
- next : 0x10108a450
-declare -x LANG="en_US.UTF-8"
- next : 0x10108a140
-declare -x LESS="-R"
- next : 0x10108a970
-declare -x LOGNAME="jrinna"
- next : 0x10108a820
-declare -x LSCOLORS="Gxfxcxdxbxegedabagacad"
- next : 0x101089d20
-declare -x OLDPWD
- next : 0x0
-declare -x ORIGINAL_XDG_CURRENT_DESKTOP="undefined"
- next : 0x1010895d0
-declare -x PAGER="less"
- next : 0x101089b20
-declare -x PATH="/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
- next : 0x101089e40
-declare -x PWD="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x10108a040
-declare -x SHELL="/bin/zsh"
- next : 0x101089030
-declare -x SHLVL="3"
- next : 0x10108a620
-declare -x SSH_AUTH_SOCK="/private/tmp/com.apple.launchd.iMZh6zaCbH/Listeners"
- next : 0x101089910
-declare -x TERM="xterm-256color"
- next : 0x101089160
-declare -x TERM_PROGRAM="vscode"
- next : 0x101088f30
-declare -x TERM_PROGRAM_VERSION="1.61.2"
- next : 0x1010894c0
-declare -x TMPDIR="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/"
- next : 0x1010892a0
-declare -x USER="jrinna"
- next : 0x101089800
-declare -x VALGRIND_STARTUP_PWD_74152_XYZZY="/Users/jrinna/Documents/cursus42/minishell"
- next : 0x10108b1f0
-declare -x VSCODE_GIT_ASKPASS_MAIN="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js"
- next : 0x10108a720
-declare -x VSCODE_GIT_ASKPASS_NODE="/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/FBE13533-0627-4C5B-ABAB-5DC23F94A643/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)"
- next : 0x10108ae30
-declare -x VSCODE_GIT_IPC_HANDLE="/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/vscode-git-120d02251d.sock"
- next : 0x10108ab20
-declare -x XPC_FLAGS="0x0"
- next : 0x10108a250
-declare -x XPC_SERVICE_NAME="0"
- next : 0x10108a350
-declare -x ZSH="/Users/jrinna/.oh-my-zsh"
- next : 0x1010896d0
-declare -x _="/Users/jrinna/homebrew/bin/valgrind"
- next : 0x10108b190
-declare -x __CF_USER_TEXT_ENCODING="0x1793C:0x0:0x0"
- next : 0x101089a10
+TERM_PROGRAM=vscode
+TERM=xterm-256color
+SHELL=/bin/zsh
+TMPDIR=/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/
+Apple_PubSub_Socket_Render=/private/tmp/com.apple.launchd.L4qRJq4UoL/Render
+TERM_PROGRAM_VERSION=1.61.2
+ORIGINAL_XDG_CURRENT_DESKTOP=undefined
+ZSH=/Users/jrinna/.oh-my-zsh
+USER=jrinna
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.j3odAelzni/Listeners
+__CF_USER_TEXT_ENCODING=0x1793C:0x0:0x0
+PAGER=less
+LSCOLORS=Gxfxcxdxbxegedabagacad
+PATH=/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/opt/X11/bin:/Users/jrinna/homebrew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+PWD=/Users/jrinna/Documents/cursus42/minishell
+LANG=en_US.UTF-8
+XPC_FLAGS=0x0
+XPC_SERVICE_NAME=0
+SHLVL=2
+HOME=/Users/jrinna
+VSCODE_GIT_ASKPASS_MAIN=/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/F8D22841-3417-435B-8F95-E5117A69168F/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js
+LESS=-R
+LOGNAME=jrinna
+VSCODE_GIT_IPC_HANDLE=/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/vscode-git-120d02251d.sock
+VSCODE_GIT_ASKPASS_NODE=/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/F8D22841-3417-435B-8F95-E5117A69168F/d/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)
+GIT_ASKPASS=/private/var/folders/zz/zyxvpxvq6csfxvn_n000bs7h002y9w/T/AppTranslocation/F8D22841-3417-435B-8F95-E5117A69168F/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh
+DISPLAY=/private/tmp/com.apple.launchd.0a7KdpWRCy/org.xquartz:0
+COLORTERM=truecolor
+_=./binary/minishell_bonus

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset_bonus.c                                      :+:      :+:    :+:   */
+/*   env_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 11:30:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/14 12:39:21 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/04/14 12:39:31 by jrinna            #+#    #+#             */
+/*   Updated: 2022/04/14 13:14:40 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_unset(t_minishell *mini, char *s)
+void	ft_env(t_minishell *mini)
 {
-	if (!s)
-		return ;
-	if (!ft_is_it_a_valid_env_name(s))
+	t_env	*tmp;
+
+	tmp = mini->env;
+	while (tmp)
 	{
-		printf("minishell_bonus: unset: `%s': not a valid identifier", s);
-		return ;
+		if (ft_strncmp(tmp->name, "OLDPWD", ft_max(tmp->name_lengh, 6)))
+			printf("%s=%s\n", tmp->name, tmp->value);
+		tmp = tmp->next;
 	}
-	if (ft_isthere_this_env_name(mini, s))
-		ft_delnode_env_ns_f(mini, s);
 }
 
 /* int	main(int ac, char **av, char **env)
@@ -32,12 +32,7 @@ void	ft_unset(t_minishell *mini, char *s)
 	(void)ac;
 	(void)av;
 	ft_env_init(&mini, env);
-	printf("\n\n-----avant-----\n\n");
-	ft_export(&mini, NULL);
-	printf("\n\n-----toujours avant-----\n\n");
-	ft_export(&mini, NULL);
-	ft_unset(&mini, av[1]);
-	printf("\n\n-----après-----\n\n");
-	ft_export(&mini, NULL);
+	ft_env(&mini);
 	ft_lstclear_env(&mini.env);
-} */
+}
+ */
