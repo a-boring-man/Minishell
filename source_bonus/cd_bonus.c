@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/14 14:12:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 13:17:49 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 void	ft_cd(t_minishell *mini, char *s)
 {
 	char	*oldpwd;
+	char	*current_directory;
 	char	*pwd;
 
 	oldpwd = *ft_getenv_value(mini, "OLDPWD");
+	current_directory = getcwd(NULL, 0);
+	printf("first oldPWD : %s\n", oldpwd); //
 	if (s && !chdir(s))
-		oldpwd = getcwd(NULL, 0);
+		oldpwd = current_directory;
 	else if (!s && !ft_isthere_this_env_name(mini, "HOME"))
 		printf("HOME not set\n");
-	else if (!s)
-		if (!chdir (*ft_getenv_value(mini, "HOME")))
-			oldpwd = getcwd(NULL, 0);
+	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
+		oldpwd = current_directory;
 	pwd = getcwd(NULL, 0); // message d'error a faire
-	printf("oldpwd : %s\n", oldpwd);
-	printf("pwd : %s\n", pwd);
+	printf("oldPWD : %s\n", oldpwd); //
+	printf("PWD : %s\n", pwd); //
 }
 
 int	main(int ac, char **av, char **env)

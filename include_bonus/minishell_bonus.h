@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/14 11:34:38 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 13:04:50 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,21 @@ void	ft_lstadd_back_env(t_env **env, t_env *new);
 t_env	*ft_lstlast(t_env *env);
 void	ft_lstclear_env(t_env **env);
 int		ft_strcmp(char *s1, char *s2);
+/**
+ * @brief return 1 if the variable specified by name exist in the environement 0 if not
+ * 
+ * @param mini 
+ * @param s 
+ * @return int 
+ */
 int		ft_isthere_this_env_name(t_minishell *mini, char *s);
+/**
+ * @brief renvoie l'adress de la chaine de caracter value de la variable d'environement name ou null si env est vide, l'adress peut contenir un pointer null si la valeur n'as pas été initialisé
+ * 
+ * @param mini 
+ * @param name 
+ * @return char** 
+ */
 char	**ft_getenv_value(t_minishell *mini, char *name);
 int		ft_env_init(t_minishell *mini, char **env);
 int		ft_strncmp(char *s1, char *s2, int size);
@@ -63,6 +77,12 @@ int		ft_contain_a_charset_ns(char *s, char *charset);
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
+/**
+ * @brief return 1 if the name is a correct name for a environemental variable or 0 if it's not
+ * 
+ * @param name 
+ * @return int 
+ */
 int		ft_is_it_a_valid_env_name(char *name);
 void	ft_unset(t_minishell *mini, char *s);
 void	ft_delnode_env_ns_f(t_minishell *mini, char *name);
