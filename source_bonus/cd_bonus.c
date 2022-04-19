@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 16:25:24 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 17:29:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_cd(t_minishell *mini, char *s)
 	ft_export(mini, ft_strjoin_nf("PWD=", pwd));
 }
 
-int	main(int ac, char **av, char **env)
+/* int	main(int ac, char **av, char **env)
 {
 	t_minishell	mini;
 	char		*tmp;
@@ -51,4 +51,4 @@ int	main(int ac, char **av, char **env)
 	printf("cd finish\n");
 	ft_lstclear_env(&(mini.env));
 	return (0);
-}
+} */

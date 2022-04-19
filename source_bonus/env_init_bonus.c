@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:48:10 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/14 11:25:06 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 17:34:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ int	ft_env_init(t_minishell *mini, char **env)
 		new = ft_lstnew_env(ft_splitname(env[i]), ft_splitvalue(env[i]));
 		ft_lstadd_back_env(&(mini->env), new);
 	}
-	ft_lstadd_back_env(&(mini->env), ft_lstnew_env(ft_strdup("OLDPWD"), NULL));
+	if (!ft_isthere_this_env_name(mini, "OLDPWD"))
+		ft_lstadd_back_env(&(mini->env), ft_lstnew_env(
+				ft_strdup("OLDPWD"), NULL));
 	return (0);
 }
 
