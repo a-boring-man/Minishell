@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 13:17:49 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 16:25:24 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ void	ft_cd(t_minishell *mini, char *s)
 
 	oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
-	printf("first oldPWD : %s\n", oldpwd); //
-	if (s && !chdir(s))
-		oldpwd = current_directory;
-	else if (!s && !ft_isthere_this_env_name(mini, "HOME"))
+	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
 		printf("HOME not set\n");
 	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
 		oldpwd = current_directory;
-	pwd = getcwd(NULL, 0); // message d'error a faire
-	printf("oldPWD : %s\n", oldpwd); //
-	printf("PWD : %s\n", pwd); //
+	else if (s && !chdir(s))
+		oldpwd = current_directory;
+	else
+		printf("No such file or directory\n");
+	pwd = getcwd(NULL, 0);
+	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd));
+	ft_export(mini, ft_strjoin_nf("PWD=", pwd));
 }
 
 int	main(int ac, char **av, char **env)
@@ -39,7 +40,11 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	ft_env_init(&mini, env);
+	printf("\n\n  --  env before  --  \n\n");
+	ft_export(&mini, NULL);
 	ft_cd(&mini, av[1]);
+	printf("\n\n  --  env after  --  \n\n");
+	ft_export(&mini, NULL);
 	tmp = getcwd(NULL, 0);
 	printf("\n\ncwd = %s\n\n\n", tmp);
 	ft_free((void **)&tmp);

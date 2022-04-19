@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 11:39:17 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/19 16:54:30 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,13 @@ int	ft_export(t_minishell *mini, char *s)
 {
 	if (!s)
 		ft_printf_export(mini);
-	else if (ft_is_it_a_valid_env_name(s) && *s)
+	else if (ft_is_it_a_valid_env_name(ft_splitname(s)) && *s)
 	{
 		if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
 			ft_lstadd_back_env(&mini->env, ft_lstnew_env
 				(ft_splitname(s), ft_splitvalue(s)));
-		else if (ft_getenv_value(mini, s) && *ft_getenv_value(mini, s))
-			*ft_getenv_value(mini, s) = ft_splitvalue(s);
+		else
+			*ft_getenv_value(mini, ft_splitname(s)) = ft_splitvalue(s);
 	}
 	else
 	{

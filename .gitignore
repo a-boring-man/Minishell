@@ -7,6 +7,8 @@ test
 test2
 test3
 test.c
+out
+out2
 
 # Object files
 *.o
