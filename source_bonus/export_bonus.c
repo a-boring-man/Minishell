@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 16:54:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 12:51:19 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static void	ft_ranking_env(t_env **env, int env_size)
 		tmp = *env;
 		while (tmp)
 		{
-			if (ft_strncmp(curent->name, tmp->name, ft_max(curent->name_lengh,
-						tmp->name_lengh)) > 0 && curent != tmp)
+			if (ft_strcmp(curent->name, tmp->name) > 0 && curent != tmp)
 				curent->index++;
 			tmp = tmp->next;
 		}

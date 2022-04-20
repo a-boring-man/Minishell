@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/04 11:16:48 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 13:03:53 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ void	ft_term_config(void)
 	tcsetattr(STDIN_FILENO, 0, &new_config);
 }
 
-/* int	main(void)
+int	main(int ac, char **av, char **env)
 {
-	char	*test;
-	int		stop;
+	char		*test;
+	int			stop;
+	t_minishell	mini;
 
 	stop = 0;
+	(void)ac;
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();
+	ft_env_init(&mini, env);
 	while (!stop)
 	{
 		test = readline("i'm depressed exit me $> ");
@@ -60,8 +63,11 @@ void	ft_term_config(void)
 			printf("exit ");
 		}
 		else if (*test)
+		{
+			ft_moulinator(&mini, test);
 			add_history(test);
+		}
 		free(test);
 	}
 	rl_clear_history();
-} */
+}
