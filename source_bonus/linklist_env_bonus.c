@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 12:14:05 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/06 12:13:03 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 10:46:12 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_env	*ft_lstnew_env(char *name, char *value)
 		return (NULL);
 	new->name = name;
 	new->value = value;
-	new->name_lengh = ft_strlen_s(name);
 	return (new);
 }
 

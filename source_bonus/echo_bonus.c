@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 12:18:33 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/31 10:27:00 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 10:02:40 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_echo(char *s, int fd, int n)
 	if (!s)
 		return ;
 	while (s[i])
-	i++;
+		i++;
 	write(fd, s, i);
 	if (!n)
 		write(fd, "\n", 1);

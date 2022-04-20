@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 13:04:50 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 10:52:46 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 typedef struct s_env
 {
 	int				index;
-	int				name_lengh;
 	char			*name;
 	char			*value;
 	struct s_env	*next;
@@ -68,12 +67,23 @@ int		ft_isthere_this_env_name(t_minishell *mini, char *s);
  * @return char** 
  */
 char	**ft_getenv_value(t_minishell *mini, char *name);
+/**
+ * @brief create the environment for the shell
+ * 
+ * @param mini 
+ * @param env your standar char **env from main
+ * @return int 
+ */
 int		ft_env_init(t_minishell *mini, char **env);
 int		ft_strncmp(char *s1, char *s2, int size);
+/**
+ * @brief return the string befor a = signe or NULL if s doesn't exist and empty string if string is empty
+ * 
+ * @param s 
+ * @return char* 
+ */
 char	*ft_splitname(char *s);
 char	*ft_splitvalue(char *s);
-int		ft_max(int a, int b);
-int		ft_contain_a_charset_ns(char *s, char *charset);
 int		ft_isalnum(int c);
 int		ft_isdigit(int c);
 int		ft_isalpha(int c);
@@ -85,6 +95,12 @@ int		ft_isalpha(int c);
  */
 int		ft_is_it_a_valid_env_name(char *name);
 void	ft_unset(t_minishell *mini, char *s);
+/**
+ * @brief del the node in the link list pointed to by name
+ * 
+ * @param mini 
+ * @param name 
+ */
 void	ft_delnode_env_ns_f(t_minishell *mini, char *name);
 int		ft_export(t_minishell *mini, char *s);
 char	*ft_strdup(char *s);

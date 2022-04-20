@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 14:07:43 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/13 12:48:43 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/20 10:46:59 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static void	ft_delnode_env_ns(t_minishell *mini, char *name)
 	tmp_previous = mini->env;
 	while (tmp)
 	{
-		if (!ft_strncmp(tmp->name, name, ft_max(tmp->name_lengh,
-					ft_strlen_s(name))))
+		if (!ft_strcmp(tmp->name, name))
 		{
 			tmp_previous->next = tmp->next;
 			ft_lstdelone_env(tmp);
@@ -42,8 +41,7 @@ void	ft_delnode_env_ns_f(t_minishell *mini, char *name)
 	tmp_next = tmp->next;
 	if (!tmp)
 		return ;
-	if (!ft_strncmp(tmp->name, name, ft_max(tmp->name_lengh,
-				ft_strlen_s(name))))
+	if (!ft_strcmp(tmp->name, name))
 	{
 		ft_lstdelone_env(tmp);
 		mini->env = tmp_next;
