@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 13:03:53 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 13:18:48 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int ac, char **av, char **env)
 
 	stop = 0;
 	(void)ac;
+	(void)av;
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();

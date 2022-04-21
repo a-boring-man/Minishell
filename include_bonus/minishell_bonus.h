@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 10:52:46 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/04/21 13:50:36 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,10 @@ void	ft_unset(t_minishell *mini, char *s);
 void	ft_delnode_env_ns_f(t_minishell *mini, char *name);
 int		ft_export(t_minishell *mini, char *s);
 char	*ft_strdup(char *s);
+char	*ft_splitfirst_word(char *line);
+void	ft_moulinator(t_minishell *mini, char *line);
+int		ft_is_a_built_in(char *line);
+char	**ft_split(char *s, char c);
+void	ft_call_built_in(t_minishell *mini, char *line);
 
 #endif

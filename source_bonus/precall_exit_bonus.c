@@ -1,18 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   moulinator.c                                       :+:      :+:    :+:   */
+/*   precall_exit_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 13:01:17 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 13:04:15 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/04/21 13:53:56 by jrinna            #+#    #+#             */
+/*   Updated: 2022/04/21 13:54:00 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
-
-void	ft_moulinator(t_minishell *mini, char *line)
-{
-	
-}
