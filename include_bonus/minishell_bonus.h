@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/21 13:50:36 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 09:58:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	*ft_calloc(int count, int eltsize);
 char	*ft_strjoin_f(char *s1, char *s2);
 char	*ft_strjoin_nf(char *s1, char *s2);
 void	ft_free(void **s);
-void	ft_echo(char *s, int fd, int n);
+void	ft_echo(char *s, int fd);
 void	ft_lstdelone_env(t_env *env);
 t_env	*ft_lstnew_env(char *name, char *value);
 void	ft_lstadd_front_env(t_env **env, t_env *new);
@@ -109,5 +109,6 @@ void	ft_moulinator(t_minishell *mini, char *line);
 int		ft_is_a_built_in(char *line);
 char	**ft_split(char *s, char c);
 void	ft_call_built_in(t_minishell *mini, char *line);
+void	ft_precall_echo(char *line);
 
 #endif

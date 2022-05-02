@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/21 13:18:48 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 10:07:10 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int ac, char **av, char **env)
 	ft_env_init(&mini, env);
 	while (!stop)
 	{
-		test = readline("i'm depressed exit me $> ");
+		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
 		if (!test)
 		{
 			stop = 1;

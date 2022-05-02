@@ -6,13 +6,29 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:24 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/21 13:55:59 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 10:04:54 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_precall_echo(t_minishell *mini, char *line)
+void	ft_precall_echo(char *line)
 {
-	
+	char	**split;
+	int		n;
+	int		i;
+
+	i = 0;
+	n = 0;
+	split = ft_split(line, ' ');
+	if (split[1] && !ft_strcmp(split[1], "-n"))
+		n++;
+	while (split[++i + n])
+	{
+		ft_echo(split[i + n], 1);
+		if (split[i + n + 1])
+			write (1, " ", 1);
+	}
+	if (!n)
+		write(1, "\n", 1);
 }
