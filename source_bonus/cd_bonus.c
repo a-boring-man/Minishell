@@ -6,31 +6,40 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/19 17:29:04 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 11:47:01 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_cd(t_minishell *mini, char *s)
+int	ft_cd(t_minishell *mini, char *s)
 {
 	char	*oldpwd;
 	char	*current_directory;
 	char	*pwd;
+	int		i;
 
+	i = 0;
 	oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
 	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
+	{
 		printf("HOME not set\n");
+		i = 1;
+	}
 	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
 		oldpwd = current_directory;
 	else if (s && !chdir(s))
 		oldpwd = current_directory;
 	else
+	{
 		printf("No such file or directory\n");
+		i = 1;
+	}
 	pwd = getcwd(NULL, 0);
 	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd));
 	ft_export(mini, ft_strjoin_nf("PWD=", pwd));
+	return (i);
 }
 
 /* int	main(int ac, char **av, char **env)

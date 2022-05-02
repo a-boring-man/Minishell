@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/02 09:58:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/02 12:41:21 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,9 @@ int		ft_is_a_built_in(char *line);
 char	**ft_split(char *s, char c);
 void	ft_call_built_in(t_minishell *mini, char *line);
 void	ft_precall_echo(char *line);
+void	ft_precall_cd(t_minishell *mini, char *line);
+int		ft_cd(t_minishell *mini, char *s);
+void	ft_precall_export(t_minishell *mini, char *line);
+void	ft_pwd(void);
 
 #endif
