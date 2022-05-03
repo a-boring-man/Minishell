@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/02 12:47:36 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/03 11:23:26 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	ft_call_built_in(t_minishell *mini, char *line)
 		ft_precall_export(mini, line);
 	if (!ft_strcmp("unset", split[0]))
 		ft_precall_unset(mini, line);
-	/* if (!ft_strcmp("env", split[0]))
-		ft_precall_env(mini, line);
-	if (!ft_strcmp("exit", split[0]))
+	if (!ft_strcmp("env", split[0]))
+		ft_env(mini);
+	/* if (!ft_strcmp("exit", split[0]))
 		ft_precall_exit(mini, line); */
 }

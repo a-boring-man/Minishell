@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 12:51:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/03 13:28:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	ft_export(t_minishell *mini, char *s)
 	}
 	else
 	{
-		printf("minishell_bonus: export: `%s': not a valid identifier", s);
+		printf("minishell_bonus: export: `%s': not a valid identifier\n", s);
 		return (1);
 	}
 	return (0);

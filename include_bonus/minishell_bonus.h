@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/02 12:41:21 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/03 14:12:51 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,30 @@ void	ft_precall_cd(t_minishell *mini, char *line);
 int		ft_cd(t_minishell *mini, char *s);
 void	ft_precall_export(t_minishell *mini, char *line);
 void	ft_pwd(void);
+void	ft_env(t_minishell *mini);
+void	ft_precall_unset(t_minishell *mini, char *line);
 
 #endif
+
+/* typedef struct s_redirect {
+	int type;
+	char *arg;
+} t_redirect;
+
+typedef struct s_token {
+	int type;
+	char **args;
+	t_redirect	*redirect_in = NULL;
+	t_redirect	*redirect_out = NULL;
+}
+
+
+exec_heredoc(t_redirect redirection) {
+	int tube[2];
+	pipe(tube);
+	write(tube[1], redirection.arg, ft_);
+	dup2(tube[0], stdin);
+}
+
+> >> << <
+| || && () */
