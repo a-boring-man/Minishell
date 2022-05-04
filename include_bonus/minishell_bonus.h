@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/03 14:12:51 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/04 12:58:10 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@
 # include <dirent.h>
 # include <string.h>
 
+# define ET 0
+# define OU 1
+
+static int	last_error = 0;
+
+typedef struct s_grostoken
+{
+	int		previous_operator_type;
+	char	*arg;
+}	t_grostoken;
+
 typedef struct s_env
 {
 	int				index;
@@ -34,7 +45,9 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
-	int		test;
+	int		double_quote;
+	int		single_quote;
+	int		parenthese;
 	t_env	*env;
 }	t_minishell;
 
@@ -105,7 +118,7 @@ void	ft_delnode_env_ns_f(t_minishell *mini, char *name);
 int		ft_export(t_minishell *mini, char *s);
 char	*ft_strdup(char *s);
 char	*ft_splitfirst_word(char *line);
-void	ft_moulinator(t_minishell *mini, char *line);
+int		ft_moulinator(t_minishell *mini, char *line);
 int		ft_is_a_built_in(char *line);
 char	**ft_split(char *s, char c);
 void	ft_call_built_in(t_minishell *mini, char *line);
@@ -116,6 +129,7 @@ void	ft_precall_export(t_minishell *mini, char *line);
 void	ft_pwd(void);
 void	ft_env(t_minishell *mini);
 void	ft_precall_unset(t_minishell *mini, char *line);
+int		ft_good_parenthese_and_quote(t_minishell *mini, char *line);
 
 #endif
 
