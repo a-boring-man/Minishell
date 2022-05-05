@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/04 12:58:10 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 15:35:28 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,28 @@
 # include <dirent.h>
 # include <string.h>
 
-# define ET 0
-# define OU 1
-
 static int	last_error = 0;
+
+typedef enum e_token_type
+{
+	INFILE,
+	OUTFILE,
+	HEREDOC,
+	APPEND,
+	CMD,
+	PARENTHESE
+}	t_token_type;
+
+typedef struct s_petit_token
+{
+	t_token_type	token_type;
+	void			*token_value;
+}	t_petit_token;
 
 typedef struct s_grostoken
 {
-	int		previous_operator_type;
-	char	*arg;
+	int				previous_operator_type;
+	t_petit_token	**petit_token;
 }	t_grostoken;
 
 typedef struct s_env
@@ -48,6 +61,9 @@ typedef struct s_minishell
 	int		double_quote;
 	int		single_quote;
 	int		parenthese;
+	int		et;
+	int		ou;
+	int		block;
 	t_env	*env;
 }	t_minishell;
 
@@ -130,6 +146,7 @@ void	ft_pwd(void);
 void	ft_env(t_minishell *mini);
 void	ft_precall_unset(t_minishell *mini, char *line);
 int		ft_good_parenthese_and_quote(t_minishell *mini, char *line);
+void	ft_parser_quote_and_or(t_minishell *mini, char c);
 
 #endif
 
