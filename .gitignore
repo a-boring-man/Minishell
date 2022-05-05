@@ -9,6 +9,7 @@ test3
 test.c
 out
 out2
+source_bonus/oldpipex
 
 # Object files
 *.o
