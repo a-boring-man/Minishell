@@ -6,18 +6,11 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/05 15:54:59 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/05 19:41:20 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
-
-char	**ft_pipex_split(char *line)
-{
-	int		cout[3];
-	int		i;
-	char	**ret;
-}
 
 static void	child(char *cmd, int fd[3])
 {
@@ -69,3 +62,29 @@ void	ft_pipex(t_minishell *mini, char *line)
 		;
 	//return success
 }
+
+t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line, ...)
+{
+	int		i;
+	int		nb;
+	int		err;
+
+	i = -1;
+	nb = 0;
+	err = 0;
+	while (line[++i])
+	{
+		ft_parser_quote_and_or(mini, line[i]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
