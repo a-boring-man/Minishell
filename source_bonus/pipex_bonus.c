@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/06 10:05:57 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 15:50:05 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,61 @@ void	ft_pipex(t_minishell *mini, char *line)
 		;
 	//return success
 }
-*//*
-t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line, ...)
+*/
+
+
+int	ft_count_token(t_minishell *mini, char *line)
 {
 	int		i;
-	int		nb;
-	int		err;
+	int		ret;
+	int		cmd;
+
+	cmd = 0;
+	ret = 0;
+	i = 0;
+	while (line[i])
+	{
+		while (line[i] == ' ')
+			++i;
+		if (line[i] == '<' || line[i] == '>')
+		{
+			if (line[i + 1] == line[i])
+				++i;
+			++i;
+			++ret;
+		}
+	}
+}
+
+t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
+{
+	t_petit_token	*ret;
+	int				i;
+	int				token_count;
+	int				token_valid;
+}
+
+t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
+{
+	int				i;
+	int				nb;
+	int				err;
+	t_petit_token	**ret;
 
 	i = -1;
 	nb = 0;
 	err = 0;
-	while (line[++i])
+	ret = malloc(2*sizeof(void *));
+	if (!ret)
+		return (0);
+	ret[1] = 0;
+	ret[0] = ft_tokenize_cmd(mini, line);
+/*	while (line[++i])
 	{
 		ft_parser_quote_and_or(mini, line[i]);
 	}
-}*/
+*/	return (ret);
+}
 
 
 
