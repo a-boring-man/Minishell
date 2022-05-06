@@ -11,6 +11,9 @@ out
 out2
 source_bonus/oldpipex
 
+# Vim save files
+*.swp
+
 # Object files
 *.o
 *.ko

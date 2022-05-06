@@ -6,12 +6,12 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/05 19:41:20 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 10:05:57 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
-
+/*
 static void	child(char *cmd, int fd[3])
 {
 	char	**split;
@@ -23,9 +23,9 @@ static void	child(char *cmd, int fd[3])
 }
 
 void	ft_pipex(t_minishell *mini, char *line)
-{/*
+{
 	if (ft_is_a_built_in(line))
-		ft_call_built_in(mini, line);*/
+		ft_call_built_in(mini, line);
 	char	**lst_cmd;
 	int		i;
 	int		fd[3];
@@ -62,7 +62,7 @@ void	ft_pipex(t_minishell *mini, char *line)
 		;
 	//return success
 }
-
+*//*
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line, ...)
 {
 	int		i;
@@ -76,7 +76,7 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line, ...)
 	{
 		ft_parser_quote_and_or(mini, line[i]);
 	}
-}
+}*/
 
 
 
