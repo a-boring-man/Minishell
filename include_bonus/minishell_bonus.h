@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/06 11:12:08 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 14:15:51 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <sys/syslimits.h>
 # include <dirent.h>
 # include <string.h>
+
+# define ET 0
+# define OU 1
 
 static int	last_error = 0;
 
@@ -44,7 +47,7 @@ typedef struct s_petit_token
 
 typedef struct s_grostoken
 {
-	int				previous_operator_type;
+	int				next_operator_type;
 	t_petit_token	**petit_token;
 }	t_grostoken;
 
@@ -148,6 +151,7 @@ void	ft_precall_unset(t_minishell *mini, char *line);
 int		ft_good_parenthese_and_quote(t_minishell *mini, char *line);
 void	ft_parser_quote_and_or(t_minishell *mini, char c);
 void	ft_parsing_init(t_minishell *mini);
+char	*ft_strnjoin_f(char *s1, char *s2, unsigned int n);
 
 #endif
 
