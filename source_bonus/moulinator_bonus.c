@@ -6,40 +6,40 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/05 15:42:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/06 11:07:33 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static void	ft_tab_init(t_minishell *mini, char *line)
+/* static void	ft_tab_init(t_minishell *mini, char *line)
 {
 	t_grostoken	*grostoken;
 
 	grostoken = ft_calloc(mini->block, sizeof(t_grostoken));
-	
-}
+	(void)line;
+} */
 
 void	ft_parser_quote_and_or(t_minishell *mini, char c)
 {
 	if (c == '(' && !mini->single_quote && !mini->double_quote)
 		mini->parenthese++;
-	else if (c == ')' && !mini->single_quote && !mini->double_quote)
+	if (c == ')' && !mini->single_quote && !mini->double_quote)
 		mini->parenthese--;
-	else if (c == '"' && !mini->single_quote)
+	if (c == '"' && !mini->single_quote)
 		mini->double_quote = 1 - mini->double_quote;
-	else if (c == '\'' && !mini->double_quote)
+	if (c == '\'' && !mini->double_quote)
 		mini->single_quote = 1 - mini->single_quote;
-	else if (c == '&' && !mini->double_quote && !mini->parenthese
+	if (c == '&' && !mini->double_quote && !mini->parenthese
 		&& !mini->single_quote)
 		mini->et++;
-	else if (c == '|' && !mini->double_quote && !mini->parenthese
+	else if (mini->et)
+		mini->et = 0;
+	if (c == '|' && !mini->double_quote && !mini->parenthese
 		&& !mini->single_quote)
 		mini->ou++;
 	else if (mini->ou)
 		mini->ou = 0;
-	else if (mini->et)
-		mini->et = 0;
 }
 
 void	ft_parsing_init(t_minishell *mini)
