@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/09 12:13:55 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 12:58:45 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,9 @@ char	*ft_strnjoin_f(char *s1, char *s2, unsigned int n);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
 char	*ft_strndup(char *s, int n);
+char	*ft_strtrim(char *s1, char *set);
+int		ft_isincharset(char c, char *charset);
+char	*ft_substr(char *s, int start, int len);
 
 #endif
 

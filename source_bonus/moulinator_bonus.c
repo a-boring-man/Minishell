@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/09 12:13:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/09 13:01:06 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_tab_init(t_minishell *mini, char *line)
 			grostoken[++current_block].next_operator_type = (line[i] == '|');
 		}
 	}
-	if (ft_strlen_s(block_tmp))
+	if (ft_strlen_s(ft_strtrim(block_tmp, "\t\n\v\f\r ")))
 	{
 		printf("block_tmp : %s\n", block_tmp);
 		//grostoken[current_block].petit_token
