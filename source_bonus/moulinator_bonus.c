@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/10 14:25:01 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 14:41:08 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,6 @@ static t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i, int cb)
 	//else
 		//ft_free((void **)grostoken);
 	return (grostoken);
-}
-
-void	ft_parser_quote_and_or(t_minishell *mini, char c)
-{
-	if (c == '(' && !mini->single_quote && !mini->double_quote)
-		mini->parenthese++;
-	if (c == ')' && !mini->single_quote && !mini->double_quote)
-		mini->parenthese--;
-	if (c == '"' && !mini->single_quote)
-		mini->double_quote = 1 - mini->double_quote;
-	if (c == '\'' && !mini->double_quote)
-		mini->single_quote = 1 - mini->single_quote;
-	if (c == '&' && !mini->double_quote && !mini->parenthese
-		&& !mini->single_quote)
-		mini->et++;
-	else if (mini->et)
-		mini->et = 0;
-	if (c == '|' && !mini->double_quote && !mini->parenthese
-		&& !mini->single_quote)
-		mini->ou++;
-	else if (mini->ou)
-		mini->ou = 0;
-}
-
-void	ft_parsing_init(t_minishell *mini)
-{
-	mini->double_quote = 0;
-	mini->single_quote = 0;
-	mini->parenthese = 0;
-	mini->et = 0;
-	mini->ou = 0;
-	mini->block = 0;
 }
 
 int	ft_good_parenthese_and_quote(t_minishell *mini, char *line)
