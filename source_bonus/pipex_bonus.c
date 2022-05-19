@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/06 15:50:05 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 17:20:23 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,95 @@ void	ft_pipex(t_minishell *mini, char *line)
 }
 */
 
-
-int	ft_count_token(t_minishell *mini, char *line)
+t_petit_token	*ft_free_cmd(t_petit_token *cmd)
 {
-	int		i;
-	int		ret;
-	int		cmd;
+	int	i;
 
-	cmd = 0;
-	ret = 0;
+	if (!cmd)
+		return (0);
 	i = 0;
-	while (line[i])
+	while ((cmd + i)->token_type != CMD && (cmd + i)->token_type != PARENTHESE)
 	{
-		while (line[i] == ' ')
-			++i;
-		if (line[i] == '<' || line[i] == '>')
+		if ((cmd + i)->token_value)
+			free((cmd + i)->token_value);
+		++i;
+	}
+	free(cmd);
+	return (0);
+}
+
+static int	ft_count_token(t_minishell *mini, char *line, int i)
+{
+	ft_parsing_init(mini);
+	while (*line == ' ')
+		++line;
+	while (line[++i])
+	{
+		if (i && line[i] == '(' && !(mini->single_quote
+				+ mini->double_quote + mini->parenthese))
+			return (0);
+		ft_parser_quote_and_or(mini, line[i]);
+		if ((line[i] == '<' || line[i] == '>') && !(mini->single_quote
+				+ mini->double_quote + mini->parenthese))
 		{
+dprintf(2, "%d\n", mini->char_count);
+			if (i && mini->char_count <= 1)
+				return (0);
+			mini->char_count = 0;
 			if (line[i + 1] == line[i])
 				++i;
-			++i;
-			++ret;
+			++(mini->block);
 		}
 	}
+	if (mini->char_count <= 1)
+		return (0);
+	return (mini->block + 1);
 }
 
 t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 {
-	t_petit_token	*ret;
-	int				i;
-	int				token_count;
-	int				token_valid;
+	const int				token_count = ft_count_token(mini, line, -1);
+	t_petit_token *const	ret = ft_calloc(token_count, sizeof(t_petit_token));
+	int						i;
+	int						blk;
+
+	if (!ret)
+		return (0);
+	(ret + token_count - 1)->token_type = CMD;
+	i = 0;
+	blk = 0;
+	ft_parsing_init(mini);
+	while (blk < token_count - 1)
+	{
+		while ((line[i] != '<' && line[i] != '>') || mini->single_quote
+				|| mini->double_quote || mini->parenthese)
+			ft_parser_quote_and_or(mini, line[i++]);
+		if (line[i] == '<')
+		{
+			(ret + blk)->token_type = INFILE;
+			if (line[i] == line[i + 1])
+				(ret + blk)->token_type = HEREDOC;
+		}
+		if (line[i] == '>')
+		{
+			(ret + blk)->token_type = OUTFILE;
+			if (line[i] == line[i + 1])
+				(ret + blk)->token_type = APPEND;
+		}
+		if (line[i] == line[i + 1])
+		{
+			line[i] = ' ';
+			++i;
+		}
+		line[i] = ' ';
+		++i;
+		while (line[i] == ' ')
+			++i;
+		ret[blk].token_value = ft_strndup_del(line + i, ft_count_size(mini, line + i, ' '), ' ');
+		++blk;
+	}
+	ret[blk].token_value = ft_super_split(mini, line, ' ');
+	return (ret);
 }
 
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)

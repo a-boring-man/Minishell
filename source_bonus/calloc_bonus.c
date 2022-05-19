@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:47:52 by jrinna            #+#    #+#             */
-/*   Updated: 2022/03/31 15:00:54 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 15:39:43 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	*ft_calloc(int count, int eltsize)
 	int		i;
 	char	*block;
 
-	i = -1;
-	block = malloc(count * eltsize);
+	i = count * eltsize;
+	if (i <= 0)
+		return (0);
+	block = malloc(i);
 	if (block)
-		while (i < count * eltsize - 1)
-			*(block + ++i) = 0;
+		while (i--)
+			*(block + i) = 0;
 	return ((void *)block);
 }

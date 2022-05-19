@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/06 14:03:01 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/19 17:04:22 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ typedef enum e_token_type
 	HEREDOC,
 	APPEND,
 	CMD,
-	PARENTHESE,
-	ZERO
+	PARENTHESE
 }	t_token_type;
 
 typedef struct s_petit_token
@@ -64,9 +63,15 @@ typedef struct s_minishell
 	int		parenthese;
 	int		et;
 	int		ou;
+	int		char_count;
 	int		block;
 	t_env	*env;
 }	t_minishell;
+
+char	**ft_super_split(t_minishell *mini, char *s, char c);
+void	**ft_free_split(void **split);
+char	*ft_strndup_del(char *s, int n, char c);
+int	ft_count_size(t_minishell *mini, char *s, char c);
 
 int		ft_strlen_s(char *s);
 void	*ft_calloc(int count, int eltsize);
