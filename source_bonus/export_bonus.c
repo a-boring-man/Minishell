@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/03 13:28:17 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 14:49:54 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ static void	ft_printf_export(t_minishell *mini)
 		tmp = mini->env;
 		while (tmp)
 		{
-			if (tmp->index == i - 1 && tmp->value)
+			if (tmp->index == i - 1 && tmp->value && ft_strcmp(tmp->name, "_"))
 				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
-			else if (tmp->index == i - 1)
+			else if (tmp->index == i - 1 && ft_strcmp(tmp->name, "_"))
 				printf("declare -x %s\n", tmp->name);
 			tmp = tmp->next;
 		}

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/04 10:53:40 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/05/10 13:58:48 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,11 @@ int	main(int ac, char **av, char **env)
 		}
 		else if (*test)
 		{
-			if (ft_moulinator(&mini, test))
-				add_history(test);
+			add_history(test);
+			ft_moulinator(&mini, test);
 		}
 		free(test);
 	}
+	ft_lstclear_env(&mini.env);
 	rl_clear_history();
 }

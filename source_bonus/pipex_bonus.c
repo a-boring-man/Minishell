@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/19 17:20:23 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/21 15:33:35 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 		if ((line[i] == '<' || line[i] == '>') && !(mini->single_quote
 				+ mini->double_quote + mini->parenthese))
 		{
-dprintf(2, "%d\n", mini->char_count);
 			if (i && mini->char_count <= 1)
 				return (0);
 			mini->char_count = 0;

@@ -6,13 +6,13 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/05/03 14:22:23 by jalamell         ###   ########lyon.fr    #
+#    Updated: 2022/05/24 10:42:27 by jalamell         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 #### LIST ####
 LST_SRC := minishell.c 
-LST_SRC_BNS := built_in_bonus.c calloc_bonus.c cd_bonus.c echo_bonus.c env_bonus.c env_check_bonus.c env_init_bonus.c export_bonus.c free_bonus.c getenv_bonus.c isalnum_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c moulinator_bonus.c precall_cd_bonus.c precall_echo_bonus.c precall_exit_bonus.c precall_export_bonus.c precall_unset_bonus.c pwd_bonus.c split_bonus.c strcmp_bonus.c strdup_bonus.c strjoin_bonus.c strlen_bonus.c unset_bonus.c valid_env_var_name_bonus.c 
+LST_SRC_BNS := built_in_bonus.c calloc_bonus.c cd_bonus.c echo_bonus.c env_bonus.c env_check_bonus.c env_init_bonus.c export_bonus.c free_bonus.c getenv_bonus.c is_in_charset_bonus.c isalnum_bonus.c linklist_env2_bonus.c linklist_env_bonus.c max_min_bonus.c minishell_bonus.c moulinator_bonus.c parsing_bonus.c precall_cd_bonus.c precall_echo_bonus.c precall_exit_bonus.c precall_export_bonus.c precall_unset_bonus.c pwd_bonus.c split_bonus.c strcmp_bonus.c strdup_bonus.c strjoin_bonus.c strlen_bonus.c strtrim_bonus.c substr_bonus.c unset_bonus.c valid_env_var_name_bonus.c 
 LST_OBJ := $(LST_SRC:.c=.o)
 LST_OBJ_BNS := $(LST_SRC_BNS:.c=.o)
 LST_INC := minishell.h 
@@ -40,9 +40,9 @@ INC_BNS := $(addprefix $(DIR_INC_BNS)/,$(LST_INC_BNS))
 
 #### OTHER ####
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -g
-LDFLAGS := -L/Users/jalamell/homebrew/opt/readline/lib
-CPPFLAGS := -I/Users/jalamell/homebrew/opt/readline/include
+CFLAGS := -Wall -Werror -Wextra
+LDFLAGS := -L$(HOME)/homebrew/opt/readline/lib
+CPPFLAGS := -I$(HOME)/homebrew/opt/readline/include
 NAME := $(DIR_BIN)/minishell
 NAME_BNS := $(DIR_BIN)/minishell_bonus
 #### OTHER ####

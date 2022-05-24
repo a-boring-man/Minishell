@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strdup_bonus.c                                     :+:      :+:    :+:   */
+/*   strtrim_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 11:30:31 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/09 11:00:51 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/05/09 12:38:01 by jrinna            #+#    #+#             */
+/*   Updated: 2022/05/09 12:53:13 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-char	*ft_strdup(char *s)
+char	*ft_strtrim(char *s1, char *set)
 {
-	char	*dup;
-	int		i;
+	int	start;
+	int	i;
+	int	end;
 
-	dup = ft_calloc(ft_strlen_s(s) + 1, 1);
-	if (!dup)
+	start = 0;
+	end = 0;
+	i = 0;
+	if (!s1)
 		return (NULL);
-	i = -1;
-	while (s[++i])
-		dup[i] = s[i];
-	return (dup);
-}
-
-char	*ft_strndup(char *s, int n)
-{
-	char	*dup;
-	int		i;
-
-	dup = ft_calloc(ft_min(ft_strlen_s(s), n) + 1, 1);
-	if (!dup)
-		return (NULL);
-	i = -1;
-	while (s[++i] && i < n)
-		dup[i] = s[i];
-	return (dup);
+	if (ft_strlen_s(s1) != 0)
+		end = ft_strlen_s(s1) - 1;
+	while (ft_isincharset(s1[start], set))
+		start++;
+	while (end && ft_isincharset(s1[end], set))
+		end--;
+	if (ft_strlen_s(s1) != 0 && start <= end)
+		return (ft_substr(s1, start, end - start + 1));
+	return (ft_calloc(1, 1));
 }

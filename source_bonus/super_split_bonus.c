@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:38 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/19 12:54:45 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/21 15:29:11 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**ft_super_split(t_minishell *mini, char *s, char c)
 
 	nb_word = count_word(mini, s, c);
 	i = -1;
-	ret = malloc((nb_word + 1) * sizeof(char *));
+	ret = ft_calloc(nb_word + 1, sizeof(char *));
 	if (!ret)
 		return (0);
 	while (++i < nb_word)
