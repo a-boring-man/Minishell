@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/24 10:43:31 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/05/26 13:16:50 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct s_minishell
 }	t_minishell;
 
 char	**ft_super_split(t_minishell *mini, char *s, char c);
-void	**ft_free_split(void **split);
+char	**ft_free_split(char **split);
 char	*ft_strndup_del(char *s, int n, char c);
 int	ft_count_size(t_minishell *mini, char *s, char c);
 
