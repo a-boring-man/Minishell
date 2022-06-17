@@ -6,9 +6,12 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:38 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/26 13:49:43 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 14:43:07 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell_bonus.h"
+#include <stdlib.h>
 
 static int	count_word(t_minishell *mini, char *s, char c)
 {
@@ -115,6 +118,36 @@ char	**ft_super_split(t_minishell *mini, char *s, char c)
 		s += n + 1;
 		if (!ret[i])
 			return (ft_free_split(ret));
+	}
+	return (ret);
+}
+
+char	*ft_join_split(char **split)
+{
+	int		i;
+	int		len;
+	int		tot;
+	char	*ret;
+
+	i = -1;
+	tot = 0;
+	while (split[++i])
+	{
+		len = 0;
+		while (split[i][len])
+			++len;
+		tot += len + 1;
+	}
+	ret = ft_calloc(tot + 1, sizeof(char));
+	i = -1;
+	tot = 0;
+	while (split[++i])
+	{
+		len = -1;
+		while (split[i][++len])
+			ret[tot + len] = split[i][len];
+		ret[tot + len] = ' ';
+		tot += len + 1;
 	}
 	return (ret);
 }

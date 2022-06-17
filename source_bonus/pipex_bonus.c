@@ -6,43 +6,87 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/05/27 11:35:13 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/06/17 14:54:23 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
-/*
-static void	child(char *cmd, int fd[3])
-{//unsafe
-	char	**split;
+#include <fcntl.h>
 
-	split = split_token(cmd, fd);
-	//check in/out
-	//
-	//execve/moulinator
+static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
+{//unsafe
+	const int	flags = O_WRONLY | O_CREAT;
+	const int	perm = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+	void		*line;
+
+	if (fd[0] >= 0)
+		close(fd[0]);
+	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)
+	{
+		if (cmd->token_type == INFILE)
+		{
+			close(fd[2]);
+			fd[2] = open(cmd->token_value, O_RDONLY, 0);
+		}
+		if (cmd->token_type == OUTFILE)
+		{
+			close(fd[1]);
+			fd[1] = open(cmd->token_value, flags | O_TRUNC, perm);
+		}/*
+		if (cmd->token_type == HEREDOC)
+		{
+			close(fd[2]);
+			fd[2] = open(cmd->token_value, O_RDONLY, 0);
+		}*/
+		if (cmd->token_type == APPEND)
+		{
+			close(fd[1]);
+			fd[1] = open(cmd->token_value, flags | O_APPEND, perm);
+		}
+		++cmd;
+	}
+	dup2(fd[1], STDOUT_FILENO);
+	dup2(fd[2], STDIN_FILENO);
+	if (cmd->token_type == CMD)
+	{
+		line = ft_join_split((char **)(cmd->token_value));
+		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
+		{
+			line = ft_join_split((char **)(cmd->token_value));
+			ft_call_built_in(mini, line);
+		}
+		else
+		{
+			line = /*env*/0;
+			//execve(#PATH#, cmd->token_value, line);
+		}
+		free(line);
+	}
+	else
+	{
+		ft_executor(mini, cmd->token_value);
+	}
+	exit(0);
 }
 
-void	ft_pipex(t_minishell *mini, char *line)
+int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 {//unsafe
-	if (ft_is_a_built_in(line))
-		ft_call_built_in(mini, line);
-	char	**lst_cmd;
 	int		i;
 	int		fd[3];
 	int		pid;
-
+//dprintf(2, "pipex %p\n", pipex);
 	fd[0] = 0;
 	//split |
 	//lst_cmd = split(line, '|')
 	//
 	//foreach pipe fork
-	if (!lst_cmd)
+	//if (!lst_cmd)
 		//return error
-	i = 0;
-	while (lst_cmd[i])
+	i = -1;
+	while (pipex[++i])
 	{
 		fd[2] = fd[0];
-		if (lst_cmd[i+1])
+		if (pipex[i+1])
 			pipe(fd);
 		else
 		{
@@ -51,18 +95,18 @@ void	ft_pipex(t_minishell *mini, char *line)
 		}
 		pid = fork();
 		if (!pid)
-			child(lst_cmd[i], fd);
+			child(mini, pipex[i], fd);
 		else
 		{
 			close(fd[1]);
 			close(fd[2]);
 		}
 	}
+	waitpid(pid, &pid, 0);
 	while (wait(0) >= 0)
 		;
-	//return success
+	return (pid);
 }
-*/
 
 static char	*ft_heredoc(char *line)
 {//TODO
@@ -209,5 +253,6 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 			ret =  ft_free_pipex(ret);
 	}
 	ft_free_split(split);
+//dprintf(2, "token pipex %p\n", ret);
 	return (ret);
 }
