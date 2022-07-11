@@ -6,11 +6,23 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:47:52 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/19 15:39:43 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 11:28:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+
+void	ft_memset(void *block, int c, unsigned long size)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (i < size)
+	{
+		*(unsigned char *)(block + i) = (unsigned char)c;
+		i++;
+	}
+}
 
 void	*ft_calloc(int count, int eltsize)
 {

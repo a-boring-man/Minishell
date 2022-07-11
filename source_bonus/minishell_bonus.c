@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/10 13:58:48 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 12:03:53 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();
-	ft_env_init(&mini, env);
+	if (ft_env_init(&mini, env))
+		exit (0); // error a fair
 	while (!stop)
 	{
 		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose

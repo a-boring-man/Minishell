@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/06/17 12:09:16 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 11:28:46 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	**ft_free_split(char **split);
 char	*ft_join_split(char **split);
 char	*ft_strndup_del(char *s, int n, char c);
 int		ft_count_size(t_minishell *mini, char *s, char c);
-
+void	ft_memset(void *block, int c, unsigned long size);
 int		ft_strlen_s(char *s);
 void	*ft_calloc(int count, int eltsize);
 char	*ft_strjoin_f(char *s1, char *s2);
