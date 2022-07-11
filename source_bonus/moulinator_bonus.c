@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/06/22 12:11:31 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 11:37:11 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i, int cb)
 	{
 		grostoken[cb].next_operator_type = -1;
 		grostoken[cb].petit_token = ft_tokenize_pipe(mini, block_tmp);
+		if (!grostoken[cb].petit_token)
+dprintf(2, "warning !!!!\n");
 	}
 	//else
 		//ft_free((void **)grostoken);

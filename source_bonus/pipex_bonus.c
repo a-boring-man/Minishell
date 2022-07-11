@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/06/22 12:50:52 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 13:22:04 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		}
 		else
 		{
-			line = /*env*/0;
-			//execve(#PATH#, cmd->token_value, line);
+			line = ft_reverse_env(mini->env);
+			execve(ft_get_path((char **)line), cmd->token_value, line);
 		}
 		free(line);
 	}
@@ -153,7 +153,7 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 		if ((line[i] == '<' || line[i] == '>') && !(mini->single_quote
 				+ mini->double_quote + mini->parenthese))
 		{
-			if (i && mini->char_count <= 1)
+			if (i && mini->char_count < 1)
 				return (0);
 			mini->char_count = 0;
 			if (line[i + 1] == line[i])
@@ -161,7 +161,7 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 			++(mini->block);
 		}
 	}
-	if (mini->char_count <= 1)
+	if (mini->char_count < 1)
 		return (0);
 	return (mini->block + 1);
 }
@@ -173,6 +173,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 	int						i;
 	int						blk;
 
+dprintf(2, "cmd: token_count=%d, ret=%p\n", token_count, ret);
 	if (!ret)
 		return (0);
 	(ret + token_count - 1)->token_type = CMD;
@@ -236,6 +237,7 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	t_petit_token	**ret;
 	char **const	split = ft_super_split(mini, line, '|');
 
+dprintf(2, "pipe: split=%p\n", split);
 	if (!split)
 		return (0);
 	i = -1;
@@ -243,10 +245,12 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	while (split[++i])
 		++nb;
 	ret = ft_calloc(nb + 1, sizeof(void *));
+dprintf(2, "pipe: cmd_nb=%d, malloc=%p\n", nb, ret);
 	i = -1;
 	while (ret && ++i < nb)
 	{
 		ret[i] = ft_tokenize_cmd(mini, split[i]);
+dprintf(2, "pipe: ret[%d]=%p\n", i, ret[i]);
 		if (!ret[i])
 			ret =  ft_free_pipex(ret);
 	}
