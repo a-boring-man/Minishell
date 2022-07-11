@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/10 13:58:48 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:11:42 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,13 @@ int	main(int ac, char **av, char **env)
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();
 	ft_env_init(&mini, env);
-	while (!stop)
+	test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
+	while (test)
 	{
-		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
-		if (!test)
-		{
-			stop = 1;
-			printf("exit ");
-		}
-		else if (*test)
-		{
-			add_history(test);
-			ft_moulinator(&mini, test);
-		}
+		add_history(test);
+		ft_moulinator(&mini, test);
 		free(test);
+		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
 	}
 	ft_lstclear_env(&mini.env);
 	rl_clear_history();
