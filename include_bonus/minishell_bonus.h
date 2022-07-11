@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/11 14:29:13 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 15:27:19 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_minishell
 	int		ou;
 	int		char_count;
 	int		block;
+	int		cb;
 	t_env	*env;
 }	t_minishell;
 
