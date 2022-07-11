@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/06/17 14:54:23 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/06/22 12:50:52 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,8 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 	int		i;
 	int		fd[3];
 	int		pid;
-//dprintf(2, "pipex %p\n", pipex);
+
 	fd[0] = 0;
-	//split |
-	//lst_cmd = split(line, '|')
-	//
-	//foreach pipe fork
-	//if (!lst_cmd)
-		//return error
 	i = -1;
 	while (pipex[++i])
 	{
@@ -95,11 +89,15 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 		}
 		pid = fork();
 		if (!pid)
+		{
 			child(mini, pipex[i], fd);
+		}
 		else
 		{
-			close(fd[1]);
-			close(fd[2]);
+			if (fd[1] >= 3)
+				close(fd[1]);
+			if (fd[2] >= 3)
+				close(fd[2]);
 		}
 	}
 	waitpid(pid, &pid, 0);

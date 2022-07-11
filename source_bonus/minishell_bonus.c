@@ -6,7 +6,11 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/07/11 12:03:53 by jrinna           ###   ########lyon.fr   */
+=======
+/*   Updated: 2022/06/22 12:11:42 by jalamell         ###   ########lyon.fr   */
+>>>>>>> 62b63185cfd803bc1d7d1d4360e48300968c977a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +62,10 @@ int	main(int ac, char **av, char **env)
 		exit (0); // error a fair
 	while (!stop)
 	{
-		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
-		if (!test)
-		{
-			stop = 1;
-			printf("exit ");
-		}
-		else if (*test)
-		{
-			add_history(test);
-			ft_moulinator(&mini, test);
-		}
+		add_history(test);
+		ft_moulinator(&mini, test);
 		free(test);
+		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
 	}
 	ft_lstclear_env(&mini.env);
 	rl_clear_history();
