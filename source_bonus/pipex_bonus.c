@@ -6,12 +6,44 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/11 13:22:04 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 15:19:30 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
+
+static char	*ft_get_path(char **env, char *exe)
+{
+	char	**path;
+	char	*tmp;
+
+	if (env)
+	{
+		while (*env && ft_strncmp(*env, "PATH=", 5))
+		{
+			++env;
+		}
+		if (!*env)
+			return (0);
+		path = ft_split((*env) + 5, ':');
+	}
+	else
+		path = 0;
+	if (!path)
+		return (exe);
+	if (!access(exe, X_OK))
+		return (exe);
+	while (*path)
+	{
+		tmp = ft_strjoin_f(ft_strjoin_nf(*path, "/"), exe);
+		if (!access(tmp, X_OK))
+			return (tmp);
+		free(tmp);
+		++path;
+	}
+	return (exe);
+}
 
 static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 {//unsafe
@@ -49,7 +81,6 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 	dup2(fd[2], STDIN_FILENO);
 	if (cmd->token_type == CMD)
 	{
-		line = ft_join_split((char **)(cmd->token_value));
 		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
 		{
 			line = ft_join_split((char **)(cmd->token_value));
@@ -58,7 +89,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		else
 		{
 			line = ft_reverse_env(mini->env);
-			execve(ft_get_path((char **)line), cmd->token_value, line);
+			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
 		}
 		free(line);
 	}

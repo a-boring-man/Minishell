@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/11 11:28:46 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 13:28:04 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ int		ft_isincharset(char c, char *charset);
 char	*ft_substr(char *s, int start, int len);
 void	ft_executor(t_minishell *mini, t_grostoken *gt);
 int		ft_ptit_executor(t_minishell *mini, t_petit_token **pipex);
+char			**ft_reverse_env(t_env *env);
 
 #endif
 
