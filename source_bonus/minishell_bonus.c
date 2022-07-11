@@ -6,7 +6,11 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/07/11 12:03:53 by jrinna           ###   ########lyon.fr   */
+=======
 /*   Updated: 2022/06/22 12:11:42 by jalamell         ###   ########lyon.fr   */
+>>>>>>> 62b63185cfd803bc1d7d1d4360e48300968c977a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +58,9 @@ int	main(int ac, char **av, char **env)
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config();
-	ft_env_init(&mini, env);
-	test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
-	while (test)
+	if (ft_env_init(&mini, env))
+		exit (0); // error a fair
+	while (!stop)
 	{
 		add_history(test);
 		ft_moulinator(&mini, test);
