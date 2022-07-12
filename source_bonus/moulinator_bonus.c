@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/11 15:35:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/12 13:48:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ int	ft_moulinator(t_minishell *mini, char *line)
 	if (!gt)
 		return (0);
 	ft_executor(mini, gt);
+	ft_free_big_token(gt, 0, 0);
 	return (1);
 }
