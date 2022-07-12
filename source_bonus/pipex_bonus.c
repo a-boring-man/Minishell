@@ -6,12 +6,44 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/06/22 12:50:52 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/11 15:19:30 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
+
+static char	*ft_get_path(char **env, char *exe)
+{
+	char	**path;
+	char	*tmp;
+
+	if (env)
+	{
+		while (*env && ft_strncmp(*env, "PATH=", 5))
+		{
+			++env;
+		}
+		if (!*env)
+			return (0);
+		path = ft_split((*env) + 5, ':');
+	}
+	else
+		path = 0;
+	if (!path)
+		return (exe);
+	if (!access(exe, X_OK))
+		return (exe);
+	while (*path)
+	{
+		tmp = ft_strjoin_f(ft_strjoin_nf(*path, "/"), exe);
+		if (!access(tmp, X_OK))
+			return (tmp);
+		free(tmp);
+		++path;
+	}
+	return (exe);
+}
 
 static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 {//unsafe
@@ -49,7 +81,6 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 	dup2(fd[2], STDIN_FILENO);
 	if (cmd->token_type == CMD)
 	{
-		line = ft_join_split((char **)(cmd->token_value));
 		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
 		{
 			line = ft_join_split((char **)(cmd->token_value));
@@ -57,8 +88,8 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		}
 		else
 		{
-			line = /*env*/0;
-			//execve(#PATH#, cmd->token_value, line);
+			line = ft_reverse_env(mini->env);
+			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
 		}
 		free(line);
 	}
@@ -153,7 +184,7 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 		if ((line[i] == '<' || line[i] == '>') && !(mini->single_quote
 				+ mini->double_quote + mini->parenthese))
 		{
-			if (i && mini->char_count <= 1)
+			if (i && mini->char_count < 1)
 				return (0);
 			mini->char_count = 0;
 			if (line[i + 1] == line[i])
@@ -161,7 +192,7 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 			++(mini->block);
 		}
 	}
-	if (mini->char_count <= 1)
+	if (mini->char_count < 1)
 		return (0);
 	return (mini->block + 1);
 }
@@ -173,6 +204,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 	int						i;
 	int						blk;
 
+dprintf(2, "cmd: token_count=%d, ret=%p\n", token_count, ret);
 	if (!ret)
 		return (0);
 	(ret + token_count - 1)->token_type = CMD;
@@ -236,6 +268,7 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	t_petit_token	**ret;
 	char **const	split = ft_super_split(mini, line, '|');
 
+dprintf(2, "pipe: split=%p\n", split);
 	if (!split)
 		return (0);
 	i = -1;
@@ -243,10 +276,12 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	while (split[++i])
 		++nb;
 	ret = ft_calloc(nb + 1, sizeof(void *));
+dprintf(2, "pipe: cmd_nb=%d, malloc=%p\n", nb, ret);
 	i = -1;
 	while (ret && ++i < nb)
 	{
 		ret[i] = ft_tokenize_cmd(mini, split[i]);
+dprintf(2, "pipe: ret[%d]=%p\n", i, ret[i]);
 		if (!ret[i])
 			ret =  ft_free_pipex(ret);
 	}
