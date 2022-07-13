@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:56:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/13 15:50:39 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/13 15:59:36 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ static void	ft_double_quote(char **new_line, char **s)
 		*s += 1;
 }
 
+static void	ft_single_quote(char **new_line, char **s)
+{
+	int		i;
+
+	*s += 1;
+	i = 0;
+	while ((*s)[i] && (*s)[i] != '\'')
+		i++;
+	*new_line = ft_strnjoin_f(*new_line, *s, i);
+	*s = *s + i;
+	if (**s)
+		*s += 1;
+}
+
 char	*ft_expand_line(char *s)
 {
 	int		i;
@@ -57,10 +71,10 @@ char	*ft_expand_line(char *s)
 		ft_normal_block(&new_line, &s, i);
 		if (*s == '"')
 			ft_double_quote(&new_line, &s);
-		/*else if (*s == '\'')
+		else if (*s == '\'')
 			ft_single_quote(&new_line, &s);
 		else if (*s == '$')
-			ft_dollar(&new_line, &s); */
+			ft_dollar(&new_line, &s);
 	}
 	return (new_line);
 }
