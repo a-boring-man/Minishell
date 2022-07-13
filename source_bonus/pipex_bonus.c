@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/11 15:19:30 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/13 17:44:48 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		{
 			close(fd[1]);
 			fd[1] = open(cmd->token_value, flags | O_TRUNC, perm);
-		}/*
+		}
 		if (cmd->token_type == HEREDOC)
 		{
 			close(fd[2]);
-			fd[2] = open(cmd->token_value, O_RDONLY, 0);
-		}*/
+			fd[2] = (int) cmd->token_value - 1;
+		}
 		if (cmd->token_type == APPEND)
 		{
 			close(fd[1]);
@@ -137,9 +137,24 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 	return (pid);
 }
 
-static char	*ft_heredoc(char *line)
-{//TODO
-	return (line);
+static int	ft_heredoc(char *line)
+{//unsafe
+	int		fd[2];
+	char	*str;
+
+	pipe(fd);
+	str = readline(">");
+	while (str && ft_strcmp(str, line))
+	{
+		write(fd[1], str, ft_strlen_s(str));
+		write(fd[1], "\n", 1);
+		free(str);
+		str = readline(">");
+	}
+	if (str)
+		free(str);
+	close(fd[1]);
+	return (fd[0]);
 }
 
 static char	*ft_cut_quote(char *line)
@@ -240,7 +255,7 @@ dprintf(2, "cmd: token_count=%d, ret=%p\n", token_count, ret);
 		ret[blk].token_value = ft_cut_quote(ft_strndup_del(line + i,
 				ft_count_size(mini, line + i, ' '), ' '));
 		if (ret[blk].token_type == HEREDOC)
-			ret[blk].token_value = ft_heredoc(ret[blk].token_value);
+			ret[blk].token_value = (char *) 1 + ft_heredoc(ret[blk].token_value);
 		++blk;
 	}
 	ret[blk].token_value = ft_super_split(mini, line, ' ');
