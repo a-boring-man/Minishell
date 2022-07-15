@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/12 13:50:54 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 11:46:52 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_minishell
 }	t_minishell;
 
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line);
+t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i);
 char			**ft_super_split(t_minishell *mini, char *s, char c);
 char			**ft_free_split(char **split);
 char			*ft_join_split(char **split);
