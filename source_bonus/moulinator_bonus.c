@@ -6,23 +6,23 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/12 13:50:08 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 14:07:27 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static void	ft_free_big_token(t_grostoken *gt, int cb, int mode)
+static void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
 {
 	int	i;
 
 	i = -1;
 	if (mode)
 		while (++i < cb)
-			ft_free_pipex(gt[i].petit_token);
+			ft_free_pipex((*gt)[i].petit_token);
 	else
-		while (gt[++i].next_operator_type != -1)
-			ft_free_pipex(gt[i].petit_token);
+		while ((*gt)[++i].next_operator_type != -1)
+			ft_free_pipex((*gt)[i].petit_token);
 	ft_free((void **)gt);
 }
 
@@ -40,7 +40,7 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 			gt[mini->cb++].petit_token = ft_tokenize_pipe(mini,
 					ft_strndup(*block_tmp, ft_strlen_s(*block_tmp) - 1));
 			if (!gt[mini->cb - 1].petit_token)
-				ft_free_big_token(gt, mini->cb - 1, 1);
+				ft_free_big_token(&gt, mini->cb - 1, 1);
 			if (!gt[mini->cb - 1].petit_token)
 				return (1);
 			ft_free((void **)(block_tmp));
@@ -49,18 +49,19 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 		}
 		else
 		{
-			ft_free_big_token(gt, mini->cb, 1);
+			ft_free_big_token(&gt, mini->cb, 1);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-static t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
+t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 {
 	char		*block_tmp;
 	t_grostoken	*grostoken;
 
+	mini->cb = 0;
 	grostoken = ft_calloc(mini->block, sizeof(t_grostoken));
 	ft_parsing_init(mini);
 	block_tmp = NULL;
@@ -72,10 +73,10 @@ static t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 		grostoken[mini->cb].next_operator_type = -1;
 		grostoken[mini->cb].petit_token = ft_tokenize_pipe(mini, block_tmp);
 		if (!grostoken[mini->cb].petit_token)
-			ft_free_big_token(grostoken, mini->cb, 0);
+			ft_free_big_token(&grostoken, mini->cb, 0);
 	}
 	else
-		ft_free_big_token(grostoken, mini->cb, 0);
+		ft_free_big_token(&grostoken, mini->cb, 0);
 	return (grostoken);
 }
 
@@ -120,6 +121,6 @@ int	ft_moulinator(t_minishell *mini, char *line)
 	if (!gt)
 		return (0);
 	ft_executor(mini, gt);
-	ft_free_big_token(gt, 0, 0);
+	ft_free_big_token(&gt, 0, 0);
 	return (1);
 }

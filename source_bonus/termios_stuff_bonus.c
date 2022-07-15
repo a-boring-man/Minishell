@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 11:49:11 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 11:53:07 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 14:14:23 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_term_switch_nd(t_minishell *m)
 {
-	tcgetattr(STDIN_FILENO, &m->no_display);
+	tcsetattr(STDIN_FILENO, 0, &m->no_display);
 }
 
 void	ft_term_switch_d(t_minishell *m)
 {
-	tcgetattr(STDIN_FILENO, &m->display);
+	tcsetattr(STDIN_FILENO, 0, &m->display);
 }
 
 void	ft_term_config(t_minishell *m)

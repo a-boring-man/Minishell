@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/11 15:19:30 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 13:20:26 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		{
 			close(fd[1]);
 			fd[1] = open(cmd->token_value, flags | O_TRUNC, perm);
-		}/*
+		}
 		if (cmd->token_type == HEREDOC)
 		{
 			close(fd[2]);
-			fd[2] = open(cmd->token_value, O_RDONLY, 0);
-		}*/
+			fd[2] = (int) cmd->token_value - 1;
+		}
 		if (cmd->token_type == APPEND)
 		{
 			close(fd[1]);
@@ -137,9 +137,24 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 	return (pid);
 }
 
-static char	*ft_heredoc(char *line)
-{//TODO
-	return (line);
+static int	ft_heredoc(char *line)
+{//unsafe
+	int		fd[2];
+	char	*str;
+
+	pipe(fd);
+	str = readline(">");
+	while (str && ft_strcmp(str, line))
+	{
+		write(fd[1], str, ft_strlen_s(str));
+		write(fd[1], "\n", 1);
+		free(str);
+		str = readline("> ");
+	}
+	if (str)
+		free(str);
+	close(fd[1]);
+	return (fd[0]);
 }
 
 static char	*ft_cut_quote(char *line)
@@ -203,8 +218,8 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 	t_petit_token *const	ret = ft_calloc(token_count, sizeof(t_petit_token));
 	int						i;
 	int						blk;
+	char					**tmp;
 
-dprintf(2, "cmd: token_count=%d, ret=%p\n", token_count, ret);
 	if (!ret)
 		return (0);
 	(ret + token_count - 1)->token_type = CMD;
@@ -240,10 +255,24 @@ dprintf(2, "cmd: token_count=%d, ret=%p\n", token_count, ret);
 		ret[blk].token_value = ft_cut_quote(ft_strndup_del(line + i,
 				ft_count_size(mini, line + i, ' '), ' '));
 		if (ret[blk].token_type == HEREDOC)
-			ret[blk].token_value = ft_heredoc(ret[blk].token_value);
+			ret[blk].token_value = (char *) 1 + ft_heredoc(ret[blk].token_value);
 		++blk;
 	}
-	ret[blk].token_value = ft_super_split(mini, line, ' ');
+	tmp = ft_super_split(mini, line, ' ');
+	ret[blk].token_value = tmp;
+	if (tmp[0][0] == '(')
+	{
+		ret[blk].token_type = PARENTHESE;
+		i = ft_strlen_s(tmp[0]);
+		if (tmp[0][i - 1] != ')' || tmp[1])
+			return (ft_free_cmd(ret));
+		tmp[0][0] = ' ';
+		tmp[0][i - 1] = ' ';
+		if (!ft_good_parenthese_and_quote(mini, line))
+			return (ft_free_cmd(ret));
+		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
+		ft_free_split(tmp);
+	}
 	return (ret);
 }
 
@@ -268,7 +297,6 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	t_petit_token	**ret;
 	char **const	split = ft_super_split(mini, line, '|');
 
-dprintf(2, "pipe: split=%p\n", split);
 	if (!split)
 		return (0);
 	i = -1;
@@ -276,16 +304,13 @@ dprintf(2, "pipe: split=%p\n", split);
 	while (split[++i])
 		++nb;
 	ret = ft_calloc(nb + 1, sizeof(void *));
-dprintf(2, "pipe: cmd_nb=%d, malloc=%p\n", nb, ret);
 	i = -1;
 	while (ret && ++i < nb)
 	{
 		ret[i] = ft_tokenize_cmd(mini, split[i]);
-dprintf(2, "pipe: ret[%d]=%p\n", i, ret[i]);
 		if (!ret[i])
 			ret =  ft_free_pipex(ret);
 	}
 	ft_free_split(split);
-//dprintf(2, "token pipex %p\n", ret);
 	return (ret);
 }
