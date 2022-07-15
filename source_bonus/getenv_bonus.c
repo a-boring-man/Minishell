@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:49:30 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 10:45:51 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 11:20:56 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ char	**ft_getenv_value(t_minishell *mini, char *name)
 			return (&tmp->value);
 		tmp = tmp->next;
 	}
-	printf("name : %s", name);
 	return (NULL);
 }
