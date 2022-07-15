@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 11:06:53 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/15 11:52:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,17 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
-	int		double_quote;
-	int		single_quote;
-	int		parenthese;
-	int		et;
-	int		ou;
-	int		char_count;
-	int		block;
-	int		cb;
-	t_env	*env;
+	int				double_quote;
+	int				single_quote;
+	int				parenthese;
+	int				et;
+	int				ou;
+	int				char_count;
+	int				block;
+	int				cb;
+	t_env			*env;
+	struct termios	display;
+	struct termios	no_display;
 }	t_minishell;
 
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line);
@@ -171,7 +173,9 @@ void			ft_executor(t_minishell *mini, t_grostoken *gt);
 int				ft_ptit_executor(t_minishell *mini, t_petit_token **pipex);
 t_petit_token	**ft_free_pipex(t_petit_token **pipex);
 char			**ft_reverse_env(t_env *env);
-void			ft_term_config(void);
+void			ft_term_config(t_minishell *m);
+void			ft_term_switch_d(t_minishell *m);
+void			ft_term_switch_nd(t_minishell *m);
 
 #endif
 
