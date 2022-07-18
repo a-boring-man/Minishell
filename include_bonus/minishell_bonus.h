@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 13:32:39 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 11:55:11 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_minishell
 }	t_minishell;
 
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line);
-t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i);
+t_grostoken		*ft_tab_init(t_minishell *mini, char *line, int i);
 char			**ft_super_split(t_minishell *mini, char *s, char c);
 char			**ft_free_split(char **split);
 char			*ft_join_split(char **split);
@@ -138,7 +138,7 @@ int				ft_isalpha(int c);
  * @return int 
  */
 int				ft_is_it_a_valid_env_name(char *name);
-void			ft_unset(t_minishell *mini, char *s);
+int				ft_unset(t_minishell *mini, char *s);
 /**
  * @brief del the node in the link list pointed to by name
  * 
@@ -152,7 +152,7 @@ char			*ft_splitfirst_word(char *line);
 int				ft_moulinator(t_minishell *mini, char *line);
 int				ft_is_a_built_in(char *line);
 char			**ft_split(char *s, char c);
-void			ft_call_built_in(t_minishell *mini, char *line);
+int				ft_call_built_in(t_minishell *mini, char *line);
 void			ft_precall_echo(char *line);
 void			ft_precall_cd(t_minishell *mini, char *line);
 int				ft_cd(t_minishell *mini, char *s);
@@ -170,13 +170,18 @@ char			*ft_strndup(char *s, int n);
 char			*ft_strtrim(char *s1, char *set);
 int				ft_isincharset(char c, char *charset);
 char			*ft_substr(char *s, int start, int len);
-void			ft_executor(t_minishell *mini, t_grostoken *gt);
+int				ft_executor(t_minishell *mini, t_grostoken *gt);
 int				ft_ptit_executor(t_minishell *mini, t_petit_token **pipex);
 t_petit_token	**ft_free_pipex(t_petit_token **pipex);
 char			**ft_reverse_env(t_env *env);
 void			ft_term_config(t_minishell *m);
 void			ft_term_switch_d(t_minishell *m);
 void			ft_term_switch_nd(t_minishell *m);
+char			*ft_itoa(int n);
+int				ft_super_atol(char *s);
+void			ft_precall_exit(char *s);
+int				ft_exit(char *s);
+char			*ft_expand_line(t_minishell *m, char *s);
 
 #endif
 

@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor_bonus.c                                   :+:      :+:    :+:   */
+/*   exit_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 09:50:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 11:31:13 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/07/18 09:46:26 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/18 11:23:48 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_executor(t_minishell *mini, t_grostoken *gt)
+int	ft_exit(char *s)
 {
-	int	last_return;
-	int	i;
-
-	i = -1;
-	while (1)
-	{
-		last_return = ft_ptit_executor(mini, gt[++i].petit_token);
-		if (last_return)
-			while (gt[i].next_operator_type == ET)
-				++i;
-		else
-			while (gt[i].next_operator_type == OU)
-				++i;
-		if (gt[i].next_operator_type == -1)
-			break ;
-	}
-	return (last_return);
+	return (ft_super_atol(s));
 }
