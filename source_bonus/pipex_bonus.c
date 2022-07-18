@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 12:03:31 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 13:02:24 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,14 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 	exit(ret);
 }
 
-static int	ft_single_built_in(t_minishell, t_petit_token **pipex, int *ret)
+static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 {
 	char	*line;
 	if (pipex[1])
 		return (0);
 	if (!ft_is_a_built_in(*(char **)((*pipex)->token_value)))
 		return (0);
-	line = ft_join_split((char **)(cmd->token_value));
+	line = ft_join_split((char **)((*pipex)->token_value));
 	*ret = ft_call_built_in(mini, line);
 	free(line);
 	return (1);
@@ -268,7 +268,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		++i;
 		while (line[i] == ' ')
 			++i;
-		ret[blk].token_value = ft_expand_line(ft_strndup_del(line + i,
+		ret[blk].token_value = ft_expand_line(mini, ft_strndup_del(line + i,
 				ft_count_size(mini, line + i, ' '), ' '));
 		if (ret[blk].token_type == HEREDOC)
 			ret[blk].token_value = (char *) 1 + ft_heredoc(ret[blk].token_value);
