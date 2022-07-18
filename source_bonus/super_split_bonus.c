@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 11:21:38 by jalamell          #+#    #+#             */
-/*   Updated: 2022/06/17 14:43:07 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 13:56:37 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	**ft_super_split(t_minishell *mini, char *s, char c)
 		while (c != '|' && *s == c)
 			++s;
 		n = ft_count_size(mini, s, c);
-		ret[i] = ft_strndup_del(s, n, c);
+		ret[i] = ft_expand_line(mini, ft_strndup_del(s, n, c));
 		s += n + 1;
 		if (!ret[i])
 			return (ft_free_split(ret));

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:56:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 11:25:09 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 13:55:34 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ static void	ft_single_quote(char **new_line, char **s)
 
 char	*ft_expand_line(t_minishell *m, char *s)
 {
-	int		i;
-	char	*new_line;
+	int			i;
+	char		*new_line;
+	char *const	to_free = s;
 
 	new_line = ft_calloc(1, sizeof(char));
 	while (*s)
@@ -88,6 +89,7 @@ char	*ft_expand_line(t_minishell *m, char *s)
 		else if (*s == '$')
 			ft_dollar(m, &new_line, &s);
 	}
+	free(to_free);
 	return (new_line);
 }
 

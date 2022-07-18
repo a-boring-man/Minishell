@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 13:02:24 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 14:18:37 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*ft_get_path(char **env, char *exe)
 			++env;
 		}
 		if (!*env)
-			return (0);
+			return (exe);
 		path = ft_split((*env) + 5, ':');
 	}
 	else
@@ -91,6 +91,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		{
 			line = ft_reverse_env(mini->env);
 			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
+			dprintf(2, "error: %s: command not found\n", *(char  **)(cmd->token_value));
 			free(line);
 			exit(127);
 		}
