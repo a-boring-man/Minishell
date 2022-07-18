@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 09:06:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 11:56:21 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 	int		i;
 	int		fd[3];
 	int		pid;
+	int		ret;
 
 	fd[0] = 0;
 	i = -1;
@@ -131,10 +132,12 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 				close(fd[2]);
 		}
 	}
-	waitpid(pid, &pid, 0);
+	ret = -1;
+	while (!WIFEXITED(ret))
+		waitpid(pid, &ret, 0);
 	while (wait(0) >= 0)
 		;
-	return (pid);
+	return (WEXITSTATUS(ret));
 }
 
 static int	ft_heredoc(char *line)
