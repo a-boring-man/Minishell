@@ -6,7 +6,7 @@
 /*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 11:00:31 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 11:56:51 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 	const int	flags = O_WRONLY | O_CREAT;
 	const int	perm = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
 	void		*line;
+	int			ret;
 
 	if (fd[0] >= 0)
 		close(fd[0]);
@@ -84,20 +85,35 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
 		{
 			line = ft_join_split((char **)(cmd->token_value));
-			ft_call_built_in(mini, line);
+			ret = ft_call_built_in(mini, line);
 		}
 		else
 		{
 			line = ft_reverse_env(mini->env);
 			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
+			free(line);
+			exit(127);
 		}
 		free(line);
 	}
 	else
 	{
-		ft_executor(mini, cmd->token_value);
+		ret = ft_executor(mini, cmd->token_value);
 	}
-	exit(0);
+	exit(ret);
+}
+
+static int	ft_single_built_in(t_minishell, t_petit_token **pipex, int *ret)
+{
+	char	*line;
+	if (pipex[1])
+		return (0);
+	if (!ft_is_a_built_in(*(char **)((*pipex)->token_value)))
+		return (0);
+	line = ft_join_split((char **)(cmd->token_value));
+	*ret = ft_call_built_in(mini, line);
+	free(line);
+	return (1);
 }
 
 int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
@@ -109,6 +125,8 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 
 	fd[0] = 0;
 	i = -1;
+	if (ft_single_built_in(mini, pipex, &ret))
+		return (ret);
 	while (pipex[++i])
 	{
 		fd[2] = fd[0];
@@ -158,11 +176,6 @@ static int	ft_heredoc(char *line)
 		free(str);
 	close(fd[1]);
 	return (fd[0]);
-}
-
-static char	*ft_cut_quote(char *line)
-{//TODO
-	return (line);
 }
 
 t_petit_token	*ft_free_cmd(t_petit_token *cmd)
@@ -255,7 +268,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		++i;
 		while (line[i] == ' ')
 			++i;
-		ret[blk].token_value = ft_cut_quote(ft_strndup_del(line + i,
+		ret[blk].token_value = ft_expand_line(ft_strndup_del(line + i,
 				ft_count_size(mini, line + i, ' '), ' '));
 		if (ret[blk].token_type == HEREDOC)
 			ret[blk].token_value = (char *) 1 + ft_heredoc(ret[blk].token_value);
