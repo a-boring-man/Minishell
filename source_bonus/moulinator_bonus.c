@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 14:07:27 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 12:54:14 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
 	int	i;
 
 	i = -1;
+	if (!gt || !*gt)
+		return ;
 	if (mode)
 		while (++i < cb)
 			ft_free_pipex((*gt)[i].petit_token);
@@ -114,6 +116,8 @@ int	ft_moulinator(t_minishell *mini, char *line)
 	t_grostoken	*gt;
 
 	if (!ft_good_parenthese_and_quote(mini, line))
+		return (0);
+	if (!line || !line[0])
 		return (0);
 	gt = ft_tab_init(mini, line, -1);
 	if (!gt)

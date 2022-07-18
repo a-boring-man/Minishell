@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:12:51 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 11:29:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 13:46:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@ int	ft_super_atol(char *s)
 	int		sgn;
 	int		i;
 
-	i = 0;
+	i = -1;
 	sgn = 1;
 	next = 0;
 	previous = 0;
 	if (!s)
 		return (0);
+	while (s[++i])
+		if (!((s[i] > 8 && s[i] < 14) || s[i] == 32 || s[i] == 43 || s[i] == 45
+				|| (s[i] > 47 && s[i] < 58)))
+			return (-1);
+	i = 0;
 	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
 		i++;
 	while (s[i] == 43 || s[i] == 45)
@@ -41,5 +46,5 @@ int	ft_super_atol(char *s)
 		if ((sgn == 1 && next < previous) || (sgn == -1 && next > previous))
 			return (-1);
 	}
-	return (sgn * next & 11111111);
+	return ((sgn * next) & 255);
 }
