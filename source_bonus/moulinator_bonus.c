@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 09:14:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 12:47:36 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,13 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	t_grostoken	*grostoken;
 
 	mini->cb = 0;
-dprintf(2, "%d\n", mini->block);
 	grostoken = ft_calloc(mini->block, sizeof(t_grostoken));
 	ft_parsing_init(mini);
 	block_tmp = NULL;
 	while (line[++i])
 		if (ft_gtblock_segmentor(mini, &line[i], grostoken, &block_tmp))
 			return (grostoken);
-	if (ft_strlen_s(ft_strtrim(block_tmp, "\t\n\v\f\r ")))
+	if (ft_strlen_s(block_tmp))
 	{
 		grostoken[mini->cb].next_operator_type = -1;
 		grostoken[mini->cb].petit_token = ft_tokenize_pipe(mini, block_tmp);
@@ -125,7 +124,8 @@ int	ft_moulinator(t_minishell *mini, char *line)
 		printf("parsing error token not recognize\n");
 	if (!gt)
 		return (0);
-	ft_executor(mini, gt);
+	last_error = ft_executor(mini, gt);
+	dprintf(2, "-%d-", last_error);
 	ft_free_big_token(&gt, 0, 0);
 	return (1);
 }

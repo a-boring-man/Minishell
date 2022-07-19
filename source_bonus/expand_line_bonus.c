@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:56:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/15 11:25:09 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 12:46:47 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,32 @@ static void	ft_dollar(t_minishell *m, char **new_line, char **s)
 
 	*s += 1;
 	i = 0;
-	while ((*s)[i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
-		i++;
-	tmp = ft_calloc(i + 1, sizeof(char));
-	i = -1;
-	while ((*s)[++i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
-		tmp[i] = (*s)[i];
+	if (*s[0] == '?')
+	{
+		i = 1;
+		tmp = ft_calloc(i + 1, sizeof(char));
+		tmp[0] = '?';
+	}
+	else if (!*s[0] || *s[0] == ' ' || !ft_isalnum((*s)[0]))
+	{
+		tmp = ft_calloc(2, sizeof(char));
+		tmp[0]= '$';
+		*new_line = ft_strjoin_f(*new_line, tmp);
+		ft_free((void **)&tmp);
+		return ;
+	}
+	else
+	{
+		while ((*s)[i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
+			i++;
+		tmp = ft_calloc(i + 1, sizeof(char));
+		i = -1;
+		while ((*s)[++i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
+			tmp[i] = (*s)[i];
+	}
 	if (ft_getenv_value(m, tmp))
 		*new_line = ft_strjoin_f(*new_line, *ft_getenv_value(m, tmp));
+	ft_free((void **)&tmp);
 	*s = *s + i;
 }
 
@@ -71,8 +89,9 @@ static void	ft_single_quote(char **new_line, char **s)
 
 char	*ft_expand_line(t_minishell *m, char *s)
 {
-	int		i;
-	char	*new_line;
+	int			i;
+	char		*new_line;
+	char *const	to_free = s;
 
 	new_line = ft_calloc(1, sizeof(char));
 	while (*s)
@@ -88,6 +107,7 @@ char	*ft_expand_line(t_minishell *m, char *s)
 		else if (*s == '$')
 			ft_dollar(m, &new_line, &s);
 	}
+	free(to_free);
 	return (new_line);
 }
 

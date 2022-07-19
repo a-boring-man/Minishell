@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 11:40:35 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 12:52:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int	ft_is_a_built_in(char *line)
 int	ft_call_built_in(t_minishell *mini, char *line)
 {
 	char	**split;
+	int		last_return;
 
 	split = ft_split(line, ' ');
-	last_error = 0;
+	last_return = 0;
 	if (!ft_strcmp("echo", split[0]))
-		ft_precall_echo(line);
+		last_return = ft_precall_echo(line);
 	if (!ft_strcmp("cd", split[0]))
-		ft_precall_cd(mini, line);
+		last_return = ft_precall_cd(mini, line);
 	if (!ft_strcmp("pwd", split[0]))
 		ft_pwd();
 	if (!ft_strcmp("export", split[0]))

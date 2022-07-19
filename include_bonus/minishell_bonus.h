@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 11:55:11 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 12:54:38 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int				ft_moulinator(t_minishell *mini, char *line);
 int				ft_is_a_built_in(char *line);
 char			**ft_split(char *s, char c);
 int				ft_call_built_in(t_minishell *mini, char *line);
-void			ft_precall_echo(char *line);
-void			ft_precall_cd(t_minishell *mini, char *line);
+int				ft_precall_echo(char *line);
+int				ft_precall_cd(t_minishell *mini, char *line);
 int				ft_cd(t_minishell *mini, char *s);
 void			ft_precall_export(t_minishell *mini, char *line);
 void			ft_pwd(void);

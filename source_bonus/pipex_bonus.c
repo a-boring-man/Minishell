@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 13:02:24 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 12:25:05 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*ft_get_path(char **env, char *exe)
 			++env;
 		}
 		if (!*env)
-			return (0);
+			return (exe);
 		path = ft_split((*env) + 5, ':');
 	}
 	else
@@ -78,8 +78,10 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		}
 		++cmd;
 	}
-	dup2(fd[1], STDOUT_FILENO);
-	dup2(fd[2], STDIN_FILENO);
+	if (fd[1] != 1)
+		dup2(fd[1], STDOUT_FILENO);
+	if (fd[2] != 0)
+		dup2(fd[2], STDIN_FILENO);
 	if (cmd->token_type == CMD)
 	{
 		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
@@ -91,6 +93,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		{
 			line = ft_reverse_env(mini->env);
 			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
+			dprintf(2, "minishell: %s: command not found\n", *(char  **)(cmd->token_value));
 			free(line);
 			exit(127);
 		}
@@ -105,12 +108,17 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 
 static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 {
+	int		i;
 	char	*line;
+
 	if (pipex[1])
 		return (0);
-	if (!ft_is_a_built_in(*(char **)((*pipex)->token_value)))
+	i = 0;
+	while (pipex[0][i].token_type != CMD && pipex[0][i].token_type != PARENTHESE)
+		++i;
+	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
 		return (0);
-	line = ft_join_split((char **)((*pipex)->token_value));
+	line = ft_join_split((char **)(pipex[0][i].token_value));
 	*ret = ft_call_built_in(mini, line);
 	free(line);
 	return (1);
