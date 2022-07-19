@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 11:45:32 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 13:12:49 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ static void	ft_printf_export(t_minishell *mini)
 
 int	ft_export(t_minishell *mini, char *s)
 {
+	int	last_return;
+
+	last_return = 0;
 	if (!s)
 		ft_printf_export(mini);
 	else if (ft_is_it_a_valid_env_name(ft_splitname(s)) && *s)
@@ -118,9 +121,9 @@ int	ft_export(t_minishell *mini, char *s)
 	else
 	{
 		printf("minishell_bonus: export: `%s': not a valid identifier\n", s);
-		last_error = 1;
+		last_return = 1;
 	}
-	return (last_error);
+	return (last_return);
 }
 
 /* int	main(int ac, char **av, char **env)

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:49:43 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 13:22:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_ctrl_backslash(int i)
 	write(2, "\b\b", 2); */
 }
 
+int	g_last_error = 0;
+
 int	main(int ac, char **av, char **env)
 {
 	char		*test;
@@ -42,7 +44,6 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	last_error = 0;
 	signal(SIGINT, ft_ctrl_c);
 	signal(SIGQUIT, ft_ctrl_backslash);
 	//ft_term_config(&mini);

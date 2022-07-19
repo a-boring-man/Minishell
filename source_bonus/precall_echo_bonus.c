@@ -6,13 +6,13 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:24 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:54:28 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 13:00:21 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_echo(char *line)
+void	ft_precall_echo(char *line)
 {
 	char	**split;
 	int		n;
@@ -31,5 +31,4 @@ int	ft_precall_echo(char *line)
 	}
 	if (!n)
 		write(1, "\n", 1);
-	return (0);
 }

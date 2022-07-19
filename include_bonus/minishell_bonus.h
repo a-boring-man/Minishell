@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:54:38 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 13:22:35 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ET 0
 # define OU 1
 
-static int	last_error = 0;
+extern int	g_last_error;
 
 typedef enum e_token_type
 {
@@ -153,13 +153,13 @@ int				ft_moulinator(t_minishell *mini, char *line);
 int				ft_is_a_built_in(char *line);
 char			**ft_split(char *s, char c);
 int				ft_call_built_in(t_minishell *mini, char *line);
-int				ft_precall_echo(char *line);
+void			ft_precall_echo(char *line);
 int				ft_precall_cd(t_minishell *mini, char *line);
 int				ft_cd(t_minishell *mini, char *s);
-void			ft_precall_export(t_minishell *mini, char *line);
+int				ft_precall_export(t_minishell *mini, char *line);
 void			ft_pwd(void);
 void			ft_env(t_minishell *mini);
-void			ft_precall_unset(t_minishell *mini, char *line);
+int				ft_precall_unset(t_minishell *mini, char *line);
 int				ft_good_parenthese_and_quote(t_minishell *mini, char *line);
 void			ft_parser_quote_and_or(t_minishell *mini, char c);
 void			ft_parsing_init(t_minishell *mini);

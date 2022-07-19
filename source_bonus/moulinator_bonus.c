@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:47:36 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 13:23:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,7 @@ int	ft_moulinator(t_minishell *mini, char *line)
 		printf("parsing error token not recognize\n");
 	if (!gt)
 		return (0);
-	last_error = ft_executor(mini, gt);
-	dprintf(2, "-%d-", last_error);
+	g_last_error = ft_executor(mini, gt);
 	ft_free_big_token(&gt, 0, 0);
 	return (1);
 }
