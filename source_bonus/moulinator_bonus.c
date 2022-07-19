@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 12:54:14 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/19 09:14:19 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	t_grostoken	*grostoken;
 
 	mini->cb = 0;
+dprintf(2, "%d\n", mini->block);
 	grostoken = ft_calloc(mini->block, sizeof(t_grostoken));
 	ft_parsing_init(mini);
 	block_tmp = NULL;
