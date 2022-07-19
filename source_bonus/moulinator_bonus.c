@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 12:54:14 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 15:39:11 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	while (line[++i])
 		if (ft_gtblock_segmentor(mini, &line[i], grostoken, &block_tmp))
 			return (grostoken);
-	if (ft_strlen_s(ft_strtrim(block_tmp, "\t\n\v\f\r ")))
+	if (ft_strlen_s(block_tmp))
 	{
 		grostoken[mini->cb].next_operator_type = -1;
 		grostoken[mini->cb].petit_token = ft_tokenize_pipe(mini, block_tmp);

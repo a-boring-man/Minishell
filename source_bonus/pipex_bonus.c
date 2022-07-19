@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/18 14:18:37 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/18 15:11:01 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		}
 		++cmd;
 	}
-	dup2(fd[1], STDOUT_FILENO);
-	dup2(fd[2], STDIN_FILENO);
+	if (fd[1] != 1)
+		dup2(fd[1], STDOUT_FILENO);
+	if (fd[2] != 0)
+		dup2(fd[2], STDIN_FILENO);
 	if (cmd->token_type == CMD)
 	{
 		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
