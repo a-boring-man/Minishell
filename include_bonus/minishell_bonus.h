@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 13:59:02 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 14:40:31 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ int				ft_dprintf(int fd, const char *format, ...);
 void			ft_dollar_if(int *i, char **tmp);
 void			ft_dollar_elsif(char **tmp, char **new_line);
 void			ft_clean(char **tab);
+void			ft_free_big_token(t_grostoken **gt, int cb, int mode);
 
 #endif

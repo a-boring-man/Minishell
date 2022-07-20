@@ -6,13 +6,13 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 09:37:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 14:12:26 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
+void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
 {
 	int	i;
 
@@ -51,6 +51,7 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 		}
 		else
 		{
+			ft_free((void **)(block_tmp));
 			ft_free_big_token(&gt, mini->cb, 1);
 			return (1);
 		}
@@ -79,6 +80,7 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	}
 	else
 		ft_free_big_token(&grostoken, mini->cb, 0);
+	ft_free((void **)(&block_tmp));
 	return (grostoken);
 }
 
