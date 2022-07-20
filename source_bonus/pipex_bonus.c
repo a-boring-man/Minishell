@@ -6,106 +6,12 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 11:05:47 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 13:59:25 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
-
-static char	*ft_get_path(char **env, char *exe)
-{
-	char	**path;
-	char	*tmp;
-
-	if (env)
-	{
-		while (*env && ft_strncmp(*env, "PATH=", 5))
-		{
-			++env;
-		}
-		if (!*env)
-			return (exe);
-		path = ft_split((*env) + 5, ':');
-	}
-	else
-		path = 0;
-	if (!path)
-		return (exe);
-	if (!access(exe, X_OK))
-		return (exe);
-	while (*path)
-	{
-		tmp = ft_strjoin_f(ft_strjoin_nf(*path, "/"), exe);
-		if (!access(tmp, X_OK))
-			return (tmp);
-		free(tmp);
-		++path;
-	}
-	return (exe);
-}
-
-static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
-{//unsafe
-	const int	flags = O_WRONLY | O_CREAT;
-	const int	perm = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	void		*line;
-	int			ret;
-
-	ft_term_switch_d(mini);
-	if (fd[0] >= 0)
-		close(fd[0]);
-	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)
-	{
-		if (cmd->token_type == INFILE)
-		{
-			close(fd[2]);
-			fd[2] = open(cmd->token_value, O_RDONLY, 0);
-		}
-		if (cmd->token_type == OUTFILE)
-		{
-			close(fd[1]);
-			fd[1] = open(cmd->token_value, flags | O_TRUNC, perm);
-		}
-		if (cmd->token_type == HEREDOC)
-		{
-			close(fd[2]);
-			fd[2] = (int) cmd->token_value - 1;
-		}
-		if (cmd->token_type == APPEND)
-		{
-			close(fd[1]);
-			fd[1] = open(cmd->token_value, flags | O_APPEND, perm);
-		}
-		++cmd;
-	}
-	if (fd[1] != 1)
-		dup2(fd[1], STDOUT_FILENO);
-	if (fd[2] != 0)
-		dup2(fd[2], STDIN_FILENO);
-	if (cmd->token_type == CMD)
-	{
-		if (ft_is_a_built_in(*(char **)(cmd->token_value)))
-		{
-			line = ft_join_split((char **)(cmd->token_value));
-			ret = ft_call_built_in(mini, line);
-		}
-		else
-		{
-			line = ft_reverse_env(mini->env);
-			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
-			ft_dprintf(2, "minishell: %s: command not found\n", *(char  **)(cmd->token_value));
-			free(line);
-			exit(127);
-		}
-		free(line);
-	}
-	else
-	{
-		ret = ft_executor(mini, cmd->token_value);
-	}
-	exit(ret);
-}
 
 static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 {
