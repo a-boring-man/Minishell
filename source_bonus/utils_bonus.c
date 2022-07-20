@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 09:28:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 14:35:20 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 14:41:52 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,7 @@ void	ft_clean(char **tab)
 	if (!tab)
 		return ;
 	while (tab[++j])
-	{
-		if (tab[j])
-			ft_dprintf(1, "-haaa-%s\n", tab[j]);
 		free(tab[j]);
-	}
 	free(tab);
 	return ;
 }

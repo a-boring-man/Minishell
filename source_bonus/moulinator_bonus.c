@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 14:12:26 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 15:04:23 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
 static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 	t_grostoken *gt, char **block_tmp)
 {
+	char	*tmp;
+
 	ft_parser_quote_and_or(mini, *c);
 	if (mini->et != 2 && mini->ou != 2)
 		*block_tmp = ft_strnjoin_f(*block_tmp, c, 1);
@@ -39,8 +41,9 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 		if (ft_strlen_s(*block_tmp) > 1)
 		{
 			gt[mini->cb].next_operator_type = (*c == '|');
-			gt[mini->cb++].petit_token = ft_tokenize_pipe(mini,
-					ft_strndup(*block_tmp, ft_strlen_s(*block_tmp) - 1));
+			tmp = ft_strndup(*block_tmp, ft_strlen_s(*block_tmp) - 1);
+			gt[mini->cb++].petit_token = ft_tokenize_pipe(mini, tmp);
+			ft_free((void **)&tmp);
 			if (!gt[mini->cb - 1].petit_token)
 				ft_free_big_token(&gt, mini->cb - 1, 1);
 			if (!gt[mini->cb - 1].petit_token)
@@ -51,7 +54,6 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 		}
 		else
 		{
-			ft_free((void **)(block_tmp));
 			ft_free_big_token(&gt, mini->cb, 1);
 			return (1);
 		}
@@ -80,7 +82,7 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	}
 	else
 		ft_free_big_token(&grostoken, mini->cb, 0);
-	ft_free((void **)(&block_tmp));
+	ft_free((void **)&block_tmp);
 	return (grostoken);
 }
 

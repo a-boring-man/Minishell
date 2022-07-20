@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 14:39:53 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 15:06:21 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret
 		++i;
 	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
 		return (0);
-	ft_dprintf(1, "\n\n\n\nheuuu\n\n\n\n");
 	line = ft_join_split((char **)(pipex[0][i].token_value));
 	*ret = ft_call_built_in(mini, line);
 	free(line);
@@ -205,7 +204,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
 		ft_free_split(tmp);
 	}
-	ft_free_split(tmp);
+	//ft_free_split(tmp);
 	return (ret);
 }
 
@@ -244,6 +243,7 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 		if (!ret[i])
 			ret =  ft_free_pipex(ret);
 	}
+	free((void **)line);
 	ft_free_split(split);
 	return (ret);
 }
