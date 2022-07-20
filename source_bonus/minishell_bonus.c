@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 17:30:42 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 18:04:20 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_last_error = 0;
 
-void	ft_ctrl_c(int i)
+/* void	ft_ctrl_c(int i)
 {
 	(void)i;
 	ft_dprintf(1, "\n");
@@ -29,6 +29,25 @@ void	ft_ctrl_backslash(int i)
 	rl_on_new_line();
 	rl_redisplay();
 	ft_dprintf(2, "Quit: 3");
+} */
+
+void	ft_signal(int mode)
+{
+	if (mode == MAIN)
+	{
+		signal(SIGINT, ft_s_main);
+		signal(SIGQUIT, ft_s_main);
+	}
+	else if (mode == EXEC)
+	{
+		signal(SIGINT, ft_s_exec);
+		signal(SIGQUIT, ft_s_exec);
+	}
+	else if (mode == HERE)
+	{
+		signal(SIGINT, ft_s_here);
+		signal(SIGQUIT, ft_s_here);
+	}
 }
 
 int	main(int ac, char **av, char **env)
@@ -38,10 +57,9 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
-	signal(SIGINT, ft_ctrl_c);
-	signal(SIGQUIT, ft_ctrl_backslash);
 	ft_term_config(&mini);
 	ft_term_switch_nd(&mini);
+	ft_signal(MAIN);
 	if (ft_env_init(&mini, env))
 		exit (0); // error a fair
 	test = readline("i'm depressed exit me $> ");

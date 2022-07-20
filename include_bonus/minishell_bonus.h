@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 15:24:40 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 18:04:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 # define ET 0
 # define OU 1
+# define MAIN 2
+# define EXEC 3
+# define HERE 4
 
 extern int	g_last_error;
 
@@ -152,5 +155,9 @@ void			ft_dollar_if(int *i, char **tmp);
 void			ft_dollar_elsif(char **tmp, char **new_line);
 void			ft_clean(char **tab);
 void			ft_free_big_token(t_grostoken **gt, int cb, int mode);
+void			ft_signal(int mode);
+void			ft_s_here(int s);
+void			ft_s_exec(int s);
+void			ft_s_main(int s);
 
 #endif
