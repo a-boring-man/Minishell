@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/19 12:25:05 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 11:05:47 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 	void		*line;
 	int			ret;
 
+	ft_term_switch_d(mini);
 	if (fd[0] >= 0)
 		close(fd[0]);
 	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)
@@ -93,7 +94,7 @@ static void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
 		{
 			line = ft_reverse_env(mini->env);
 			execve(ft_get_path(line, *(char **)(cmd->token_value)), cmd->token_value, line);
-			dprintf(2, "minishell: %s: command not found\n", *(char  **)(cmd->token_value));
+			ft_dprintf(2, "minishell: %s: command not found\n", *(char  **)(cmd->token_value));
 			free(line);
 			exit(127);
 		}

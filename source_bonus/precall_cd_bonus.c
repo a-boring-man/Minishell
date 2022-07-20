@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:53:19 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 11:22:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ int	ft_precall_cd(t_minishell *mini, char *line)
 	char	**split;
 
 	split = ft_split(line, ' ');
-	return(ft_cd(mini, split[1]));
+	return (ft_cd(mini, split[1]));
 }

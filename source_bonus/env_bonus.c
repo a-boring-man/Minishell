@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:39:31 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/20 12:45:41 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 09:33:58 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_env(t_minishell *mini)
 	while (tmp)
 	{
 		if (*ft_getenv_value(mini, tmp->name))
-			printf("%s=%s\n", tmp->name, tmp->value);
+			ft_dprintf(1, "%s=%s\n", tmp->name, tmp->value);
 		tmp = tmp->next;
 	}
 }

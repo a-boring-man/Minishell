@@ -6,11 +6,32 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:12:51 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/18 13:46:37 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 12:21:00 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+
+static void	ft_third_while(char *s, int *i, int *sgn)
+{
+	if (s[*i] == 45)
+		*sgn = -*sgn;
+	(*i)++;
+}
+
+static void	ft_fourth_while(long *p, long *n, int *i, char *s)
+{
+	*p = *n;
+	*n = *n * 10 + (s[*i] - '0');
+	(*i)++;
+}
+
+static void	ft_skip(char *s, int *i)
+{
+	*i = 0;
+	while ((s[*i] > 8 && s[*i] < 14) || s[*i] == 32)
+		(*i)++;
+}
 
 int	ft_super_atol(char *s)
 {
@@ -29,20 +50,12 @@ int	ft_super_atol(char *s)
 		if (!((s[i] > 8 && s[i] < 14) || s[i] == 32 || s[i] == 43 || s[i] == 45
 				|| (s[i] > 47 && s[i] < 58)))
 			return (-1);
-	i = 0;
-	while ((s[i] > 8 && s[i] < 14) || s[i] == 32)
-		i++;
+	ft_skip(s, &i);
 	while (s[i] == 43 || s[i] == 45)
-	{
-		if (s[i] == 45)
-			sgn = -sgn;
-		i++;
-	}
+		ft_third_while(s, &i, &sgn);
 	while (s[i] > 47 && s[i] < 58)
 	{
-		previous = next;
-		next = next * 10 + (s[i] - '0');
-		i++;
+		ft_fourth_while(&previous, &next, &i, s);
 		if ((sgn == 1 && next < previous) || (sgn == -1 && next > previous))
 			return (-1);
 	}

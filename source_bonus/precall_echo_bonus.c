@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:24 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 13:00:21 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 12:33:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	ft_precall_echo(char *line)
 	}
 	if (!n)
 		write(1, "\n", 1);
+	ft_clean(split);
 }

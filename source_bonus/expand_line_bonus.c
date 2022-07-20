@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:56:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:46:47 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 12:11:01 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,9 @@ static void	ft_dollar(t_minishell *m, char **new_line, char **s)
 	*s += 1;
 	i = 0;
 	if (*s[0] == '?')
-	{
-		i = 1;
-		tmp = ft_calloc(i + 1, sizeof(char));
-		tmp[0] = '?';
-	}
+		ft_dollar_if(&i, &tmp);
 	else if (!*s[0] || *s[0] == ' ' || !ft_isalnum((*s)[0]))
-	{
-		tmp = ft_calloc(2, sizeof(char));
-		tmp[0]= '$';
-		*new_line = ft_strjoin_f(*new_line, tmp);
-		ft_free((void **)&tmp);
-		return ;
-	}
+		return (ft_dollar_elsif(&tmp, new_line));
 	else
 	{
 		while ((*s)[i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
@@ -110,15 +100,3 @@ char	*ft_expand_line(t_minishell *m, char *s)
 	free(to_free);
 	return (new_line);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	m;
-
-	(void)ac;
-	(void)av;
-	ft_term_config();
-	if (ft_env_init(&m, env))
-		exit (0);
-	printf("%s", ft_expand_line(&m, "je suis une sup\"e'rbe\" $PATH chaine' de car'acter\0"));
-} */

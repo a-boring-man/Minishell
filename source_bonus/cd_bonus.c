@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 12:54:13 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 09:31:54 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_cd(t_minishell *mini, char *s)
 	oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
 	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
-		printf("HOME not set\n");
+		ft_dprintf(2, "HOME not set\n");
 	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
 		last_return = 1;
 	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
@@ -32,7 +32,7 @@ int	ft_cd(t_minishell *mini, char *s)
 		oldpwd = current_directory;
 	else
 	{
-		printf("No such file or directory\n");
+		ft_dprintf(2, "No such file or directory\n");
 		last_return = 1;
 	}
 	pwd = getcwd(NULL, 0);

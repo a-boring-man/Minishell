@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   termios_stuff_bonus.c                              :+:      :+:    :+:   */
+/*   expand_line_2_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 11:49:11 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 11:05:04 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/07/20 11:47:04 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/20 11:47:30 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_term_switch_nd(t_minishell *m)
+void	ft_dollar_if(int *i, char **tmp)
 {
-	tcsetattr(STDIN_FILENO, 0, &m->no_display);
+	*i = 1;
+	*tmp = ft_calloc(2, sizeof(char));
+	(*tmp)[0] = '?';
 }
 
-void	ft_term_switch_d(t_minishell *m)
+void	ft_dollar_elsif(char **tmp, char **new_line)
 {
-	tcsetattr(STDIN_FILENO, 0, &m->display);
-}
-
-void	ft_term_config(t_minishell *m)
-{
-	tcgetattr(STDIN_FILENO, &m->display);
-	m->no_display = m->display;
-	m->no_display.c_cc[VQUIT] = 0;
-	m->no_display.c_lflag &= ~ECHOCTL;
+	*tmp = ft_calloc(2, sizeof(char));
+	(*tmp)[0] = '$';
+	*new_line = ft_strjoin_f(*new_line, *tmp);
+	ft_free((void **)tmp);
+	return ;
 }

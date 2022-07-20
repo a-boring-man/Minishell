@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 13:12:49 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 11:23:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ static void	ft_printf_export(t_minishell *mini)
 		while (tmp)
 		{
 			if (tmp->index == i - 1 && tmp->value && ft_strcmp(tmp->name, "_"))
-				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+				ft_dprintf(1, "declare -x %s=\"%s\"\n", tmp->name, tmp->value);
 			else if (tmp->index == i - 1 && ft_strcmp(tmp->name, "_"))
-				printf("declare -x %s\n", tmp->name);
+				ft_dprintf(1, "declare -x %s\n", tmp->name);
 			tmp = tmp->next;
 		}
 	}
@@ -120,24 +120,9 @@ int	ft_export(t_minishell *mini, char *s)
 	}
 	else
 	{
-		printf("minishell_bonus: export: `%s': not a valid identifier\n", s);
+		ft_dprintf(2,
+			"minishell_bonus: export: `%s': not a valid identifier\n", s);
 		last_return = 1;
 	}
 	return (last_return);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-	t_env		*tmp;
-
-	(void)ac;
-	ft_env_init(&mini, env);
-	tmp = mini.env;
-	ft_export(&mini, av[1]);
-	while (tmp)
-	{
-		printf("env index : %d, name lenght : %d, name : %s, value : %s, next : %p\n", tmp->index, tmp->name_lengh, tmp->name, tmp->value, tmp->next);
-		tmp = tmp->next;
-	}
-}*/
