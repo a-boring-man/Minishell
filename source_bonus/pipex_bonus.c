@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 17:24:08 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 18:16:19 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ static int	ft_heredoc(char *line)
 		free(str);
 	close(fd[1]);
 	return (fd[0]);
-}
-
-t_petit_token	*ft_free_cmd(t_petit_token *cmd)
-{
-	int	i;
-
-	if (!cmd)
-		return (0);
-	i = 0;
-	while ((cmd + i)->token_type != CMD && (cmd + i)->token_type != PARENTHESE)
-	{
-		if ((cmd + i)->token_value)
-			free((cmd + i)->token_value);
-		++i;
-	}
-	if ((cmd + i)->token_type == CMD)
-		ft_free_split((cmd + i)->token_value);
-	else if ((cmd + i)->token_value)
-		ft_free_big_token((t_grostoken **)(&((cmd + i)->token_value)), 0, 0);
-	free(cmd);
-	return (0);
 }
 
 static int	ft_count_token(t_minishell *mini, char *line, int i)
@@ -124,9 +103,10 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		while (line[i] == ' ')
 			++i;
 		ret[blk].token_value = ft_expand_line(mini, ft_strndup_del(line + i,
-				ft_count_size(mini, line + i, ' '), ' '));
+					ft_count_size(mini, line + i, ' '), ' '));
 		if (ret[blk].token_type == HEREDOC)
-			ret[blk].token_value = (char *) 1 + ft_heredoc(ret[blk].token_value);
+			ret[blk].token_value = (char *) 1
+				+ ft_heredoc(ret[blk].token_value);
 		++blk;
 	}
 	tmp = ft_super_split(mini, line, ' ');
@@ -144,22 +124,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
 		ft_free_split(tmp);
 	}
-	//ft_free_split(tmp);
 	return (ret);
-}
-
-t_petit_token	**ft_free_pipex(t_petit_token **pipex)
-{
-	int	i;
-
-	if (pipex)
-	{
-		i = -1;
-		while (pipex[++i])
-			pipex[i] = ft_free_cmd(pipex[i]);
-		free(pipex);
-	}
-	return (0);
 }
 
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
@@ -181,7 +146,7 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 	{
 		ret[i] = ft_tokenize_cmd(mini, split[i]);
 		if (!ret[i])
-			ret =  ft_free_pipex(ret);
+			ret = ft_free_pipex(ret);
 	}
 	free((void **)line);
 	ft_free_split(split);
