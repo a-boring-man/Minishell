@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 18:03:15 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 18:42:45 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ static void	ft_fork(t_minishell *mini, t_petit_token *cmd, int *vars, int *fd)
 
 int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 {//unsafe
-	int		vars[3];
+	int		vars[5];
 	int		fd[3];
 
 	fd[0] = 0;
 	vars[0] = -1;
 	if (single_built_in(mini, pipex, vars + 2))
 		return (vars[2]);
+	ft_term_switch_d(mini);
+	ft_signal(EXEC);
 	while (pipex[++(vars[0])])
 	{
 		fd[2] = fd[0];
@@ -66,16 +68,26 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 			fd[1] = 1;
 			fd[0] = -1;
 		}
-		ft_term_switch_d(mini);
-		ft_signal(EXEC);
 		ft_fork(mini, pipex[vars[0]], vars, fd);
 	}
-	vars[2] = -1;
-	while (!WIFEXITED(vars[2]))
-		waitpid(vars[1], vars + 2, 0);
-	while (wait(0) >= 0)
-		;
+	vars[2] = wait(vars + 3);
+	while (vars[2] >= 0)
+	{
+		if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 2)
+		{
+			ft_putstr_fd("\n", 2);
+			g_last_error = 130;
+		}
+		else if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 3)
+		{
+			ft_putstr_fd("Quit : 3\n", 2);
+			g_last_error = 131;
+		}
+		else if (vars[2] == vars[1] && WIFEXITED(vars[3]))
+			vars[4] = WEXITSTATUS(vars[3]);
+		vars[2] = wait(vars + 3);
+	}
 	ft_term_switch_nd(mini);
 	ft_signal(MAIN);
-	return (WEXITSTATUS(vars[2]));
+	return (vars[4]);
 }
