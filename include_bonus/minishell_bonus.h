@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 14:40:31 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 15:24:40 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_minishell
 	struct termios	no_display;
 }	t_minishell;
 
-void	child(t_minishell *mini, t_petit_token *cmd, int fd[3]);
+void			child(t_minishell *mini, t_petit_token *cmd, int fd[3]);
 t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line);
 t_grostoken		*ft_tab_init(t_minishell *mini, char *line, int i);
 char			**ft_super_split(t_minishell *mini, char *s, char c);

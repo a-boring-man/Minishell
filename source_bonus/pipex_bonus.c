@@ -6,72 +6,12 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 15:06:21 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 17:24:08 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
-
-static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
-{
-	int		i;
-	char	*line;
-
-	if (pipex[1])
-		return (0);
-	i = 0;
-	while (pipex[0][i].token_type != CMD && pipex[0][i].token_type != PARENTHESE)
-		++i;
-	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
-		return (0);
-	line = ft_join_split((char **)(pipex[0][i].token_value));
-	*ret = ft_call_built_in(mini, line);
-	free(line);
-	return (1);
-}
-
-int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
-{//unsafe
-	int		i;
-	int		fd[3];
-	int		pid;
-	int		ret;
-
-	fd[0] = 0;
-	i = -1;
-	if (ft_single_built_in(mini, pipex, &ret))
-		return (ret);
-	while (pipex[++i])
-	{
-		fd[2] = fd[0];
-		if (pipex[i+1])
-			pipe(fd);
-		else
-		{
-			fd[1] = 1;
-			fd[0] = -1;
-		}
-		pid = fork();
-		if (!pid)
-		{
-			child(mini, pipex[i], fd);
-		}
-		else
-		{
-			if (fd[1] >= 3)
-				close(fd[1]);
-			if (fd[2] >= 3)
-				close(fd[2]);
-		}
-	}
-	ret = -1;
-	while (!WIFEXITED(ret))
-		waitpid(pid, &ret, 0);
-	while (wait(0) >= 0)
-		;
-	return (WEXITSTATUS(ret));
-}
 
 static int	ft_heredoc(char *line)
 {//unsafe
@@ -109,7 +49,7 @@ t_petit_token	*ft_free_cmd(t_petit_token *cmd)
 	if ((cmd + i)->token_type == CMD)
 		ft_free_split((cmd + i)->token_value);
 	else if ((cmd + i)->token_value)
-		ft_free_big_token((t_grostoken **)(cmd + i)->token_value, 0, 0); //TODO
+		ft_free_big_token((t_grostoken **)(&((cmd + i)->token_value)), 0, 0);
 	free(cmd);
 	return (0);
 }
