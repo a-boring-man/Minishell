@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 11:05:47 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 14:34:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ static int	ft_single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret
 		++i;
 	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
 		return (0);
+	ft_dprintf(1, "\n\n\n\nheuuu\n\n\n\n");
 	line = ft_join_split((char **)(pipex[0][i].token_value));
 	*ret = ft_call_built_in(mini, line);
 	free(line);
@@ -203,7 +204,7 @@ t_petit_token	*ft_free_cmd(t_petit_token *cmd)
 	if ((cmd + i)->token_type == CMD)
 		ft_free_split((cmd + i)->token_value);
 	else if ((cmd + i)->token_value)
-		free((cmd + i)->token_value); //TODO
+		ft_free_big_token((t_grostoken **)(cmd + i)->token_value, 0, 0); //TODO
 	free(cmd);
 	return (0);
 }
@@ -298,6 +299,7 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
 		ft_free_split(tmp);
 	}
+	ft_free_split(tmp);
 	return (ret);
 }
 

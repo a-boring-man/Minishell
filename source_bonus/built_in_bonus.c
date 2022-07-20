@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 13:25:44 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 13:50:48 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_is_a_built_in(char *line)
 	char	**split;
 
 	split = ft_split(line, ' ');
-	ft_dprintf(1, "");
 	if (split && (!ft_strcmp("echo", split[0]) || !ft_strcmp("cd", split[0])
 			|| !ft_strcmp("pwd", split[0]) || !ft_strcmp("export", split[0])
 			|| !ft_strcmp("unset", split[0]) || !ft_strcmp("env", split[0])
