@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:24:00 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,7 @@ t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		redirect(mini, line, &i, ret + blk);
 	tmp = ft_super_split(mini, line, ' ');
 	ret[blk].token_value = tmp;
-	if (!tmp[0])
-		return (ft_free_cmd(ret));
-	if (tmp[0][0] == '(')
+	if (tmp[0] && tmp[0][0] == '(')
 	{
 		ret[blk].token_type = PARENTHESE;
 		i = ft_strlen_s(tmp[0]);

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:16:28 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,27 @@ static void	ft_fork(t_minishell *mini, t_lt *cmd, int *vars, int *fd)
 	}
 }
 
+static void	super_wait(int *vars)
+{
+	vars[2] = wait(vars + 3);
+	while (vars[2] >= 0)
+	{
+		if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 2)
+		{
+			ft_putstr_fd("\n", 2);
+			vars[4] = 130;
+		}
+		else if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 3)
+		{
+			ft_putstr_fd("Quit : 3\n", 2);
+			vars[4] = 131;
+		}
+		else if (vars[2] == vars[1] && WIFEXITED(vars[3]))
+			vars[4] = WEXITSTATUS(vars[3]);
+		vars[2] = wait(vars + 3);
+	}
+}
+
 int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
 {//unsafe
 	int		vars[5];
@@ -70,23 +91,7 @@ int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
 		}
 		ft_fork(mini, pipex[vars[0]], vars, fd);
 	}
-	vars[2] = wait(vars + 3);
-	while (vars[2] >= 0)
-	{
-		if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 2)
-		{
-			ft_putstr_fd("\n", 2);
-			vars[4] = 130;
-		}
-		else if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 3)
-		{
-			ft_putstr_fd("Quit : 3\n", 2);
-			vars[4] = 131;
-		}
-		else if (vars[2] == vars[1] && WIFEXITED(vars[3]))
-			vars[4] = WEXITSTATUS(vars[3]);
-		vars[2] = wait(vars + 3);
-	}
+	super_wait(vars);
 	ft_term_switch_nd(mini);
 	ft_signal(MAIN);
 	return (vars[4]);

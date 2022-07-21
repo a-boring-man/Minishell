@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 14:41:55 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ typedef struct s_child
 {
 	int			flags;
 	int			perm;
-	void		*line;
 	int			ret;
 }	t_child;
 
@@ -44,7 +43,7 @@ static char	*ft_get_path(char **env, char *exe)
 	return (exe);
 }
 
-static void	redirect(t_lt *cmd, int *fd, t_child *vars)
+static int	redirect(t_lt *cmd, int *fd, t_child *vars)
 {
 	if (cmd->token_type == INFILE)
 	{
@@ -66,26 +65,28 @@ static void	redirect(t_lt *cmd, int *fd, t_child *vars)
 		close(fd[1]);
 		fd[1] = open(cmd->token_value, vars->flags | O_APPEND, vars->perm);
 	}
+	if (fd[2] < 0)
+		return (ft_dprintf(2, "minishell: %s: No such file or directory",
+				cmd->token_value));
+	return (0);
 }
 
 static void	execute_cmd(t_minishell *mini, t_lt *cmd, t_child *vars)
 {
+	char	**line;
+
 	if (ft_is_a_built_in(*(char **)(cmd->token_value)))
-	{
-		//vars->line = ft_join_split((char **)(cmd->token_value));
 		vars->ret = ft_call_built_in(mini, (char **)(cmd->token_value));
-	}
-	else
+	else if (*(char **)(cmd->token_value))
 	{
-		vars->line = ft_reverse_env(mini->env);
-		execve(ft_get_path(vars->line, *(char **)(cmd->token_value)),
-			cmd->token_value, vars->line);
+		line = ft_reverse_env(mini->env);
+		execve(ft_get_path(line, *(char **)(cmd->token_value)),
+			cmd->token_value, line);
 		ft_dprintf(2, "minishell: %s: command not found\n",
 			*(char **)(cmd->token_value));
-		free(vars->line);
+		free(line);
 		exit(127);
 	}
-	//free(vars->line);
 }
 
 void	child(t_minishell *mini, t_lt *cmd, int fd[3])
@@ -98,10 +99,8 @@ void	child(t_minishell *mini, t_lt *cmd, int fd[3])
 	if (fd[0] >= 0)
 		close(fd[0]);
 	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)
-	{
-		redirect(cmd, fd, &vars);
-		++cmd;
-	}
+		if (redirect(cmd++, fd, &vars))
+			exit (1);
 	if (fd[1] != 1)
 		dup2(fd[1], STDOUT_FILENO);
 	if (fd[2] != 0)
