@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 11:24:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 12:03:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 		++i;
 	if (pipex[0][i].token_type == PARENTHESE)
 		return (0);
-	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
+	if (!ft_is_a_built_in_non_fork((char **)(pipex[0][i].token_value)))
 		return (0);
 	//line = ft_join_split((char **)(pipex[0][i].token_value));
 	*ret = ft_call_built_in(mini, (char **)(pipex[0][i].token_value));

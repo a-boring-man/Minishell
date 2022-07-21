@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 10:20:04 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 12:03:28 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_heredoc(char *line)
 	char	*str;
 
 	pipe(fd);
-	str = readline(">");
+	str = readline("> ");
 	while (str && ft_strcmp(str, line))
 	{
 		write(fd[1], str, ft_strlen_s(str));
@@ -29,6 +29,7 @@ static int	ft_heredoc(char *line)
 	}
 	if (str)
 		free(str);
+	free(line);
 	close(fd[1]);
 	return (fd[0]);
 }
@@ -62,6 +63,36 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 	return (mini->block + 1);
 }
 
+static void	redirect(t_minishell *mini, char *line, int *i,
+	t_petit_token *token)
+{
+	while ((line[*i] != '<' && line[*i] != '>') || mini->single_quote
+		|| mini->double_quote || mini->parenthese)
+		ft_parser_quote_and_or(mini, line[(*i)++]);
+	if (line[*i] == '<')
+	{
+		token->token_type = INFILE;
+		if (line[*i] == line[*i + 1])
+			token->token_type = HEREDOC;
+	}
+	if (line[*i] == '>')
+	{
+		token->token_type = OUTFILE;
+		if (line[*i] == line[*i + 1])
+			token->token_type = APPEND;
+	}
+	if (line[*i] == line[*i + 1])
+		line[(*i)++] = ' ';
+	line[(*i)++] = ' ';
+	while (line[*i] == ' ')
+		++(*i);
+	token->token_value = ft_expand_line(mini, ft_strndup_del(line + *i,
+				ft_count_size(mini, line + *i, ' '), ' '));
+	if (token->token_type == HEREDOC)
+		token->token_value = (char *) 1
+			+ ft_heredoc(token->token_value);
+}
+
 t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 {//unsafe
 	const int				token_count = ft_count_token(mini, line, -1);
@@ -74,43 +105,14 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		return (0);
 	(ret + token_count - 1)->token_type = CMD;
 	i = 0;
-	blk = 0;
+	blk = -1;
 	ft_parsing_init(mini);
-	while (blk < token_count - 1)
-	{
-		while ((line[i] != '<' && line[i] != '>') || mini->single_quote
-			|| mini->double_quote || mini->parenthese)
-			ft_parser_quote_and_or(mini, line[i++]);
-		if (line[i] == '<')
-		{
-			(ret + blk)->token_type = INFILE;
-			if (line[i] == line[i + 1])
-				(ret + blk)->token_type = HEREDOC;
-		}
-		if (line[i] == '>')
-		{
-			(ret + blk)->token_type = OUTFILE;
-			if (line[i] == line[i + 1])
-				(ret + blk)->token_type = APPEND;
-		}
-		if (line[i] == line[i + 1])
-		{
-			line[i] = ' ';
-			++i;
-		}
-		line[i] = ' ';
-		++i;
-		while (line[i] == ' ')
-			++i;
-		ret[blk].token_value = ft_expand_line(mini, ft_strndup_del(line + i,
-					ft_count_size(mini, line + i, ' '), ' '));
-		if (ret[blk].token_type == HEREDOC)
-			ret[blk].token_value = (char *) 1
-				+ ft_heredoc(ret[blk].token_value);
-		++blk;
-	}
+	while (++blk < token_count - 1)
+		redirect(mini, line, &i, ret + blk);
 	tmp = ft_super_split(mini, line, ' ');
 	ret[blk].token_value = tmp;
+	if (!tmp[0])
+		return (ft_free_cmd(ret));
 	if (tmp[0][0] == '(')
 	{
 		ret[blk].token_type = PARENTHESE;
