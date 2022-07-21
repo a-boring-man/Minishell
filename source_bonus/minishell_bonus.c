@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 12:05:23 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 14:44:27 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ void	ft_signal(int mode)
 	}
 }
 
+static int	ft_is_only_isspace3(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n'
+			&& s[i] != '\f' && s[i] != '\r' && s[i] != '\v')
+			return (0);
+	return (1);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*test;
@@ -50,7 +62,8 @@ int	main(int ac, char **av, char **env)
 	{
 		if (test[0])
 			add_history(test);
-		ft_moulinator(&mini, test);
+		if (!ft_is_only_isspace3(test))
+			ft_moulinator(&mini, test);
 		free(test);
 		test = readline("i'm depressed exit me $> ");
 	}
