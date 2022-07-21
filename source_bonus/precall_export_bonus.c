@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:52:42 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 11:15:35 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 20:52:23 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	ft_precall_export(t_minishell *mini, char **split)
 	last_return = 0;
 	if (!split)
 		return (1);
-	if (ft_export(mini, split[1]))
+	if (ft_export(mini, split[1], 0))
 		last_return = 1;
 	while (split[i] && split[i + 1])
-		if (ft_export(mini, split[++i]))
+		if (ft_export(mini, split[++i], 0))
 			last_return = 1;
 	return (last_return);
 }

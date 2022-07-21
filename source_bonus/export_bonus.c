@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 11:38:57 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 20:53:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,11 @@ static void	ft_printf_export(t_minishell *mini)
 	}
 }
 
-int	ft_export(t_minishell *mini, char *s)
+int	ft_export(t_minishell *mini, char *s, int f)
 {
 	int		last_return;
 	char	*name;
+	char	*tmp;
 
 	last_return = 0;
 	if (!s)
@@ -118,14 +119,20 @@ int	ft_export(t_minishell *mini, char *s)
 			ft_lstadd_back_env(&mini->env, ft_lstnew_env
 				(ft_splitname(s), ft_splitvalue(s)));
 		else
+		{
+			tmp = *ft_getenv_value(mini, name);
 			*ft_getenv_value(mini, name) = ft_splitvalue(s);
+			ft_free((void **)&tmp);
+		}
 	}
-	else
+	else if (s)
 	{
 		ft_dprintf(2,
 			"minishell_bonus: export: `%s': not a valid identifier\n", s);
 		last_return = 1;
 	}
+	if (f)
+		ft_free((void **)&s);
 	ft_free((void **)&name);
 	return (last_return);
 }

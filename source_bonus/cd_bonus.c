@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 09:31:54 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 20:51:32 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,35 @@
 int	ft_cd(t_minishell *mini, char *s)
 {
 	char	*oldpwd;
+	char	**oldppwd;
 	char	*current_directory;
 	char	*pwd;
 	int		last_return;
 
 	last_return = 0;
-	oldpwd = *ft_getenv_value(mini, "OLDPWD");
+	oldpwd = NULL;
+	oldppwd = ft_getenv_value(mini, "OLDPWD");
+	if (oldppwd)
+		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
 	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
 		ft_dprintf(2, "HOME not set\n");
 	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
 		last_return = 1;
 	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
-		oldpwd = current_directory;
+		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_directory), 1);
 	else if (s && !chdir(s))
-		oldpwd = current_directory;
+		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_directory), 1);
 	else
 	{
 		ft_dprintf(2, "No such file or directory\n");
 		last_return = 1;
 	}
 	pwd = getcwd(NULL, 0);
-	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd));
-	ft_export(mini, ft_strjoin_nf("PWD=", pwd));
+	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd), 1);
+	ft_export(mini, ft_strjoin_nf("PWD=", pwd), 1);
+	ft_free((void **)&pwd);
+	ft_free((void **)&current_directory);
 	return (last_return);
 }
 

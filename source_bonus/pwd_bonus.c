@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 13:41:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 09:39:40 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 20:22:12 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,5 @@ void	ft_pwd(void)
 
 	pwd = getcwd(NULL, 0);
 	ft_dprintf(1, "%s\n", pwd);
+	ft_free((void **) &pwd);
 }
