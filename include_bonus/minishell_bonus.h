@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 13:06:35 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:17:58 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_lt
 
 typedef struct s_bt
 {
-	int				next_operator_type;
+	int		next_operator_type;
 	t_lt	**lt;
 }	t_bt;
 
@@ -162,5 +162,6 @@ void	ft_s_exec(int s);
 void	ft_s_main(int s);
 int		ft_is_a_built_in_non_fork(char **split);
 void	ft_mini_et_ou_reset(t_minishell *m);
+void	ft_bt_ss(t_minishell *mini, char c, t_bt *gt, char **block_tmp);
 
 #endif

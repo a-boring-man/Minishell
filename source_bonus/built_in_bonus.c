@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 11:59:37 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:31:10 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	ft_is_a_built_in_non_fork(char **split)
 {
 	if (split && (!ft_strcmp("cd", split[0])
 			|| (!ft_strcmp("export", split[0]) && split[1])
-			|| !ft_strcmp("unset", split[0])))
+			|| !ft_strcmp("unset", split[0])
+			|| !ft_strcmp("exit", split[0])))
 		return (1);
 	return (0);
 }
