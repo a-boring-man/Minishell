@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 17:11:51 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 17:34:37 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 int	ft_free_big_token(t_bt **gt, int cb, int mode)
 {
 	int	i;
+	static int	j = 0;
 
 	i = -1;
-	ft_dprintf(2, "afterblock segmentor -%p-\n", gt[0][0].lt);
+	ft_dprintf(2, "afterblockdefewfwfewfwefewfewfwe segmentor -%p-\n", gt[0][0].lt);
 	if (!gt || !*gt)
 		return (1);
 	if (mode)
@@ -30,7 +31,8 @@ int	ft_free_big_token(t_bt **gt, int cb, int mode)
 		ft_free_pipex((*gt)[i].lt);
 	}
 	ft_free((void **)gt);
-	ft_dprintf(2, "afterblock segmentor -%p-\n", gt);
+	ft_dprintf(2, "afterblock %dsegmentor -%p-\n", j, gt);
+	j++;
 	return (1);
 }
 
@@ -43,15 +45,14 @@ static int	ft_bt_s(t_minishell *mini, char *c, t_bt **gt, char **block_tmp)
 		*block_tmp = ft_strnjoin_f(*block_tmp, c, 1);
 	else
 	{
-		ft_dprintf(1, "segmentor : block_tmp -%s-\n", *block_tmp);
-		ft_dprintf(1, "segmentor : minicb -%d-\n", mini->cb);
+		ft_dprintf(1, "segmentor : block_tmpdedan -%s-\n", *block_tmp);
+		ft_dprintf(1, "segmentor : minicbdedan -%d-\n", mini->cb);
 		if (ft_strlen_s(*block_tmp) > 1)
 		{
 			ft_bt_ss(mini, *c, *gt, block_tmp);
+			ft_dprintf(2, "testest gt-%p-\n", (*gt)[mini->cb - 1].lt);
 			if (!(*gt)[mini->cb - 1].lt)
-				ft_free_big_token(gt, mini->cb - 1, 1);
-			if (!(*gt)[mini->cb - 1].lt)
-				return (1);
+				return (ft_free_big_token(gt, mini->cb - 1, 1));
 			ft_mini_et_ou_reset(mini);
 		}
 		else if (ft_strlen_s(*block_tmp) <= 1)
@@ -67,7 +68,7 @@ t_bt	*ft_tab_init(t_minishell *mini, char *line, int i)
 	t_bt	*bt;
 
 	mini->cb = 0;
-	ft_dprintf(2, "\n%p\n", &bt);
+	ft_dprintf(2, "\nbt%p\n", &bt);
 	ft_dprintf(2, "tab_init : -%s-mini_block : %d\n", line, mini->block);
 	bt = ft_calloc(mini->block, sizeof(t_bt));
 	bt[mini->block - 1].next_operator_type = -1;
@@ -75,7 +76,11 @@ t_bt	*ft_tab_init(t_minishell *mini, char *line, int i)
 	block_tmp = ft_calloc(1, 1);
 	while (line[++i])
 		if (ft_bt_s(mini, &line[i], &bt, &block_tmp))
+		{
+			ft_dprintf(2, "enfin%p\n", bt);
 			return (bt);
+		}
+	ft_dprintf(2, "tab : minicb : %d\n", mini->cb);
 	if (ft_strlen_s(block_tmp))
 	{
 		bt[mini->cb].next_operator_type = -1;
@@ -97,6 +102,7 @@ int	ft_good_parenthese_and_quote(t_minishell *mini, char *line)
 	ft_parsing_init(mini);
 	if (!line)
 		return (0);
+	ft_dprintf(2, "parentese-%s-\n", line);
 	while (line[++i])
 	{
 		if (!mini->block)
