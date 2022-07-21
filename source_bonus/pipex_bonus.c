@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 13:24:00 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 16:12:40 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@ static int	ft_heredoc(char *line)
 {//unsafe
 	int		fd[2];
 	char	*str;
+	int		pid;
 
 	pipe(fd);
+	pid = fork();
+	if (pid < 0)
+		exit (0);
+	if (pid)
+	{
+		close(fd[1]);
+		free(line);
+		return (fd[0]);
+	}
 	str = readline("> ");
 	while (str && ft_strcmp(str, line))
 	{
@@ -29,9 +39,7 @@ static int	ft_heredoc(char *line)
 	}
 	if (str)
 		free(str);
-	free(line);
-	close(fd[1]);
-	return (fd[0]);
+	exit (0);
 }
 
 static int	ft_count_token(t_minishell *mini, char *line, int i)
@@ -89,8 +97,7 @@ static void	redirect(t_minishell *mini, char *line, int *i,
 	token->token_value = ft_expand_line(mini, ft_strndup_del(line + *i,
 				ft_count_size(mini, line + *i, ' '), ' '));
 	if (token->token_type == HEREDOC)
-		token->token_value = (char *) 1
-			+ ft_heredoc(token->token_value);
+		token->token_value = (char *) 1 + ft_heredoc(token->token_value);
 }
 
 t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)

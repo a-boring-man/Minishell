@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 14:41:55 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 15:36:38 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	execute_cmd(t_minishell *mini, t_lt *cmd, t_child *vars)
 }
 
 void	child(t_minishell *mini, t_lt *cmd, int fd[3])
-{//unsafe
+{
 	t_child	vars;
 
 	vars.flags = O_WRONLY | O_CREAT;
