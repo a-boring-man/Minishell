@@ -6,20 +6,30 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 18:42:17 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 20:32:39 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
 
+typedef struct s_cmd
+{
+	int		token_count;
+	t_lt	*ret;
+	int		i;
+	int		blk;
+	char	**tmp;
+}	t_cmd;
+
 static int	ft_heredoc(char *line)
-{//unsafe
+{
 	int		fd[2];
 	char	*str;
 	int		pid;
 
-	pipe(fd);
+	if (pipe(fd))
+		exit (0);
 	pid = fork();
 	if (pid < 0)
 		exit (0);
@@ -37,8 +47,7 @@ static int	ft_heredoc(char *line)
 		free(str);
 		str = readline("> ");
 	}
-	if (str)
-		free(str);
+	ft_free((void **)&str);
 	exit (0);
 }
 
@@ -100,65 +109,41 @@ static void	redirect(t_minishell *mini, char *line, int *i,
 		token->token_value = (char *) 1 + ft_heredoc(token->token_value);
 }
 
-t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)
-{//unsafe
-	const int				token_count = ft_count_token(mini, line, -1);
-	t_lt *const	ret = ft_calloc(token_count, sizeof(t_lt));
-	int						i;
-	int						blk;
-	char					**tmp;
-
-	if (!ret)
-		return (0);
-	(ret + token_count - 1)->token_type = CMD;
-	i = 0;
-	blk = -1;
-	ft_parsing_init(mini);
-	while (++blk < token_count - 1)
-		redirect(mini, line, &i, ret + blk);
-	tmp = ft_super_split(mini, line, ' ');
-	ret[blk].token_value = tmp;
-	if (tmp[0] && tmp[0][0] == '(')
+static t_lt	*recursive(t_minishell *mini, t_cmd *vars)
+{
+	if (vars->tmp[0] && vars->tmp[0][0] == '(')
 	{
-		ret[blk].token_type = PARENTHESE;
-		i = ft_strlen_s(tmp[0]);
-		if (tmp[0][i - 1] != ')' || tmp[1])
-			return (ft_free_cmd(ret));
-		tmp[0][0] = ' ';
-		tmp[0][i - 1] = ' ';
-		if (!ft_good_parenthese_and_quote(mini, tmp[0]))
-			return (ft_free_cmd(ret));
-		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
-		if (!ret[blk].token_value)
-			return (ft_free_cmd(ret));
-		ft_free_split(tmp);
+		vars->ret[vars->blk].token_type = PARENTHESE;
+		vars->i = ft_strlen_s(vars->tmp[0]);
+		if (vars->tmp[0][vars->i - 1] != ')' || vars->tmp[1])
+			return (ft_free_cmd(vars->ret));
+		vars->tmp[0][0] = ' ';
+		vars->tmp[0][vars->i - 1] = ' ';
+		if (!ft_good_parenthese_and_quote(mini, vars->tmp[0]))
+			return (ft_free_cmd(vars->ret));
+		vars->ret[vars->blk].token_value = ft_tab_init(mini, vars->tmp[0], -1);
+		if (!vars->ret[vars->blk].token_value)
+			return (ft_free_cmd(vars->ret));
+		ft_free_split(vars->tmp);
 	}
-	return (ret);
+	return (vars->ret);
 }
 
-t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line)
+t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)
 {
-	int				i;
-	int				nb;
-	t_lt			**ret;
-	char **const	split = ft_super_split(mini, line, '|');
-	const int		tmp = mini->cb;
+	t_cmd	vars;
 
-	if (!split)
+	vars.token_count = ft_count_token(mini, line, -1);
+	vars.ret = ft_calloc(vars.token_count, sizeof(t_lt));
+	if (!vars.ret)
 		return (0);
-	i = -1;
-	nb = 0;
-	while (split[++i])
-		++nb;
-	ret = ft_calloc(nb + 1, sizeof(void *));
-	i = -1;
-	while (ret && ++i < nb)
-	{
-		ret[i] = ft_tokenize_cmd(mini, split[i]);
-		mini->cb = tmp;
-		if (!ret[i])
-			ret = ft_free_pipex(ret);
-	}
-	ft_free_split(split);
-	return (ret);
+	(vars.ret + vars.token_count - 1)->token_type = CMD;
+	vars.i = 0;
+	vars.blk = -1;
+	ft_parsing_init(mini);
+	while (++(vars.blk) < vars.token_count - 1)
+		redirect(mini, line, &(vars.i), vars.ret + vars.blk);
+	vars.tmp = ft_super_split(mini, line, ' ');
+	vars.ret[vars.blk].token_value = vars.tmp;
+	return (recursive(mini, &vars));
 }
