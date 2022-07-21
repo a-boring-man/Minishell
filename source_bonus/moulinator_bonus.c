@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 13:09:55 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:16:13 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	ft_free_big_token(t_bt **gt, int cb, int mode)
 
 static int	ft_bt_s(t_minishell *mini, char *c, t_bt *gt, char **block_tmp)
 {
-	char	*tmp;
-
 	ft_parser_quote_and_or(mini, *c);
 	if (mini->et != 2 && mini->ou != 2)
 		*block_tmp = ft_strnjoin_f(*block_tmp, c, 1);
@@ -42,10 +40,7 @@ static int	ft_bt_s(t_minishell *mini, char *c, t_bt *gt, char **block_tmp)
 	{
 		if (ft_strlen_s(*block_tmp) > 1)
 		{
-			gt[mini->cb].next_operator_type = (*c == '|');
-			tmp = ft_strndup(*block_tmp, ft_strlen_s(*block_tmp) - 1);
-			gt[mini->cb++].lt = ft_tokenize_pipe(mini, tmp);
-			ft_free((void **)&tmp);
+			ft_bt_ss(mini, *c, gt, block_tmp);
 			if (!gt[mini->cb - 1].lt)
 				ft_free_big_token(&gt, mini->cb - 1, 1);
 			if (!gt[mini->cb - 1].lt)
