@@ -6,19 +6,20 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 13:16:13 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 16:08:56 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_free_big_token(t_bt **gt, int cb, int mode)
+int	ft_free_big_token(t_bt **gt, int cb, int mode)
 {
 	int	i;
 
 	i = -1;
+	ft_dprintf(2, "afterblock segmentor -%p-\n", gt[0][0].lt);
 	if (!gt || !*gt)
-		return ;
+		return (1);
 	if (mode)
 		while (++i < cb)
 			ft_free_pipex((*gt)[i].lt);
@@ -29,28 +30,32 @@ void	ft_free_big_token(t_bt **gt, int cb, int mode)
 		ft_free_pipex((*gt)[i].lt);
 	}
 	ft_free((void **)gt);
+	ft_dprintf(2, "afterblock segmentor -%p-\n", gt);
+	return (1);
 }
 
-static int	ft_bt_s(t_minishell *mini, char *c, t_bt *gt, char **block_tmp)
+static int	ft_bt_s(t_minishell *mini, char *c, t_bt **gt, char **block_tmp)
 {
 	ft_parser_quote_and_or(mini, *c);
+	ft_dprintf(1, "sagmentor c : -%c-mini->et : %d\n", *c, mini->et);
+	ft_dprintf(1, "segmentor : block_tmp -%s-\n", *block_tmp);
 	if (mini->et != 2 && mini->ou != 2)
 		*block_tmp = ft_strnjoin_f(*block_tmp, c, 1);
 	else
 	{
+		ft_dprintf(1, "segmentor : block_tmp -%s-\n", *block_tmp);
+		ft_dprintf(1, "segmentor : minicb -%d-\n", mini->cb);
 		if (ft_strlen_s(*block_tmp) > 1)
 		{
-			ft_bt_ss(mini, *c, gt, block_tmp);
-			if (!gt[mini->cb - 1].lt)
-				ft_free_big_token(&gt, mini->cb - 1, 1);
-			if (!gt[mini->cb - 1].lt)
+			ft_bt_ss(mini, *c, *gt, block_tmp);
+			if (!(*gt)[mini->cb - 1].lt)
+				ft_free_big_token(gt, mini->cb - 1, 1);
+			if (!(*gt)[mini->cb - 1].lt)
 				return (1);
 			ft_mini_et_ou_reset(mini);
 		}
 		else if (ft_strlen_s(*block_tmp) <= 1)
-			ft_free_big_token(&gt, mini->cb, 1);
-		else if (ft_strlen_s(*block_tmp) <= 1)
-			return (1);
+			return (ft_free_big_token(gt, mini->cb, 1));
 		ft_free((void **)(block_tmp));
 	}
 	return (0);
@@ -62,11 +67,14 @@ t_bt	*ft_tab_init(t_minishell *mini, char *line, int i)
 	t_bt	*bt;
 
 	mini->cb = 0;
+	ft_dprintf(2, "\n%p\n", &bt);
+	ft_dprintf(2, "tab_init : -%s-mini_block : %d\n", line, mini->block);
 	bt = ft_calloc(mini->block, sizeof(t_bt));
+	bt[mini->block - 1].next_operator_type = -1;
 	ft_parsing_init(mini);
-	block_tmp = NULL;
+	block_tmp = ft_calloc(1, 1);
 	while (line[++i])
-		if (ft_bt_s(mini, &line[i], bt, &block_tmp))
+		if (ft_bt_s(mini, &line[i], &bt, &block_tmp))
 			return (bt);
 	if (ft_strlen_s(block_tmp))
 	{
@@ -76,7 +84,7 @@ t_bt	*ft_tab_init(t_minishell *mini, char *line, int i)
 			ft_free_big_token(&bt, mini->cb, 0);
 	}
 	else
-		ft_free_big_token(&bt, mini->cb, 0);
+		ft_free_big_token(&bt, mini->cb, 1);
 	ft_free((void **)&block_tmp);
 	return (bt);
 }
@@ -114,16 +122,17 @@ int	ft_moulinator(t_minishell *mini, char *line)
 {
 	t_bt	*gt;
 
+	ft_dprintf(2, "moulinator : %s\n", line);
 	if (!ft_good_parenthese_and_quote(mini, line))
 		return (0);
 	if (!line || !line[0])
 		return (0);
 	gt = ft_tab_init(mini, line, -1);
+	ft_dprintf(2, "gt-%p-\n", gt);
 	if (!gt)
 		ft_dprintf(2, "parsing error token not recognize\n");
 	if (!gt)
 		return (0);
 	g_last_error = ft_executor(mini, gt);
-	ft_free_big_token(&gt, 0, 0);
-	return (1);
+	return (ft_free_big_token(&gt, 0, 0));
 }

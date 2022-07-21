@@ -6,7 +6,7 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/07/21 10:53:54 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/07/21 14:58:19 by jrinna           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ INC_BNS := $(addprefix $(DIR_INC_BNS)/,$(LST_INC_BNS))
 
 #### OTHER ####
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -g3 #-fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=address
 LDFLAGS := -L$(HOME)/homebrew/opt/readline/lib
 CPPFLAGS := -I$(HOME)/homebrew/opt/readline/include
 NAME := $(DIR_BIN)/minishell

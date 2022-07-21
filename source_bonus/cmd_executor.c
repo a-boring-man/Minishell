@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 14:41:55 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 14:53:52 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	redirect(t_lt *cmd, int *fd, t_child *vars)
 		fd[1] = open(cmd->token_value, vars->flags | O_APPEND, vars->perm);
 	}
 	if (fd[2] < 0)
-		return (ft_dprintf(2, "minishell: %s: No such file or directory",
+		return (ft_dprintf(2, "minishell: %s: No such file or directory\n",
 				cmd->token_value));
 	return (0);
 }

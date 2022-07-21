@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 13:16:28 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 14:53:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	single_built_in(t_minishell *mini, t_lt **pipex, int *ret)
 {
 	int		i;
-	//char	*line;
 
 	if (pipex[1])
 		return (0);
@@ -27,15 +26,15 @@ static int	single_built_in(t_minishell *mini, t_lt **pipex, int *ret)
 		return (0);
 	if (!ft_is_a_built_in_non_fork((char **)(pipex[0][i].token_value)))
 		return (0);
-	//line = ft_join_split((char **)(pipex[0][i].token_value));
 	*ret = ft_call_built_in(mini, (char **)(pipex[0][i].token_value));
-	//free(line);
 	return (1);
 }
 
 static void	ft_fork(t_minishell *mini, t_lt *cmd, int *vars, int *fd)
 {
 	vars[1] = fork();
+	if (vars[1] < 0)
+		exit (0);
 	if (!(vars[1]))
 		child(mini, cmd, fd);
 	else
