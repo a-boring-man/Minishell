@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 10:46:45 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:42:37 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_heredoc(char *line)
 	char	*str;
 
 	pipe(fd);
-	str = readline(">");
+	str = readline("> ");
 	while (str && ft_strcmp(str, line))
 	{
 		write(fd[1], str, ft_strlen_s(str));
@@ -29,6 +29,7 @@ static int	ft_heredoc(char *line)
 	}
 	if (str)
 		free(str);
+	free(line);
 	close(fd[1]);
 	return (fd[0]);
 }
@@ -110,6 +111,8 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		redirect(mini, line, &i, ret + blk);
 	tmp = ft_super_split(mini, line, ' ');
 	ret[blk].token_value = tmp;
+	if (!tmp[0])
+		return (ft_free_cmd(ret));
 	if (tmp[0][0] == '(')
 	{
 		ret[blk].token_type = PARENTHESE;
