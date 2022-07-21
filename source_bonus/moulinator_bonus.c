@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 16:08:56 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 17:11:51 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,22 @@ int	ft_moulinator(t_minishell *mini, char *line)
 		return (0);
 	if (!line || !line[0])
 		return (0);
+	ft_signal(HERE);
+	ft_term_switch_d(mini);
 	gt = ft_tab_init(mini, line, -1);
+	while (wait(0) >=0)
+		;
 	ft_dprintf(2, "gt-%p-\n", gt);
+	ft_term_switch_nd(mini);
+	ft_signal(MAIN);
 	if (!gt)
 		ft_dprintf(2, "parsing error token not recognize\n");
 	if (!gt)
 		return (0);
+	ft_signal(EXEC);
+	ft_term_switch_d(mini);
 	g_last_error = ft_executor(mini, gt);
+	ft_term_switch_nd(mini);
+	ft_signal(MAIN);
 	return (ft_free_big_token(&gt, 0, 0));
 }

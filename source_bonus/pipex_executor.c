@@ -6,11 +6,12 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 14:53:04 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 17:09:37 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+#include "errno.h"
 
 static int	single_built_in(t_minishell *mini, t_lt **pipex, int *ret)
 {
@@ -68,7 +69,7 @@ static void	super_wait(int *vars)
 }
 
 int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
-{//unsafe
+{
 	int		vars[5];
 	int		fd[3];
 
@@ -76,13 +77,14 @@ int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
 	vars[0] = -1;
 	if (single_built_in(mini, pipex, vars + 2))
 		return (vars[2]);
-	ft_signal(EXEC);
-	ft_term_switch_d(mini);
 	while (pipex[++(vars[0])])
 	{
 		fd[2] = fd[0];
 		if (pipex[vars[0] + 1])
-			pipe(fd);
+		{
+			if (pipe(fd))
+				exit (errno);
+		}
 		else
 		{
 			fd[1] = 1;
@@ -91,7 +93,5 @@ int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
 		ft_fork(mini, pipex[vars[0]], vars, fd);
 	}
 	super_wait(vars);
-	ft_term_switch_nd(mini);
-	ft_signal(MAIN);
 	return (vars[4]);
 }
