@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 09:28:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 14:41:52 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:03:27 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,10 @@ void	ft_clean(char **tab)
 		free(tab[j]);
 	free(tab);
 	return ;
+}
+
+void	ft_mini_et_ou_reset(t_minishell *m)
+{
+	m->et = 0;
+	m->ou = 0;
 }

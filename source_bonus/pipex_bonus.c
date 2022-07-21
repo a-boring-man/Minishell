@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 12:03:28 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	ft_count_token(t_minishell *mini, char *line, int i)
 }
 
 static void	redirect(t_minishell *mini, char *line, int *i,
-	t_petit_token *token)
+	t_lt *token)
 {
 	while ((line[*i] != '<' && line[*i] != '>') || mini->single_quote
 		|| mini->double_quote || mini->parenthese)
@@ -93,10 +93,10 @@ static void	redirect(t_minishell *mini, char *line, int *i,
 			+ ft_heredoc(token->token_value);
 }
 
-t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
+t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)
 {//unsafe
 	const int				token_count = ft_count_token(mini, line, -1);
-	t_petit_token *const	ret = ft_calloc(token_count, sizeof(t_petit_token));
+	t_lt *const	ret = ft_calloc(token_count, sizeof(t_lt));
 	int						i;
 	int						blk;
 	char					**tmp;
@@ -129,11 +129,11 @@ t_petit_token	*ft_tokenize_cmd(t_minishell *mini, char *line)
 	return (ret);
 }
 
-t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
+t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line)
 {
 	int				i;
 	int				nb;
-	t_petit_token	**ret;
+	t_lt	**ret;
 	char **const	split = ft_super_split(mini, line, '|');
 
 	if (!split)

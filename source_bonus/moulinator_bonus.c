@@ -6,13 +6,13 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 10:22:10 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:09:55 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
+void	ft_free_big_token(t_bt **gt, int cb, int mode)
 {
 	int	i;
 
@@ -21,18 +21,17 @@ void	ft_free_big_token(t_grostoken **gt, int cb, int mode)
 		return ;
 	if (mode)
 		while (++i < cb)
-			ft_free_pipex((*gt)[i].petit_token);
+			ft_free_pipex((*gt)[i].lt);
 	else
 	{
 		while ((*gt)[++i].next_operator_type != -1)
-			ft_free_pipex((*gt)[i].petit_token);
-		ft_free_pipex((*gt)[i].petit_token);
+			ft_free_pipex((*gt)[i].lt);
+		ft_free_pipex((*gt)[i].lt);
 	}
 	ft_free((void **)gt);
 }
 
-static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
-	t_grostoken *gt, char **block_tmp)
+static int	ft_bt_s(t_minishell *mini, char *c, t_bt *gt, char **block_tmp)
 {
 	char	*tmp;
 
@@ -45,48 +44,46 @@ static int	ft_gtblock_segmentor(t_minishell *mini, char *c,
 		{
 			gt[mini->cb].next_operator_type = (*c == '|');
 			tmp = ft_strndup(*block_tmp, ft_strlen_s(*block_tmp) - 1);
-			gt[mini->cb++].petit_token = ft_tokenize_pipe(mini, tmp);
+			gt[mini->cb++].lt = ft_tokenize_pipe(mini, tmp);
 			ft_free((void **)&tmp);
-			if (!gt[mini->cb - 1].petit_token)
+			if (!gt[mini->cb - 1].lt)
 				ft_free_big_token(&gt, mini->cb - 1, 1);
-			if (!gt[mini->cb - 1].petit_token)
+			if (!gt[mini->cb - 1].lt)
 				return (1);
-			ft_free((void **)(block_tmp));
-			mini->et = 0;
-			mini->ou = 0;
+			ft_mini_et_ou_reset(mini);
 		}
-		else
-		{
+		else if (ft_strlen_s(*block_tmp) <= 1)
 			ft_free_big_token(&gt, mini->cb, 1);
+		else if (ft_strlen_s(*block_tmp) <= 1)
 			return (1);
-		}
+		ft_free((void **)(block_tmp));
 	}
 	return (0);
 }
 
-t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
+t_bt	*ft_tab_init(t_minishell *mini, char *line, int i)
 {
-	char		*block_tmp;
-	t_grostoken	*grostoken;
+	char	*block_tmp;
+	t_bt	*bt;
 
 	mini->cb = 0;
-	grostoken = ft_calloc(mini->block, sizeof(t_grostoken));
+	bt = ft_calloc(mini->block, sizeof(t_bt));
 	ft_parsing_init(mini);
 	block_tmp = NULL;
 	while (line[++i])
-		if (ft_gtblock_segmentor(mini, &line[i], grostoken, &block_tmp))
-			return (grostoken);
+		if (ft_bt_s(mini, &line[i], bt, &block_tmp))
+			return (bt);
 	if (ft_strlen_s(block_tmp))
 	{
-		grostoken[mini->cb].next_operator_type = -1;
-		grostoken[mini->cb].petit_token = ft_tokenize_pipe(mini, block_tmp);
-		if (!grostoken[mini->cb].petit_token)
-			ft_free_big_token(&grostoken, mini->cb, 0);
+		bt[mini->cb].next_operator_type = -1;
+		bt[mini->cb].lt = ft_tokenize_pipe(mini, block_tmp);
+		if (!bt[mini->cb].lt)
+			ft_free_big_token(&bt, mini->cb, 0);
 	}
 	else
-		ft_free_big_token(&grostoken, mini->cb, 0);
+		ft_free_big_token(&bt, mini->cb, 0);
 	ft_free((void **)&block_tmp);
-	return (grostoken);
+	return (bt);
 }
 
 int	ft_good_parenthese_and_quote(t_minishell *mini, char *line)
@@ -120,7 +117,7 @@ int	ft_good_parenthese_and_quote(t_minishell *mini, char *line)
 
 int	ft_moulinator(t_minishell *mini, char *line)
 {
-	t_grostoken	*gt;
+	t_bt	*gt;
 
 	if (!ft_good_parenthese_and_quote(mini, line))
 		return (0);

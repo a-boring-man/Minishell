@@ -6,13 +6,13 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 12:03:04 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static int	single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
+static int	single_built_in(t_minishell *mini, t_lt **pipex, int *ret)
 {
 	int		i;
 	//char	*line;
@@ -33,7 +33,7 @@ static int	single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 	return (1);
 }
 
-static void	ft_fork(t_minishell *mini, t_petit_token *cmd, int *vars, int *fd)
+static void	ft_fork(t_minishell *mini, t_lt *cmd, int *vars, int *fd)
 {
 	vars[1] = fork();
 	if (!(vars[1]))
@@ -47,7 +47,7 @@ static void	ft_fork(t_minishell *mini, t_petit_token *cmd, int *vars, int *fd)
 	}
 }
 
-int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
+int	ft_ptit_executor(t_minishell *mini, t_lt **pipex)
 {//unsafe
 	int		vars[5];
 	int		fd[3];

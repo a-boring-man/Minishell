@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 10:17:15 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 12:05:23 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	main(int ac, char **av, char **env)
 	test = readline("i'm depressed exit me $> ");
 	while (test)
 	{
-		add_history(test);
+		if (test[0])
+			add_history(test);
 		ft_moulinator(&mini, test);
 		free(test);
 		test = readline("i'm depressed exit me $> ");

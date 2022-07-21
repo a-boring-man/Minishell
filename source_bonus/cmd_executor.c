@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 11:24:03 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:05:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*ft_get_path(char **env, char *exe)
 	return (exe);
 }
 
-static void	redirect(t_petit_token *cmd, int *fd, t_child *vars)
+static void	redirect(t_lt *cmd, int *fd, t_child *vars)
 {
 	if (cmd->token_type == INFILE)
 	{
@@ -68,7 +68,7 @@ static void	redirect(t_petit_token *cmd, int *fd, t_child *vars)
 	}
 }
 
-static void	execute_cmd(t_minishell *mini, t_petit_token *cmd, t_child *vars)
+static void	execute_cmd(t_minishell *mini, t_lt *cmd, t_child *vars)
 {
 	if (ft_is_a_built_in(*(char **)(cmd->token_value)))
 	{
@@ -88,7 +88,7 @@ static void	execute_cmd(t_minishell *mini, t_petit_token *cmd, t_child *vars)
 	//free(vars->line);
 }
 
-void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])
+void	child(t_minishell *mini, t_lt *cmd, int fd[3])
 {//unsafe
 	t_child	vars;
 

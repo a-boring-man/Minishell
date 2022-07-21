@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:41:18 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 10:37:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 13:05:55 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_free_split(char **split)
 	return (0);
 }
 
-t_petit_token	*ft_free_cmd(t_petit_token *cmd)
+t_lt	*ft_free_cmd(t_lt *cmd)
 {
 	int	i;
 
@@ -49,12 +49,12 @@ t_petit_token	*ft_free_cmd(t_petit_token *cmd)
 	if ((cmd + i)->token_type == CMD)
 		ft_free_split((cmd + i)->token_value);
 	else if ((cmd + i)->token_value)
-		ft_free_big_token((t_grostoken **)(&((cmd + i)->token_value)), 0, 0);
+		ft_free_big_token((t_bt **)(&((cmd + i)->token_value)), 0, 0);
 	free(cmd);
 	return (0);
 }
 
-t_petit_token	**ft_free_pipex(t_petit_token **pipex)
+t_lt	**ft_free_pipex(t_lt **pipex)
 {
 	int	i;
 
