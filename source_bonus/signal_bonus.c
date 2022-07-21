@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:53:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 17:14:12 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 18:58:33 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_s_here(int s)
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		//exit(1);
+		exit(1);
 	}
 	if (s == SIGQUIT)
 	{

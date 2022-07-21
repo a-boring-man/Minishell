@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 18:41:48 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 19:01:13 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int	ft_moulinator(t_minishell *mini, char *line)
 	ft_signal(HERE);
 	ft_term_switch_d(mini);
 	gt = ft_tab_init(mini, line, -1);
+	ft_signal(EXEC);
 	while (wait(0) >=0)
 		;
 	ft_term_switch_nd(mini);
