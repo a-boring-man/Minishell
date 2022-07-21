@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 11:49:11 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 11:05:04 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 18:08:14 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ft_term_config(t_minishell *m)
 {
 	tcgetattr(STDIN_FILENO, &m->display);
 	m->no_display = m->display;
-	m->no_display.c_cc[VQUIT] = 0;
-	m->no_display.c_lflag &= ~ECHOCTL;
+	//m->no_display.c_cc[VQUIT] = 0;
+	m->no_display.c_lflag &= ~(ECHOCTL | ICANON);
 }
