@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 17:27:45 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 18:35:57 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line)
 		if (!ft_good_parenthese_and_quote(mini, tmp[0]))
 			return (ft_free_cmd(ret));
 		ret[blk].token_value = ft_tab_init(mini, tmp[0], -1);
+		if (!ret[blk].token_value)
+			return (ft_free_cmd(ret));
 		ft_free_split(tmp);
 	}
 	return (ret);
@@ -138,7 +140,7 @@ t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line)
 {
 	int				i;
 	int				nb;
-	t_lt	**ret;
+	t_lt			**ret;
 	char **const	split = ft_super_split(mini, line, '|');
 
 	if (!split)
