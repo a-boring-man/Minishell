@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:41:18 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 18:36:05 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 19:35:01 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	ft_free(void **s)
 {
-	free(*s);
-	*s = 0;
+	if (s)
+	{
+		if (*s)
+			free(*s);
+		*s = 0;
+	}
 }
 
 char	**ft_free_split(char **split)
