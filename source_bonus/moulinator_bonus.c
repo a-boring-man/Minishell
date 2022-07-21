@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 16:18:46 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 10:22:10 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_grostoken	*ft_tab_init(t_minishell *mini, char *line, int i)
 	}
 	else
 		ft_free_big_token(&grostoken, mini->cb, 0);
-	//ft_free((void **)&block_tmp);
+	ft_free((void **)&block_tmp);
 	return (grostoken);
 }
 

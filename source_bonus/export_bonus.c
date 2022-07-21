@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 11:23:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:38:57 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,20 @@ static void	ft_printf_export(t_minishell *mini)
 
 int	ft_export(t_minishell *mini, char *s)
 {
-	int	last_return;
+	int		last_return;
+	char	*name;
 
 	last_return = 0;
 	if (!s)
 		ft_printf_export(mini);
-	else if (ft_is_it_a_valid_env_name(ft_splitname(s)) && *s)
+	name = ft_splitname(s);
+	if (s && ft_is_it_a_valid_env_name(name) && *s)
 	{
-		if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
+		if (!ft_isthere_this_env_name(mini, name))
 			ft_lstadd_back_env(&mini->env, ft_lstnew_env
 				(ft_splitname(s), ft_splitvalue(s)));
 		else
-			*ft_getenv_value(mini, ft_splitname(s)) = ft_splitvalue(s);
+			*ft_getenv_value(mini, name) = ft_splitvalue(s);
 	}
 	else
 	{
@@ -124,5 +126,6 @@ int	ft_export(t_minishell *mini, char *s)
 			"minishell_bonus: export: `%s': not a valid identifier\n", s);
 		last_return = 1;
 	}
+	ft_free((void **)&name);
 	return (last_return);
 }

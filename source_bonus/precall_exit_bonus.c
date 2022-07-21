@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:53:56 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 11:21:36 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:20:17 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,8 @@ static int	ft_numeric_argument(char *s)
 	return (0);
 }
 
-void	ft_precall_exit(char *s, int last_return)
+void	ft_precall_exit(char **split, int last_return)
 {
-	char	**split;
-
-	split = ft_split(s, ' ');
 	if (!split)
 		return ;
 	if (split[1] && split[2])
@@ -41,15 +38,13 @@ void	ft_precall_exit(char *s, int last_return)
 				split[1]);
 		else
 			ft_dprintf(2, "minishell_bonus: exit: too many arguments\n");
-		free(split);
 		return ;
 	}
 	last_return = ft_exit(split[1]);
 	if (last_return == -1)
 		ft_dprintf(2,
-			"minishell_bonus: exit: %s: numeric argument required\n", s);
+			"minishell_bonus: exit: %s: numeric argument required\n", split[1]);
 	if (last_return == -1)
 		last_return = 255;
-	free(split);
 	exit (last_return);
 }

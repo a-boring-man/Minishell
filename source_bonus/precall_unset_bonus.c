@@ -6,21 +6,21 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:53:08 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/19 13:03:25 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:16:38 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_unset(t_minishell *mini, char *line)
+int	ft_precall_unset(t_minishell *mini, char **split)
 {
 	int		i;
-	char	**split;
 	int		last_return;
 
 	i = 0;
 	last_return = 0;
-	split = ft_split(line, ' ');
+	if (!split)
+		return (1);
 	while (split[++i])
 		if (ft_unset(mini, split[i]))
 			last_return = 1;

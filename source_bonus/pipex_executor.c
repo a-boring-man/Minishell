@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:56:24 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 18:42:45 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:24:31 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 {
 	int		i;
-	char	*line;
+	//char	*line;
 
 	if (pipex[1])
 		return (0);
@@ -27,9 +27,9 @@ static int	single_built_in(t_minishell *mini, t_petit_token **pipex, int *ret)
 		return (0);
 	if (!ft_is_a_built_in(*(char **)(pipex[0][i].token_value)))
 		return (0);
-	line = ft_join_split((char **)(pipex[0][i].token_value));
-	*ret = ft_call_built_in(mini, line);
-	free(line);
+	//line = ft_join_split((char **)(pipex[0][i].token_value));
+	*ret = ft_call_built_in(mini, (char **)(pipex[0][i].token_value));
+	//free(line);
 	return (1);
 }
 
@@ -56,8 +56,8 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 	vars[0] = -1;
 	if (single_built_in(mini, pipex, vars + 2))
 		return (vars[2]);
-	ft_term_switch_d(mini);
 	ft_signal(EXEC);
+	ft_term_switch_d(mini);
 	while (pipex[++(vars[0])])
 	{
 		fd[2] = fd[0];
@@ -76,12 +76,12 @@ int	ft_ptit_executor(t_minishell *mini, t_petit_token **pipex)
 		if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 2)
 		{
 			ft_putstr_fd("\n", 2);
-			g_last_error = 130;
+			vars[4] = 130;
 		}
 		else if (WIFSIGNALED(vars[3]) && WTERMSIG(vars[3]) == 3)
 		{
 			ft_putstr_fd("Quit : 3\n", 2);
-			g_last_error = 131;
+			vars[4] = 131;
 		}
 		else if (vars[2] == vars[1] && WIFEXITED(vars[3]))
 			vars[4] = WEXITSTATUS(vars[3]);

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 18:25:45 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:59:46 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,14 @@ char			*ft_splitfirst_word(char *line);
 int				ft_moulinator(t_minishell *mini, char *line);
 int				ft_is_a_built_in(char *line);
 char			**ft_split(char *s, char c);
-int				ft_call_built_in(t_minishell *mini, char *line);
-void			ft_precall_echo(char *line);
-int				ft_precall_cd(t_minishell *mini, char *line);
+int				ft_call_built_in(t_minishell *mini, char **split);
+void			ft_precall_echo(char **split);
+int				ft_precall_cd(t_minishell *mini, char **split);
 int				ft_cd(t_minishell *mini, char *s);
-int				ft_precall_export(t_minishell *mini, char *line);
+int				ft_precall_export(t_minishell *mini, char **split);
 void			ft_pwd(void);
 void			ft_env(t_minishell *mini);
-int				ft_precall_unset(t_minishell *mini, char *line);
+int				ft_precall_unset(t_minishell *mini, char **split);
 int				ft_good_parenthese_and_quote(t_minishell *mini, char *line);
 void			ft_parser_quote_and_or(t_minishell *mini, char c);
 void			ft_parsing_init(t_minishell *mini);
@@ -146,7 +146,7 @@ void			ft_term_switch_d(t_minishell *m);
 void			ft_term_switch_nd(t_minishell *m);
 char			*ft_itoa(int n);
 int				ft_super_atol(char *s);
-void			ft_precall_exit(char *s, int last_return);
+void			ft_precall_exit(char **split, int last_return);
 int				ft_exit(char *s);
 char			*ft_expand_line(t_minishell *m, char *s);
 void			ft_putchar_fd(char c, int fd);
@@ -160,5 +160,6 @@ void			ft_signal(int mode);
 void			ft_s_here(int s);
 void			ft_s_exec(int s);
 void			ft_s_main(int s);
+int				ft_is_a_built_in_non_fork(char **split);
 
 #endif

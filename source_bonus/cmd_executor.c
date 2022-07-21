@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalamell <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 14:32:12 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:24:03 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ static void	execute_cmd(t_minishell *mini, t_petit_token *cmd, t_child *vars)
 {
 	if (ft_is_a_built_in(*(char **)(cmd->token_value)))
 	{
-		vars->line = ft_join_split((char **)(cmd->token_value));
-		vars->ret = ft_call_built_in(mini, vars->line);
+		//vars->line = ft_join_split((char **)(cmd->token_value));
+		vars->ret = ft_call_built_in(mini, (char **)(cmd->token_value));
 	}
 	else
 	{
@@ -85,7 +85,7 @@ static void	execute_cmd(t_minishell *mini, t_petit_token *cmd, t_child *vars)
 		free(vars->line);
 		exit(127);
 	}
-	free(vars->line);
+	//free(vars->line);
 }
 
 void	child(t_minishell *mini, t_petit_token *cmd, int fd[3])

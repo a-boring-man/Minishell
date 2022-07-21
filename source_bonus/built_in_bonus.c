@@ -6,11 +6,20 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 17:26:12 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:59:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+
+int	ft_is_a_built_in_non_fork(char **split)
+{
+	if (split && (!ft_strcmp("cd", split[0])
+			|| (!ft_strcmp("export", split[0]) && split[1])
+			|| !ft_strcmp("unset", split[0])))
+		return (1);
+	return (0);
+}
 
 int	ft_is_a_built_in(char *line)
 {
@@ -29,27 +38,26 @@ int	ft_is_a_built_in(char *line)
 	return (0);
 }
 
-int	ft_call_built_in(t_minishell *mini, char *line)
+int	ft_call_built_in(t_minishell *mini, char **split)
 {
-	char	**split;
 	int		last_return;
 
-	split = ft_split(line, ' ');
 	last_return = 0;
+	if (!split)
+		return (1);
 	if (!ft_strcmp("echo", split[0]))
-		ft_precall_echo(line);
+		ft_precall_echo(split);
 	if (!ft_strcmp("cd", split[0]))
-		last_return = ft_precall_cd(mini, line);
+		last_return = ft_precall_cd(mini, split);
 	if (!ft_strcmp("pwd", split[0]))
 		ft_pwd();
 	if (!ft_strcmp("export", split[0]))
-		last_return = ft_precall_export(mini, line);
+		last_return = ft_precall_export(mini, split);
 	if (!ft_strcmp("unset", split[0]))
-		last_return = ft_precall_unset(mini, line);
+		last_return = ft_precall_unset(mini, split);
 	if (!ft_strcmp("env", split[0]))
 		ft_env(mini);
 	if (!ft_strcmp("exit", split[0]))
-		ft_precall_exit(line, 0);
-	ft_clean(split);
+		ft_precall_exit(split, 0);
 	return (last_return);
 }

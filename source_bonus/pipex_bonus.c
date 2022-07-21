@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/20 18:16:19 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 10:20:04 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ t_petit_token	**ft_tokenize_pipe(t_minishell *mini, char *line)
 		if (!ret[i])
 			ret = ft_free_pipex(ret);
 	}
-	free((void **)line);
 	ft_free_split(split);
 	return (ret);
 }
