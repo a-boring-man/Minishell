@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 11:43:06 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/11 12:03:43 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:37:33 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,24 +96,3 @@ char	**ft_reverse_env(t_env *env)
 	}
 	return (envv);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	int			i;
-	t_minishell	m;
-	char		**renv;
-
-	i = -1;
-	(void)ac;
-	(void)av;
-	ft_memset(&m, 0, sizeof(t_minishell));
-	ft_env_init(&m, env);
-	printf("env : \n");
-	while (env[++i])
-		printf("%s\n", env[i]);
-	printf("reversed env : \n");
-	i = -1;
-	renv = ft_reverse_env(m.env);
-	while (renv[++i])
-		printf("%s\n", renv[i]);
-} */

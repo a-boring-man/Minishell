@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_line.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:28:32 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 static void	ft_dollar(t_minishell *m, char **new_line, char **s)
 {

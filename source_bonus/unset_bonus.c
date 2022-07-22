@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:30:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 09:14:57 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:37:38 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,3 @@ int	ft_unset(t_minishell *mini, char *s)
 		ft_delnode_env_ns_f(mini, s);
 	return (0);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-
-	(void)ac;
-	(void)av;
-	ft_env_init(&mini, env);
-	printf("\n\n-----avant-----\n\n");
-	ft_export(&mini, NULL);
-	printf("\n\n-----toujours avant-----\n\n");
-	ft_export(&mini, NULL);
-	ft_unset(&mini, av[1]);
-	printf("\n\n-----après-----\n\n");
-	ft_export(&mini, NULL);
-	ft_lstclear_env(&mini.env);
-} */

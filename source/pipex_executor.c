@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_executor.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:29:05 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 #include "errno.h"
 
 static int	single_built_in(t_minishell *mini, t_lt **pipex, int *ret)

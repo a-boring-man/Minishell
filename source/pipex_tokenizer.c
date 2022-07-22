@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_tokenizer.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:29:07 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:38:49 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 #include <fcntl.h>
 
 static char	**fast_check(t_minishell *mini, char *line)
@@ -9,7 +21,7 @@ static char	**fast_check(t_minishell *mini, char *line)
 	while (line[i])
 		++i;
 	--i;
-	if (i >= 0 &&line[i] == '|')
+	if (i >= 0 && line[i] == '|')
 		return (0);
 	return (ft_super_split(mini, line, '|'));
 }

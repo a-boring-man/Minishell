@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   linklist_env2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:28:53 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 static void	ft_delnode_env_ns(t_minishell *mini, char *name)
 {

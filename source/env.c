@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:28:21 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:35:50 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 void	ft_env(t_minishell *mini)
 {
@@ -12,14 +24,3 @@ void	ft_env(t_minishell *mini)
 		tmp = tmp->next;
 	}
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-
-	(void)ac;
-	(void)av;
-	ft_env_init(&mini, env);
-	ft_env(&mini);
-	ft_lstclear_env(&mini.env);
-} */

@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:28:08 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:35:41 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 static void	check_cd(t_minishell *mini, char *s, char *current_dir, int *ret)
 {
@@ -40,23 +52,3 @@ int	ft_cd(t_minishell *mini, char *s)
 	ft_free((void **)&current_directory);
 	return (last_return);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-	char		*tmp;
-
-	(void)ac;
-	ft_env_init(&mini, env);
-	printf("\n\n  --  env before  --  \n\n");
-	ft_export(&mini, NULL);
-	ft_cd(&mini, av[1]);
-	printf("\n\n  --  env after  --  \n\n");
-	ft_export(&mini, NULL);
-	tmp = getcwd(NULL, 0);
-	printf("\n\ncwd = %s\n\n\n", tmp);
-	ft_free((void **)&tmp);
-	printf("cd finish\n");
-	ft_lstclear_env(&(mini.env));
-	return (0);
-} */

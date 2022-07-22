@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:29:54 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:36:39 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 int	ft_unset(t_minishell *mini, char *s)
 {
@@ -13,20 +25,3 @@ int	ft_unset(t_minishell *mini, char *s)
 		ft_delnode_env_ns_f(mini, s);
 	return (0);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-
-	(void)ac;
-	(void)av;
-	ft_env_init(&mini, env);
-	printf("\n\n-----avant-----\n\n");
-	ft_export(&mini, NULL);
-	printf("\n\n-----toujours avant-----\n\n");
-	ft_export(&mini, NULL);
-	ft_unset(&mini, av[1]);
-	printf("\n\n-----après-----\n\n");
-	ft_export(&mini, NULL);
-	ft_lstclear_env(&mini.env);
-} */

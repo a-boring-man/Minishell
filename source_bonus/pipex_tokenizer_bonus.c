@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipex_tokenizer_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/22 11:17:47 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:38:41 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	**fast_check(t_minishell *mini, char *line)
 	while (line[i])
 		++i;
 	--i;
-	if (i >= 0 &&line[i] == '|')
+	if (i >= 0 && line[i] == '|')
 		return (0);
 	return (ft_super_split(mini, line, '|'));
 }

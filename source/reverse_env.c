@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reverse_env.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:29:24 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:36:30 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 static int	ft_env_small_lenght(t_env *env, int j)
 {
@@ -84,24 +96,3 @@ char	**ft_reverse_env(t_env *env)
 	}
 	return (envv);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	int			i;
-	t_minishell	m;
-	char		**renv;
-
-	i = -1;
-	(void)ac;
-	(void)av;
-	ft_memset(&m, 0, sizeof(t_minishell));
-	ft_env_init(&m, env);
-	printf("env : \n");
-	while (env[++i])
-		printf("%s\n", env[i]);
-	printf("reversed env : \n");
-	i = -1;
-	renv = ft_reverse_env(m.env);
-	while (renv[++i])
-		printf("%s\n", renv[i]);
-} */

@@ -1,4 +1,16 @@
-#include "minishell_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_env_var_name.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/22 11:30:03 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/22 11:36:42 by jrinna           ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
 
 int	ft_is_it_a_valid_env_name(char *name)
 {
@@ -13,9 +25,3 @@ int	ft_is_it_a_valid_env_name(char *name)
 			return (0);
 	return (1);
 }
-
-/* int	main(int ac, char **av)
-{
-	while (--ac)
-		printf("%s was  : %d\n", av[ac], ft_is_it_a_valid_env_name(av[ac]));
-} */

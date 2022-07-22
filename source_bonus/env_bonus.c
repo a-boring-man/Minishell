@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 12:39:31 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 10:09:07 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:37:09 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,3 @@ void	ft_env(t_minishell *mini)
 		tmp = tmp->next;
 	}
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-
-	(void)ac;
-	(void)av;
-	ft_env_init(&mini, env);
-	ft_env(&mini);
-	ft_lstclear_env(&mini.env);
-} */

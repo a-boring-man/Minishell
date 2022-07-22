@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:48:10 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 10:09:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:37:19 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,3 @@ int	ft_env_init(t_minishell *mini, char **env)
 				ft_strdup("OLDPWD"), NULL));
 	return (0);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-	int			i;
-	t_env		*tmp;
-
-	i = -1;
-	tmp = NULL;
-	(void)ac;
-	(void)av;
-	if (ft_getenv(&mini, env))
-		return (0);
-	tmp = mini.env;
-	while (tmp)
-	{
-		printf("%s=%s\n", tmp->name, tmp->value);
-		tmp = tmp->next;
-	}
-	ft_lstclear_env(&(mini.env));
-} */
