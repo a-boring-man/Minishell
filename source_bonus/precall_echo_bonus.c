@@ -6,33 +6,46 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:24 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:12:27 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 18:50:44 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
+static void	ft_will(char **s, t_echo *t)
+{
+	if (s[t->j] && s[t->j][0] == '-')
+	{
+		t->i = 0;
+		while (s[t->j][++(t->i)] == 'n')
+			t->n = 1;
+		if (s[t->j][t->i] != '\0')
+			t->n = 0;
+		if (t->n)
+		{
+			t->n = 0;
+			t->supern = 1;
+			(t->cs)++;
+		}
+	}
+	(t->j)++;
+}
+
 void	ft_precall_echo(char **split)
 {
-	int		n;
-	int		i;
+	t_echo	t;
 
-	i = 0;
-	n = 0;
-	if (split[1] && split[1][0] == '-')
+	ft_memset(&t, 0, sizeof(t_echo));
+	t.j = 1;
+	while (split[t.j] && split[t.j][0] == '-')
+		ft_will(split, &t);
+	t.i = 0;
+	while (split[t.cs + ++(t.i)])
 	{
-		while (split[1][++i] == 'n')
-			n = 1;
-		if (split[1][i] != '\0')
-			n = 0;
-	}
-	i = 0;
-	while (split[++i + n])
-	{
-		ft_echo(split[i + n], 1);
-		if (split[i + n + 1])
+		ft_echo(split[t.cs + t.i], 1);
+		if (split[t.cs + t.i + 1])
 			write (1, " ", 1);
 	}
-	if (!n)
+	if (!t.supern)
 		write(1, "\n", 1);
 }
