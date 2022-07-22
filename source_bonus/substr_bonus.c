@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precall_export_bonus.c                             :+:      :+:    :+:   */
+/*   substr_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:52:42 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 20:52:23 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/05/09 12:54:23 by jrinna            #+#    #+#             */
+/*   Updated: 2022/05/09 12:56:58 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_export(t_minishell *mini, char **split)
+char	*ft_substr(char *s, int start, int len)
 {
+	char	*substr;
 	int		i;
-	int		last_return;
+	int		j;
 
-	i = 1;
-	last_return = 0;
-	if (!split)
-		return (1);
-	if (ft_export(mini, split[1], 0))
-		last_return = 1;
-	while (split[i] && split[i + 1])
-		if (ft_export(mini, split[++i], 0))
-			last_return = 1;
-	return (last_return);
+	if (!s)
+		return (NULL);
+	substr = ft_calloc(ft_min(len, ft_strlen_s(s)) + 1, 1);
+	i = -1;
+	j = -1;
+	if (substr)
+		while (s[++i])
+			if (i >= start && (i - start) < len)
+				substr[++j] = s[i];
+	return (substr);
 }

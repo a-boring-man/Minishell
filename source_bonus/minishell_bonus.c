@@ -6,69 +6,80 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/03 12:23:49 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:05:10 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_ctrl_c(int i)
+int	g_last_error = 0;
+
+static char	*cut_name(char *name)
 {
-	(void)i;
-	printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	int	i;
+	int	ret;
+
+	ret = 0;
+	i = -1;
+	while (name[++i])
+		if (name[i] == '/')
+			ret = i + 1;
+	return (name + ret);
 }
 
-void	ft_ctrl_backslash(int i)
+void	ft_signal(int mode)
 {
-	(void)i;
-	rl_on_new_line();
-	rl_redisplay();
+	if (mode == MAIN)
+	{
+		signal(SIGINT, ft_s_main);
+		signal(SIGQUIT, ft_s_main);
+	}
+	else if (mode == EXEC)
+	{
+		signal(SIGINT, ft_s_exec);
+		signal(SIGQUIT, ft_s_exec);
+	}
+	else if (mode == HERE)
+	{
+		signal(SIGINT, ft_s_here);
+		signal(SIGQUIT, ft_s_here);
+	}
 }
 
-void	ft_term_config(void)
+static int	ft_is_only_isspace3(char *s)
 {
-	struct termios	old_config;
-	struct termios	new_config;
+	int	i;
 
-	tcgetattr(STDIN_FILENO, &old_config);
-	new_config = old_config;
-	new_config.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP
-			| INLCR | IGNCR | ICRNL | IXON);
-	new_config.c_lflag &= ~(ECHOCTL | ECHONL | ICANON | ISIG | IEXTEN);
-	new_config.c_cflag &= ~(CSIZE | PARENB);
-	tcsetattr(STDIN_FILENO, 0, &new_config);
+	i = -1;
+	while (s[++i])
+		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n'
+			&& s[i] != '\f' && s[i] != '\r' && s[i] != '\v')
+			return (0);
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	char		*test;
-	int			stop;
 	t_minishell	mini;
 
-	stop = 0;
+	mini.name = cut_name(av[0]);
 	(void)ac;
-	(void)av;
-	signal(SIGINT, ft_ctrl_c);
-	signal(SIGQUIT, ft_ctrl_backslash);
-	ft_term_config();
-	ft_env_init(&mini, env);
-	while (!stop)
+	ft_term_config(&mini);
+	ft_term_switch_nd(&mini);
+	ft_signal(MAIN);
+	if (ft_env_init(&mini, env))
+		exit (0);
+	test = readline("i'm depressed exit me $> ");
+	while (test)
 	{
-		test = readline("i'm depressed exit me $> "); // gros probleme avec readline si echo -n ou ce genre de chose
-		if (!test)
-		{
-			stop = 1;
-			printf("exit ");
-		}
-		else if (*test)
-		{
-			ft_moulinator(&mini, test);
+		if (test[0])
 			add_history(test);
-		}
+		if (!ft_is_only_isspace3(test))
+			ft_moulinator(&mini, test);
 		free(test);
+		test = readline("i'm depressed exit me $> ");
 	}
+	ft_lstclear_env(&mini.env);
 	rl_clear_history();
 }

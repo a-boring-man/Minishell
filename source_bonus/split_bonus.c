@@ -6,13 +6,13 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:27:38 by jrinna            #+#    #+#             */
-/*   Updated: 2022/04/21 13:28:16 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/20 13:15:09 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-static void	ft_clean(char **tab)
+/* static void	ft_clean(char **tab)
 {
 	int	j;
 
@@ -21,7 +21,7 @@ static void	ft_clean(char **tab)
 		free(tab[j]);
 	free(tab);
 	return ;
-}
+} */
 
 static int	ft_size(const char *s, char c)
 {

@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precall_unset_bonus.c                              :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:53:08 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 11:16:38 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
+/*   Updated: 2022/07/21 20:32:19 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
+#include <fcntl.h>
 
-int	ft_precall_unset(t_minishell *mini, char **split)
+t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line)
 {
-	int		i;
-	int		last_return;
+	int				i;
+	int				nb;
+	t_lt			**ret;
+	char **const	split = ft_super_split(mini, line, '|');
+	const int		tmp = mini->cb;
 
-	i = 0;
-	last_return = 0;
 	if (!split)
-		return (1);
+		return (0);
+	i = -1;
+	nb = 0;
 	while (split[++i])
-		if (ft_unset(mini, split[i]))
-			last_return = 1;
-	return (last_return);
+		++nb;
+	ret = ft_calloc(nb + 1, sizeof(void *));
+	i = -1;
+	while (ret && ++i < nb)
+	{
+		ret[i] = ft_tokenize_cmd(mini, split[i]);
+		mini->cb = tmp;
+		if (!ret[i])
+			ret = ft_free_pipex(ret);
+	}
+	ft_free_split(split);
+	return (ret);
 }

@@ -6,19 +6,15 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/02 11:54:33 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/21 11:14:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-void	ft_precall_cd(t_minishell *mini, char *line)
+int	ft_precall_cd(t_minishell *mini, char **split)
 {
-	char	**split;
-
-	split = ft_split(line, ' ');
-	if (!ft_cd(mini, split[1]))
-		printf("cd succed\n");
-	else
-		printf("cd fail\n");
+	if (!split)
+		return (1);
+	return (ft_cd(mini, split[1]));
 }

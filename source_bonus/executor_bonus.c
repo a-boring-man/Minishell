@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precall_export_bonus.c                             :+:      :+:    :+:   */
+/*   executor_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:52:42 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 20:52:23 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/05/11 09:50:35 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/21 13:05:55 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_export(t_minishell *mini, char **split)
+int	ft_executor(t_minishell *mini, t_bt *gt)
 {
-	int		i;
-	int		last_return;
+	int	last_return;
+	int	i;
 
-	i = 1;
-	last_return = 0;
-	if (!split)
-		return (1);
-	if (ft_export(mini, split[1], 0))
-		last_return = 1;
-	while (split[i] && split[i + 1])
-		if (ft_export(mini, split[++i], 0))
-			last_return = 1;
+	i = -1;
+	while (1)
+	{
+		last_return = ft_ptit_executor(mini, gt[++i].lt);
+		if (last_return)
+			while (gt[i].next_operator_type == ET)
+				++i;
+		else
+			while (gt[i].next_operator_type == OU)
+				++i;
+		if (gt[i].next_operator_type == -1)
+			break ;
+	}
 	return (last_return);
 }

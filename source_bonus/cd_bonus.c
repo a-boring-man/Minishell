@@ -6,40 +6,51 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/02 11:47:01 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 08:50:17 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
+static void	check_cd(t_minishell *mini, char *s, char *current_dir, int *ret)
+{
+	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
+	{
+		ft_dprintf(2, "HOME not set\n");
+		*ret = 1;
+	}
+	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
+		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_dir), 1);
+	else if (s && !chdir(s))
+		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_dir), 1);
+	else
+	{
+		ft_dprintf(2, "No such file or directory\n");
+		*ret = 1;
+	}
+}
+
 int	ft_cd(t_minishell *mini, char *s)
 {
 	char	*oldpwd;
+	char	**oldppwd;
 	char	*current_directory;
 	char	*pwd;
-	int		i;
+	int		last_return;
 
-	i = 0;
-	oldpwd = *ft_getenv_value(mini, "OLDPWD");
+	last_return = 0;
+	oldpwd = NULL;
+	oldppwd = ft_getenv_value(mini, "OLDPWD");
+	if (oldppwd)
+		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
-	if (!s && !ft_isthere_this_env_name(mini, "HOME"))
-	{
-		printf("HOME not set\n");
-		i = 1;
-	}
-	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
-		oldpwd = current_directory;
-	else if (s && !chdir(s))
-		oldpwd = current_directory;
-	else
-	{
-		printf("No such file or directory\n");
-		i = 1;
-	}
+	check_cd(mini, s, current_directory, &last_return);
 	pwd = getcwd(NULL, 0);
-	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd));
-	ft_export(mini, ft_strjoin_nf("PWD=", pwd));
-	return (i);
+	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd), 1);
+	ft_export(mini, ft_strjoin_nf("PWD=", pwd), 1);
+	ft_free((void **)&pwd);
+	ft_free((void **)&current_directory);
+	return (last_return);
 }
 
 /* int	main(int ac, char **av, char **env)

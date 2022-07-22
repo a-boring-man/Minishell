@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precall_export_bonus.c                             :+:      :+:    :+:   */
+/*   termios_stuff_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:52:42 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 20:52:23 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/07/15 11:49:11 by jrinna            #+#    #+#             */
+/*   Updated: 2022/07/21 15:15:32 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_export(t_minishell *mini, char **split)
+void	ft_term_switch_nd(t_minishell *m)
 {
-	int		i;
-	int		last_return;
+	tcsetattr(STDIN_FILENO, TCSANOW, &m->no_display);
+}
 
-	i = 1;
-	last_return = 0;
-	if (!split)
-		return (1);
-	if (ft_export(mini, split[1], 0))
-		last_return = 1;
-	while (split[i] && split[i + 1])
-		if (ft_export(mini, split[++i], 0))
-			last_return = 1;
-	return (last_return);
+void	ft_term_switch_d(t_minishell *m)
+{
+	tcsetattr(STDIN_FILENO, TCSANOW, &m->display);
+}
+
+void	ft_term_config(t_minishell *m)
+{
+	tcgetattr(STDIN_FILENO, &m->display);
+	m->no_display = m->display;
+	m->no_display.c_cc[VQUIT] = 0;
+	m->no_display.c_lflag &= ~(ECHOCTL);
 }

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/03 13:28:17 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:10:04 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,47 +94,45 @@ static void	ft_printf_export(t_minishell *mini)
 		tmp = mini->env;
 		while (tmp)
 		{
-			if (tmp->index == i - 1 && tmp->value)
-				printf("declare -x %s=\"%s\"\n", tmp->name, tmp->value);
-			else if (tmp->index == i - 1)
-				printf("declare -x %s\n", tmp->name);
+			if (tmp->index == i - 1 && tmp->value && ft_strcmp(tmp->name, "_"))
+				ft_dprintf(1, "declare -x %s=\"%s\"\n", tmp->name, tmp->value);
+			else if (tmp->index == i - 1 && ft_strcmp(tmp->name, "_"))
+				ft_dprintf(1, "declare -x %s\n", tmp->name);
 			tmp = tmp->next;
 		}
 	}
 }
 
-int	ft_export(t_minishell *mini, char *s)
+int	ft_export(t_minishell *mini, char *s, int f)
 {
+	int		last_return;
+	char	*name;
+	char	*tmp;
+
+	last_return = 0;
 	if (!s)
 		ft_printf_export(mini);
-	else if (ft_is_it_a_valid_env_name(ft_splitname(s)) && *s)
+	name = ft_splitname(s);
+	if (s && ft_is_it_a_valid_env_name(name) && *s)
 	{
-		if (!ft_isthere_this_env_name(mini, ft_splitname(s)))
+		if (!ft_isthere_this_env_name(mini, name))
 			ft_lstadd_back_env(&mini->env, ft_lstnew_env
 				(ft_splitname(s), ft_splitvalue(s)));
 		else
-			*ft_getenv_value(mini, ft_splitname(s)) = ft_splitvalue(s);
+		{
+			tmp = *ft_getenv_value(mini, name);
+			*ft_getenv_value(mini, name) = ft_splitvalue(s);
+			ft_free((void **)&tmp);
+		}
 	}
-	else
+	else if (s)
 	{
-		printf("minishell_bonus: export: `%s': not a valid identifier\n", s);
-		return (1);
+		ft_dprintf(2, "%s: export: `%s': not a valid identifier\n", mini->name,
+			s);
+		last_return = 1;
 	}
-	return (0);
+	if (f)
+		ft_free((void **)&s);
+	ft_free((void **)&name);
+	return (last_return);
 }
-
-/* int	main(int ac, char **av, char **env)
-{
-	t_minishell	mini;
-	t_env		*tmp;
-
-	(void)ac;
-	ft_env_init(&mini, env);
-	tmp = mini.env;
-	ft_export(&mini, av[1]);
-	while (tmp)
-	{
-		printf("env index : %d, name lenght : %d, name : %s, value : %s, next : %p\n", tmp->index, tmp->name_lengh, tmp->name, tmp->value, tmp->next);
-		tmp = tmp->next;
-	}
-}*/

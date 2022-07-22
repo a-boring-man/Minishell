@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   precall_export_bonus.c                             :+:      :+:    :+:   */
+/*   strtrim_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:52:42 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 20:52:23 by jrinna           ###   ########lyon.fr   */
+/*   Created: 2022/05/09 12:38:01 by jrinna            #+#    #+#             */
+/*   Updated: 2022/05/09 12:53:13 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
-int	ft_precall_export(t_minishell *mini, char **split)
+char	*ft_strtrim(char *s1, char *set)
 {
-	int		i;
-	int		last_return;
+	int	start;
+	int	i;
+	int	end;
 
-	i = 1;
-	last_return = 0;
-	if (!split)
-		return (1);
-	if (ft_export(mini, split[1], 0))
-		last_return = 1;
-	while (split[i] && split[i + 1])
-		if (ft_export(mini, split[++i], 0))
-			last_return = 1;
-	return (last_return);
+	start = 0;
+	end = 0;
+	i = 0;
+	if (!s1)
+		return (NULL);
+	if (ft_strlen_s(s1) != 0)
+		end = ft_strlen_s(s1) - 1;
+	while (ft_isincharset(s1[start], set))
+		start++;
+	while (end && ft_isincharset(s1[end], set))
+		end--;
+	if (ft_strlen_s(s1) != 0 && start <= end)
+		return (ft_substr(s1, start, end - start + 1));
+	return (ft_calloc(1, 1));
 }
