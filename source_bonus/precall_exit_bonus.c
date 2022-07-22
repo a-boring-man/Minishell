@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:53:56 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 09:12:10 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 19:49:50 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	ft_precall_exit(t_minishell *mini, char **split, int last_return)
 				mini->name, split[1]);
 		else
 			ft_dprintf(2, "%s: exit: too many arguments\n", mini->name);
-		return ;
+		if (!ft_numeric_argument(split[1]))
+			return ;
 	}
 	last_return = ft_exit(split[1]);
 	if (last_return == -1)
