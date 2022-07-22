@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 11:30:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/20 11:15:51 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:14:57 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	ft_unset(t_minishell *mini, char *s)
 		return (1);
 	if (!ft_is_it_a_valid_env_name(s))
 	{
-		ft_dprintf(2,
-			"minishell_bonus: unset: `%s': not a valid identifier", s);
+		ft_dprintf(2, "%s: unset: `%s': not a valid identifier", mini->name, s);
 		return (1);
 	}
 	if (ft_isthere_this_env_name(mini, s))

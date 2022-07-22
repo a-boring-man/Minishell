@@ -6,13 +6,26 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 15:16:40 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:05:10 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 
 int	g_last_error = 0;
+
+static char	*cut_name(char *name)
+{
+	int	i;
+	int	ret;
+
+	ret = 0;
+	i = -1;
+	while (name[++i])
+		if (name[i] == '/')
+			ret = i + 1;
+	return (name + ret);
+}
 
 void	ft_signal(int mode)
 {
@@ -50,8 +63,8 @@ int	main(int ac, char **av, char **env)
 	char		*test;
 	t_minishell	mini;
 
+	mini.name = cut_name(av[0]);
 	(void)ac;
-	(void)av;
 	ft_term_config(&mini);
 	ft_term_switch_nd(&mini);
 	ft_signal(MAIN);

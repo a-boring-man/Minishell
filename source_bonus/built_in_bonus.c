@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:35 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 13:31:10 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:13:22 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	ft_call_built_in(t_minishell *mini, char **split)
 	if (!ft_strcmp("env", split[0]))
 		ft_env(mini);
 	if (!ft_strcmp("exit", split[0]))
-		ft_precall_exit(split, 0);
+		ft_precall_exit(mini, split, 0);
 	return (last_return);
 }

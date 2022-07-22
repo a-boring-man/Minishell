@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 20:51:54 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:12:49 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_env
 
 typedef struct s_minishell
 {
+	char			*name;
 	int				double_quote;
 	int				single_quote;
 	int				parenthese;
@@ -78,6 +79,7 @@ typedef struct s_minishell
 	struct termios	no_display;
 }	t_minishell;
 
+t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line);
 t_lt	*ft_free_cmd(t_lt *cmd);
 void	child(t_minishell *mini, t_lt *cmd, int fd[3]);
 t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line);
@@ -146,7 +148,7 @@ void	ft_term_switch_d(t_minishell *m);
 void	ft_term_switch_nd(t_minishell *m);
 char	*ft_itoa(int n);
 int		ft_super_atol(char *s);
-void	ft_precall_exit(char **split, int last_return);
+void	ft_precall_exit(t_minishell *mini, char **split, int last_return);
 int		ft_exit(char *s);
 char	*ft_expand_line(t_minishell *m, char *s);
 void	ft_putchar_fd(char c, int fd);

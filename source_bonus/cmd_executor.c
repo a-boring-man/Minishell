@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 16:16:58 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 09:09:00 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*ft_get_path(char **env, char *exe)
 	return (exe);
 }
 
-static int	redirect(t_lt *cmd, int *fd, t_child *vars)
+static int	redirect(t_minishell *mini, t_lt *cmd, int *fd, t_child *vars)
 {
 	if (cmd->token_type == INFILE)
 	{
@@ -66,8 +66,8 @@ static int	redirect(t_lt *cmd, int *fd, t_child *vars)
 		fd[1] = open(cmd->token_value, vars->flags | O_APPEND, vars->perm);
 	}
 	if (fd[2] < 0)
-		return (ft_dprintf(2, "minishell: %s: No such file or directory\n",
-				cmd->token_value));
+		return (ft_dprintf(2, "%s: %s: No such file or directory\n",
+				mini->name, cmd->token_value));
 	return (0);
 }
 
@@ -82,7 +82,7 @@ static void	execute_cmd(t_minishell *mini, t_lt *cmd, t_child *vars)
 		line = ft_reverse_env(mini->env);
 		execve(ft_get_path(line, *(char **)(cmd->token_value)),
 			cmd->token_value, line);
-		ft_dprintf(2, "minishell: %s: command not found\n",
+		ft_dprintf(2, "%s: %s: command not found\n", mini->name,
 			*(char **)(cmd->token_value));
 		free(line);
 		exit(127);
@@ -99,7 +99,7 @@ void	child(t_minishell *mini, t_lt *cmd, int fd[3])
 	if (fd[0] >= 0)
 		close(fd[0]);
 	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)
-		if (redirect(cmd++, fd, &vars))
+		if (redirect(mini, cmd++, fd, &vars))
 			exit (1);
 	if (fd[1] != 1)
 		dup2(fd[1], STDOUT_FILENO);
