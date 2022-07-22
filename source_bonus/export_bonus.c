@@ -6,23 +6,11 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 12:55:50 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 09:10:04 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 10:07:13 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
-
-static void	ft_ranking_reset(t_env **env)
-{
-	t_env	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		tmp->index = 0;
-		tmp = tmp->next;
-	}
-}
 
 static void	ft_ranking_env_correction(t_env **env, int env_size)
 {
@@ -103,6 +91,19 @@ static void	ft_printf_export(t_minishell *mini)
 	}
 }
 
+static void	ft_export_s(t_minishell *m, char *s, char *name, char **tmp)
+{
+	if (!ft_isthere_this_env_name(m, name))
+		ft_lstadd_back_env(&m->env, ft_lstnew_env
+			(ft_splitname(s), ft_splitvalue(s)));
+	else
+	{
+		*tmp = *ft_getenv_value(m, name);
+		*ft_getenv_value(m, name) = ft_splitvalue(s);
+		ft_free((void **)tmp);
+	}
+}
+
 int	ft_export(t_minishell *mini, char *s, int f)
 {
 	int		last_return;
@@ -114,17 +115,7 @@ int	ft_export(t_minishell *mini, char *s, int f)
 		ft_printf_export(mini);
 	name = ft_splitname(s);
 	if (s && ft_is_it_a_valid_env_name(name) && *s)
-	{
-		if (!ft_isthere_this_env_name(mini, name))
-			ft_lstadd_back_env(&mini->env, ft_lstnew_env
-				(ft_splitname(s), ft_splitvalue(s)));
-		else
-		{
-			tmp = *ft_getenv_value(mini, name);
-			*ft_getenv_value(mini, name) = ft_splitvalue(s);
-			ft_free((void **)&tmp);
-		}
-	}
+		ft_export_s(mini, s, name, &tmp);
 	else if (s)
 	{
 		ft_dprintf(2, "%s: export: `%s': not a valid identifier\n", mini->name,

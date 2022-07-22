@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 09:12:49 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:00:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,7 @@ void	ft_s_main(int s);
 int		ft_is_a_built_in_non_fork(char **split);
 void	ft_mini_et_ou_reset(t_minishell *m);
 void	ft_bt_ss(t_minishell *mini, char c, t_bt *gt, char **block_tmp);
+void	ft_ranking_reset(t_env **env);
+void	ft_dollar_end_if(t_minishell *m, char **ttmp, char *tmp);
 
 #endif
