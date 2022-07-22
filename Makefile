@@ -6,16 +6,16 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/04/04 11:23:22 by jrinna           ###   ########lyon.fr    #
+#    Updated: 2022/07/22 10:12:28 by jalamell         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 #### LIST ####
-LST_SRC := minishell.c 
-LST_SRC_BNS := built_in_bonus.c calloc_bonus.c cd_bonus.c echo_bonus.c env_bonus.c env_check_bonus.c env_init_bonus.c export_bonus.c free_bonus.c getenv_bonus.c isalnum_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c moulinator_bonus.c precall_cd_bonus.c precall_echo_bonus.c precall_env_bonus.c precall_exit_bonus.c precall_export_bonus.c precall_pwd_bonus.c precall_unset_bonus.c pwd_bonus.c split_bonus.c split_utils_bonus.c strcmp_bonus.c strdup_bonus.c strjoin_bonus.c strlen_bonus.c unset_bonus.c valid_env_var_name_bonus.c 
+LST_SRC_BNS := built_in_bonus.c calloc_bonus.c cd_bonus.c echo_bonus.c env_bonus.c env_check_bonus.c env_init_bonus.c export_bonus.c free_bonus.c getenv_bonus.c isalnum_bonus.c linklist_env2_bonus.c linklist_env_bonus.c minishell_bonus.c moulinator_bonus.c precall_cd_bonus.c precall_echo_bonus.c precall_exit_bonus.c precall_export_bonus.c precall_unset_bonus.c pwd_bonus.c split_bonus.c strcmp_bonus.c strdup_bonus.c strjoin_bonus.c strlen_bonus.c unset_bonus.c valid_env_var_name_bonus.c 
+LST_SRC := $(subst _bonus,,$(LST_SRC_BNS))
 LST_OBJ := $(LST_SRC:.c=.o)
 LST_OBJ_BNS := $(LST_SRC_BNS:.c=.o)
-LST_INC := minishell.h 
+LST_INC := 
 LST_INC_BNS := minishell_bonus.h 
 #### LSIT ####
 
@@ -48,6 +48,8 @@ NAME_BNS := $(DIR_BIN)/minishell_bonus
 #### OTHER ####
 
 #### STANDARD_RULE ####
+test : $(LST_SRC)
+	echo $(LST_SRC)
 all : $(NAME_BNS) #$(NAME)
 
 bonus : $(NAME_BNS)
