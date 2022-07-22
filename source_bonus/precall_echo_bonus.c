@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:51:24 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 11:50:06 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:12:27 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ void	ft_precall_echo(char **split)
 
 	i = 0;
 	n = 0;
-	if (split[1][0] == '-')
+	if (split[1] && split[1][0] == '-')
+	{
 		while (split[1][++i] == 'n')
 			n = 1;
+		if (split[1][i] != '\0')
+			n = 0;
+	}
 	i = 0;
 	while (split[++i + n])
 	{

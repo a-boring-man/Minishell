@@ -6,19 +6,32 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:05:36 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/21 20:32:19 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:17:47 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <fcntl.h>
 
+static char	**fast_check(t_minishell *mini, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+		++i;
+	--i;
+	if (i >= 0 &&line[i] == '|')
+		return (0);
+	return (ft_super_split(mini, line, '|'));
+}
+
 t_lt	**ft_tokenize_pipe(t_minishell *mini, char *line)
 {
 	int				i;
 	int				nb;
 	t_lt			**ret;
-	char **const	split = ft_super_split(mini, line, '|');
+	char **const	split = fast_check(mini, line);
 	const int		tmp = mini->cb;
 
 	if (!split)
