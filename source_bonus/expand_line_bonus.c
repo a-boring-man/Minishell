@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 11:56:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 19:50:44 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/22 11:00:51 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	ft_dollar(t_minishell *m, char **new_line, char **s)
 		while ((*s)[++i] && (ft_isalnum((*s)[i]) || (*s)[i] == '_'))
 			tmp[i] = (*s)[i];
 	}
-	ttmp = *ft_getenv_value(m, tmp);
-		*new_line = ft_strjoin_f(*new_line, ttmp);
+	ft_dollar_end_if(m, &ttmp, tmp);
+	*new_line = ft_strjoin_f(*new_line, ttmp);
 	if (!ft_strcmp("?", tmp))
 		ft_free((void **)&ttmp);
 	ft_free((void **)&tmp);
