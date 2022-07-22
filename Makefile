@@ -6,7 +6,7 @@
 #    By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/19 11:44:14 by jrinna            #+#    #+#              #
-#    Updated: 2022/07/22 10:15:25 by jalamell         ###   ########lyon.fr    #
+#    Updated: 2022/07/22 10:38:18 by jalamell         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,12 @@ NAME_BNS := $(DIR_BIN)/minishell_bonus
 #### OTHER ####
 
 #### STANDARD_RULE ####
-test : $(LST_SRC)
+test : $(SRC)
 	echo $(LST_SRC)
+
+$(DIR_SRC)/%.c :
+	tail -n +13 <$(subst $(DIR_SRC),$(DIR_SRC_BNS),$(subst .c,_bonus.c,$@)) >$@
+
 all : $(NAME_BNS) #$(NAME)
 
 bonus : $(NAME_BNS)
