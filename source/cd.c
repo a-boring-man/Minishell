@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:08 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:35:41 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/26 13:35:53 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	ft_cd(t_minishell *mini, char *s)
 
 	last_return = 0;
 	oldpwd = NULL;
-	oldppwd = ft_getenv_value(mini, "OLDPWD");
-	if (oldppwd)
-		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
 	check_cd(mini, s, current_directory, &last_return);
 	pwd = getcwd(NULL, 0);
+	oldppwd = ft_getenv_value(mini, "OLDPWD");
+	if (oldppwd)
+		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd), 1);
 	ft_export(mini, ft_strjoin_nf("PWD=", pwd), 1);
 	ft_free((void **)&pwd);

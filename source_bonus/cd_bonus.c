@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 10:31:49 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:37:05 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/26 13:34:53 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	check_cd(t_minishell *mini, char *s, char *current_dir, int *ret)
 		ft_dprintf(2, "HOME not set\n");
 		*ret = 1;
 	}
-	else if (!s && !chdir (*ft_getenv_value(mini, "HOME")))
+	else if (!s && ft_getenv_value(mini, "HOME") && !chdir
+		(*ft_getenv_value(mini, "HOME")))
 		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_dir), 1);
 	else if (s && !chdir(s))
 		ft_export(mini, ft_strjoin_nf("OLDPWD=", current_dir), 1);
@@ -40,12 +41,12 @@ int	ft_cd(t_minishell *mini, char *s)
 
 	last_return = 0;
 	oldpwd = NULL;
-	oldppwd = ft_getenv_value(mini, "OLDPWD");
-	if (oldppwd)
-		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	current_directory = getcwd(NULL, 0);
 	check_cd(mini, s, current_directory, &last_return);
 	pwd = getcwd(NULL, 0);
+	oldppwd = ft_getenv_value(mini, "OLDPWD");
+	if (oldppwd)
+		oldpwd = *ft_getenv_value(mini, "OLDPWD");
 	ft_export(mini, ft_strjoin_nf("OLDPWD=", oldpwd), 1);
 	ft_export(mini, ft_strjoin_nf("PWD=", pwd), 1);
 	ft_free((void **)&pwd);
