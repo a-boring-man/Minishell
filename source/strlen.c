@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:29:38 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/26 14:08:33 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	ft_dollar_end_if(t_minishell *m, char **ttmp, char *tmp)
 	*ttmp = NULL;
 	tttmp = ft_getenv_value(m, tmp);
 	if (tttmp)
-		*ttmp = *ft_getenv_value(m, tmp);
+		*ttmp = *tttmp;
 }
