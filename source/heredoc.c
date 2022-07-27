@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:52:52 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/27 12:41:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:47:52 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 static void	do_heredoc(int fd, char *lim)
 {
 	char	*str;
+	int		pid;
 
+	ft_signal(HERE);
+	pid = fork();
+	if (pid < 0)
+		exit (0);
+	if (pid)
+	{
+		ft_signal(EXEC);
+		return ;
+	}
 	str = readline("> ");
 	while (str && ft_strcmp(str, lim))
 	{
@@ -30,19 +40,12 @@ int	ft_heredoc(t_minishell *mini)
 {
 	int		err;
 	int		i;
-	int		pid;
 
 	i = 0;
 	err = 0;
 	while (err != 256 && (mini->tab_fd)[i] != -1)
 	{
-		ft_signal(HERE);
-		pid = fork();
-		if (pid < 0)
-			exit (0);
-		if (!pid)
-			do_heredoc((mini->tab_fd)[i], (mini->tab_lim)[i]);
-		ft_signal(EXEC);
+		do_heredoc((mini->tab_fd)[i], (mini->tab_lim)[i]);
 		close((mini->tab_fd)[i]);
 		free((mini->tab_lim)[i]);
 		while (wait(&err) >= 0)
