@@ -6,46 +6,46 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:29:12 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 18:52:05 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:24:47 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_will(char **s, t_echo *t)
+static int	ft_will(char *s, int *supern)
 {
-	if (s[t->j] && s[t->j][0] == '-')
-	{
-		t->i = 0;
-		while (s[t->j][++(t->i)] == 'n')
-			t->n = 1;
-		if (s[t->j][t->i] != '\0')
-			t->n = 0;
-		if (t->n)
-		{
-			t->n = 0;
-			t->supern = 1;
-			(t->cs)++;
-		}
-	}
-	(t->j)++;
+	int	i;
+	int	n;
+
+	n = 0;
+	if (!(s && s[0] == '-'))
+		return (0);
+	i = 0;
+	while (s[++i] == 'n')
+		n = 1;
+	if (s[i] != '\0' || !n)
+		return (0);
+	*supern = 1;
+	return (1);
 }
 
 void	ft_precall_echo(char **split)
 {
-	t_echo	t;
+	int	n;
+	int	i;
+	int	j;
 
-	ft_memset(&t, 0, sizeof(t_echo));
-	t.j = 1;
-	while (split[t.j] && split[t.j][0] == '-')
-		ft_will(split, &t);
-	t.i = 0;
-	while (split[t.cs + ++(t.i)])
+	n = 0;
+	i = 1;
+	while (ft_will(split[i], &n))
+		++(i);
+	j = -1;
+	while (split[i + ++j])
 	{
-		ft_echo(split[t.cs + t.i], 1);
-		if (split[t.cs + t.i + 1])
+		ft_echo(split[i + j], 1);
+		if (split[i + j + 1])
 			write (1, " ", 1);
 	}
-	if (!t.supern)
+	if (!n)
 		write(1, "\n", 1);
 }
