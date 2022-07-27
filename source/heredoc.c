@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:52:52 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/27 12:30:35 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:41:02 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@ int	ft_heredoc(t_minishell *mini)
 	err = 0;
 	while (err != 256 && (mini->tab_fd)[i] != -1)
 	{
+		ft_signal(HERE);
 		pid = fork();
 		if (pid < 0)
 			exit (0);
 		if (!pid)
 			do_heredoc((mini->tab_fd)[i], (mini->tab_lim)[i]);
+		ft_signal(EXEC);
 		close((mini->tab_fd)[i]);
 		free((mini->tab_lim)[i]);
 		while (wait(&err) >= 0)
