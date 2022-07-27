@@ -6,11 +6,23 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:06 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:18:22 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_memset_2(int *block, int c, unsigned long size)
+{
+	unsigned long	i;
+
+	i = 0;
+	while (i < size)
+	{
+		*(block + i) = c;
+		i++;
+	}
+}
 
 void	ft_memset(void *block, int c, unsigned long size)
 {

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:13 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 12:00:05 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:22:12 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static int	heredoc(t_minishell *mini, char *line)
 	while ((mini->tab_fd)[i] != -1)
 		++i;
 	(mini->tab_fd)[i] = fd[1];
+	ft_dprintf(2, "line -%s-\n", line);
 	(mini->tab_lim)[i] = line;
-	free(line);
 	return (fd[0]);
 }
 

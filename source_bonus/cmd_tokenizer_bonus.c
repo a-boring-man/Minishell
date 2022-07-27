@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tokenizer.c                                    :+:      :+:    :+:   */
+/*   cmd_tokenizer_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:13 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 12:00:16 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:24:44 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static int	heredoc(t_minishell *mini, char *line)
 		++i;
 	(mini->tab_fd)[i] = fd[1];
 	(mini->tab_lim)[i] = line;
-	free(line);
 	return (fd[0]);
 }
 

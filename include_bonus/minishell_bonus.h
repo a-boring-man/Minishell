@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 12:05:48 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:27:34 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,5 +180,6 @@ void	ft_bt_ss(t_minishell *mini, char c, t_bt *gt, char **block_tmp);
 void	ft_ranking_reset(t_env **env);
 void	ft_dollar_end_if(t_minishell *m, char **ttmp, char *tmp);
 void	ft_count_heredoc(t_minishell *m, char *line);
+void	ft_memset_2(int *block, int c, unsigned long size);
 
 #endif

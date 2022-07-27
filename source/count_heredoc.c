@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 10:52:10 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 11:16:01 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:17:39 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	ft_count_heredoc(t_minishell *m, char *line)
 			p = 1 - p;
 		else if (!m->single_quote && !m->double_quote && line[i] == '<')
 			c++;
+		else
+			p = 0;
 	}
 	m->tab_fd = ft_calloc(c + 1, sizeof(int));
 	if (m->tab_fd)
-		ft_memset(m->tab_fd, -1, c + 1);
+		ft_memset_2(m->tab_fd, -1, c + 1);
 	m->tab_lim = ft_calloc(c + 1, sizeof(char *));
 }
