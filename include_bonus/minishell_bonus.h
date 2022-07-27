@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 11:56:39 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:05:48 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ typedef struct s_echo
 typedef struct s_minishell
 {
 	char			*name;
+	int				*tab_fd;
+	char			**tab_lim;
 	int				double_quote;
 	int				single_quote;
 	int				parenthese;
@@ -88,7 +90,7 @@ typedef struct s_minishell
 	struct termios	no_display;
 }	t_minishell;
 
-int		ft_heredoc(t_minishell);
+int		ft_heredoc(t_minishell *mini);
 t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line);
 t_lt	*ft_free_cmd(t_lt *cmd);
 void	child(t_minishell *mini, t_lt *cmd, int fd[3]);
@@ -177,5 +179,6 @@ void	ft_mini_et_ou_reset(t_minishell *m);
 void	ft_bt_ss(t_minishell *mini, char c, t_bt *gt, char **block_tmp);
 void	ft_ranking_reset(t_env **env);
 void	ft_dollar_end_if(t_minishell *m, char **ttmp, char *tmp);
+void	ft_count_heredoc(t_minishell *m, char *line);
 
 #endif
