@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 18:50:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 11:56:39 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_minishell
 	struct termios	no_display;
 }	t_minishell;
 
+int		ft_heredoc(t_minishell);
 t_lt	*ft_tokenize_cmd(t_minishell *mini, char *line);
 t_lt	*ft_free_cmd(t_lt *cmd);
 void	child(t_minishell *mini, t_lt *cmd, int fd[3]);

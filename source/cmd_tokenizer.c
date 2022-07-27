@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:13 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 12:00:05 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,33 +22,22 @@ typedef struct s_cmd
 	char	**tmp;
 }	t_cmd;
 
-static int	ft_heredoc(char *line)
+static int	heredoc(t_minishell *mini, char *line)
 {
 	int		fd[2];
-	char	*str;
-	int		pid;
+	int		i;
 
+	if (!(mini->tab_fd && mini->tab_lim))
+		exit (0);
 	if (pipe(fd))
 		exit (0);
-	pid = fork();
-	if (pid < 0)
-		exit (0);
-	if (pid)
-	{
-		close(fd[1]);
-		free(line);
-		return (fd[0]);
-	}
-	str = readline("> ");
-	while (str && ft_strcmp(str, line))
-	{
-		write(fd[1], str, ft_strlen_s(str));
-		write(fd[1], "\n", 1);
-		free(str);
-		str = readline("> ");
-	}
-	ft_free((void **)&str);
-	exit (0);
+	i = 0;
+	while ((mini->tab_fd)[i] != -1)
+		++i;
+	(mini->tab_fd)[i] = fd[1];
+	(mini->tab_lim)[i] = line;
+	free(line);
+	return (fd[0]);
 }
 
 static int	ft_count_token(t_minishell *mini, char *line, int i)
@@ -106,7 +95,7 @@ static void	redirect(t_minishell *mini, char *line, int *i,
 	token->token_value = ft_expand_line(mini, ft_strndup_del(line + *i,
 				ft_count_size(mini, line + *i, ' '), ' '));
 	if (token->token_type == HEREDOC)
-		token->token_value = (char *) 1 + ft_heredoc(token->token_value);
+		token->token_value = (char *) 1 + heredoc(mini, token->token_value);
 }
 
 static t_lt	*recursive(t_minishell *mini, t_cmd *vars)
