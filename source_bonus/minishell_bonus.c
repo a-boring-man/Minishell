@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:44 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 09:05:10 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:43:32 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int	main(int ac, char **av, char **env)
 	mini.name = cut_name(av[0]);
 	(void)ac;
 	ft_term_config(&mini);
-	ft_term_switch_nd(&mini);
-	ft_signal(MAIN);
 	if (ft_env_init(&mini, env))
 		exit (0);
+	ft_term_switch_nd(&mini);
 	test = readline("i'm depressed exit me $> ");
+	ft_term_switch_d(&mini);
 	while (test)
 	{
 		if (test[0])
@@ -78,8 +78,11 @@ int	main(int ac, char **av, char **env)
 		if (!ft_is_only_isspace3(test))
 			ft_moulinator(&mini, test);
 		free(test);
+		ft_term_switch_nd(&mini);
 		test = readline("i'm depressed exit me $> ");
+		ft_term_switch_d(&mini);
 	}
 	ft_lstclear_env(&mini.env);
+	ft_dprintf(2, "exit\n");
 	rl_clear_history();
 }

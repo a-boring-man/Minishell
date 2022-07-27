@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_executor.c                                     :+:      :+:    :+:   */
+/*   cmd_executor_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/22 09:09:00 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:29:50 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void	child(t_minishell *mini, t_lt *cmd, int fd[3])
 
 	vars.flags = O_WRONLY | O_CREAT;
 	vars.perm = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
-	ft_term_switch_d(mini);
 	if (fd[0] >= 0)
 		close(fd[0]);
 	while (cmd->token_type != CMD && cmd->token_type != PARENTHESE)

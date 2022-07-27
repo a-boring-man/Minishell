@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:19 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/26 13:31:46 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:41:37 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_env_init(t_minishell *mini, char **env)
 	i = -1;
 	mini->env = NULL;
 	new = NULL;
+	ft_signal(MAIN);
 	if (!env)
 		return (1);
 	while (env[++i])

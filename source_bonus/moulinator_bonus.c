@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 12:20:22 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 12:43:20 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:30:11 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ int	ft_moulinator(t_minishell *mini, char *line)
 	ft_signal(EXEC);
 	if (err != 256)
 		g_last_error = ft_executor(mini, gt);
-	ft_term_switch_nd(mini);
 	ft_signal(MAIN);
 	return (ft_free_big_token(&gt, 0, 0));
 }
