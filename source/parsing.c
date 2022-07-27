@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:29:03 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 13:02:13 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_parser_quote_and_or(t_minishell *mini, char c)
 {
-	if (c != ' ')
+	if (c != ' ' && c != '<' && c != '>')
 		mini->char_count++;
 	if (c == '(' && !mini->single_quote && !mini->double_quote)
 		mini->parenthese++;

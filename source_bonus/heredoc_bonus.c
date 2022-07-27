@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 11:53:27 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/27 12:49:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 13:02:43 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ int	ft_heredoc(t_minishell *mini)
 		free((mini->tab_lim)[i]);
 		++i;
 	}
+	free(mini->tab_fd);
+	free(mini->tab_lim);
 	return (err);
 }
