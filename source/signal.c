@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:29:26 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 14:40:02 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:49:17 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_s_main(int s)
 {
 	if (s == SIGINT)
 	{
+		g_last_error = 1;
 		ft_putstr_fd("\n", 2);
 		rl_on_new_line();
 		rl_replace_line("", 0);
