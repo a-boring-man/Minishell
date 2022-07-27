@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/27 12:27:34 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2022/07/27 14:28:08 by jalamell         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
-
-typedef struct s_echo
-{
-	int	n;
-	int	i;
-	int	j;
-	int	cs;
-	int	supern;
-}	t_echo;
 
 typedef struct s_minishell
 {
