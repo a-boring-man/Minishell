@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_executor.c                                     :+:      :+:    :+:   */
+/*   cmd_executor_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 13:37:42 by jalamell          #+#    #+#             */
-/*   Updated: 2022/07/22 09:09:00 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 14:57:01 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	redirect(t_minishell *mini, t_lt *cmd, int *fd, t_child *vars)
 	if (cmd->token_type == HEREDOC)
 	{
 		close(fd[2]);
-		fd[2] = (int) cmd->token_value - 1;
+		fd[2] = (long) cmd->token_value - 1;
 	}
 	if (cmd->token_type == APPEND)
 	{

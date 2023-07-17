@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 15:41:18 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/21 19:35:01 by jalamell         ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 14:58:15 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_lt	*ft_free_cmd(t_lt *cmd)
 	while ((cmd + i)->token_type != CMD && (cmd + i)->token_type != PARENTHESE)
 	{
 		if ((cmd + i)->token_type == HEREDOC)
-			close((int)(cmd + i)->token_value - 1);
+			close((long)(cmd + i)->token_value - 1);
 		else if ((cmd + i)->token_value)
 			free((cmd + i)->token_value);
 		++i;

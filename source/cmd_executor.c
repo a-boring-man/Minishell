@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:28:11 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 11:30:30 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 15:00:29 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	redirect(t_minishell *mini, t_lt *cmd, int *fd, t_child *vars)
 	if (cmd->token_type == HEREDOC)
 	{
 		close(fd[2]);
-		fd[2] = (int) cmd->token_value - 1;
+		fd[2] = (long) cmd->token_value - 1;
 	}
 	if (cmd->token_type == APPEND)
 	{

@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 15:49:23 by jrinna            #+#    #+#             */
-/*   Updated: 2022/07/22 18:50:31 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 14:59:39 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/wait.h>
 # include <signal.h>
 # include <termios.h>
 # include <unistd.h>
-# include <sys/syslimits.h>
+# include <limits.h>
 # include <dirent.h>
 # include <string.h>
 # include <stdarg.h>

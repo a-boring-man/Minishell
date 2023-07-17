@@ -6,7 +6,7 @@
 /*   By: jrinna <jrinna@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:38:01 by jrinna            #+#    #+#             */
-/*   Updated: 2022/05/09 12:53:13 by jrinna           ###   ########lyon.fr   */
+/*   Updated: 2023/07/17 15:00:07 by jrinna           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 char	*ft_strtrim(char *s1, char *set)
 {
 	int	start;
-	int	i;
 	int	end;
 
 	start = 0;
 	end = 0;
-	i = 0;
 	if (!s1)
 		return (NULL);
 	if (ft_strlen_s(s1) != 0)
