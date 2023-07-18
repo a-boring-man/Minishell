@@ -1,8 +1,12 @@
+![](https://github.com/a-boring-man/minishell/blob/main/116_score_icon.png)
+
 # Minishell
 
-a mid cursus level 42 school project.
+A mid-cursus level 42 school project requires us to create a shell similar to Bash, at least some parts of Bash. We must handle most characters, the ```|``` operator, environmental variable updating via the $ sign.
 
-this project make use create a shell similare to bash, at least some part of bash, we muste handle most caractere, | operator, environnemental variable actualisation and acces via $ sign.
+We also had to recreate certain built-ins such as ```env```, ```export```, ```cd``` and more.
+
+## Bonus
 
 the bonus part make us manage && || and () so we had to implement recursion in our parsing.
 
