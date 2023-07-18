@@ -8,9 +8,9 @@ We also had to recreate certain built-ins such as ```env```, ```export```, ```cd
 
 ## Bonus
 
-the bonus part make us manage && || and () so we had to implement recursion in our parsing.
+The bonus part of the project required us to manage the ```&&```, ```||```, and ```()``` operators, so we had to implement recursion in our parsing.
 
-My toughs on the project :
+## toughs
 
 it was the first big project and the first group project, we learn a lot on how bash handle command line, | and environnementable variable, we also learn a bit about termios.
 
