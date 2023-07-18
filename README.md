@@ -12,6 +12,4 @@ The bonus part of the project required us to manage the ```&&```, ```||```, and 
 
 ## toughs
 
-it was the first big project and the first group project, we learn a lot on how bash handle command line, | and environnementable variable, we also learn a bit about termios.
-
-this project should compile on linux system.
+It was our first big project and our first group project. We learned a lot about how Bash handles command line, the ```|``` operator, and environmental variables. We also learned a bit about termios.
